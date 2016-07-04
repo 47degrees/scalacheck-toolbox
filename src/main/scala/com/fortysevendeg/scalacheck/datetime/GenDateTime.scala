@@ -29,17 +29,10 @@ object GenDateTime {
   )
 
   /**
-    * Given a <code>period</code>, this will generate <code>DateTime</code>s either side of <code>dateTime</code>
+    * Generates a <code>DateTime</code> between the given <code>dateTime> and the end of the <code>period</code>
     */
-  def genDateTimeBeforeAndAfter(dateTime: DateTime, period: ReadablePeriod): Gen[DateTime] = {
-    val diffMillis = Math.abs(dateTime.plus(period).getMillis() - dateTime.getMillis())
-    Gen.choose(-diffMillis, diffMillis).map(millis => dateTime.plus(millis))
-  }
-
-  /**
-    *
-    */
-  def genDateTimeForPeriod(dateTime: DateTime, period: ReadablePeriod): Gen[DateTime] = {
-    ???
+  def genDateTimeWithinPeriod(dateTime: DateTime, period: ReadablePeriod): Gen[DateTime] = {
+    val diffMillis = dateTime.plus(period).getMillis() - dateTime.getMillis()
+    Gen.choose(0L min diffMillis, 0L max diffMillis).map(millis => dateTime.plus(millis))
   }
 }

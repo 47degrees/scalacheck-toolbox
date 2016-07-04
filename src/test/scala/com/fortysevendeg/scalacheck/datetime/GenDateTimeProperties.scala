@@ -28,27 +28,24 @@ object GenDateTimeProperties extends Properties("Date Time Generators") {
 
   property("genSecondsPeriod creates valid second periods") = forAll(genSecondsPeriod) { _ => passed }
 
-  property("genDateTimeBeforeAndAfter should only be generated within the specified period, both before and after the given time") = forAll(genPeriod) { p =>
+  property("genDateTimeWithinPeriod should generate DateTimes between the given date and the end of the specified period") = forAll(genPeriod) { p =>
 
     val now = new DateTime()
 
-    forAll(genDateTimeBeforeAndAfter(now, p)) { generated =>
+    forAll(genDateTimeWithinPeriod(now, p)) { generated =>
 
-      // if period is negative, then "maxBoundary" will be before now, and vice versa
-      val maxBoundary = now.plus(p)
-      val minBoundary = now.minus(p)
+      // if period is negative, then periodBoundary will be before now
+      val periodBoundary = now.plus(p)
 
-      val resultText = s"""Period:       ${PeriodFormat.getDefault().print(p)}
-                          |Now:          $now
-                          |Generated:    $generated
-                          |Min boundary: $minBoundary
-                          |Max Boundary: $maxBoundary""".stripMargin
+      val resultText = s"""Period:          ${PeriodFormat.getDefault().print(p)}
+                          |Now:             $now
+                          |Generated:       $generated
+                          |Period Boundary: $periodBoundary""".stripMargin
 
-      val check = if (minBoundary.isBefore(now)) { // period is positive
-        (minBoundary.isBefore(generated) || minBoundary.isEqual(generated)) && (maxBoundary.isAfter(generated) || maxBoundary.isEqual(generated))
+      val check = if (periodBoundary.isAfter(now)) { // period is positive
+        (now.isBefore(generated) || now.isEqual(generated)) && (periodBoundary.isAfter(generated) || periodBoundary.isEqual(generated))
       } else { // period is negative
-        (maxBoundary.isBefore(generated) || maxBoundary.isEqual(generated)) && (minBoundary.isAfter(generated) || minBoundary.isEqual(generated))
-
+        (periodBoundary.isBefore(generated) || periodBoundary.isEqual(generated)) && (now.isAfter(generated) || now.isEqual(generated))
       }
 
       check :| resultText
