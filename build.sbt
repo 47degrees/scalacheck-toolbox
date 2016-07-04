@@ -8,4 +8,3 @@ libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.13.0",
   "joda-time" % "joda-time" % "2.9.4"
 )
-
