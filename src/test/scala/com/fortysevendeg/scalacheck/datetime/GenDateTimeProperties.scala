@@ -11,7 +11,7 @@ import GenDateTime._
 object GenDateTimeProperties extends Properties("Date Time Generators") {
 
   /*
-   *  These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
+   * These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
    */
 
   property("genYearsPeriod creates valid year periods")     = forAll(genYearsPeriod)   { _ => passed }
@@ -28,6 +28,8 @@ object GenDateTimeProperties extends Properties("Date Time Generators") {
 
   property("genSecondsPeriod creates valid second periods") = forAll(genSecondsPeriod) { _ => passed }
 
+  property("genPeriod creates valid periods containing a selection of other periods") = forAll(genPeriod) { _ => passed }
+
   property("genDateTimeWithinPeriod should generate DateTimes between the given date and the end of the specified period") = forAll(genPeriod) { p =>
 
     val now = new DateTime()
@@ -42,11 +44,10 @@ object GenDateTimeProperties extends Properties("Date Time Generators") {
                           |Generated:       $generated
                           |Period Boundary: $periodBoundary""".stripMargin
 
-      val check = if (periodBoundary.isAfter(now)) { // period is positive
-        (now.isBefore(generated) || now.isEqual(generated)) && (periodBoundary.isAfter(generated) || periodBoundary.isEqual(generated))
-      } else { // period is negative
-        (periodBoundary.isBefore(generated) || periodBoundary.isEqual(generated)) && (now.isAfter(generated) || now.isEqual(generated))
-      }
+      val (lowerBound, upperBound) = if(periodBoundary.isAfter(now)) (now, periodBoundary) else (periodBoundary, now)
+
+      val check = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
+                  (upperBound.isAfter(generated)  || upperBound.isEqual(generated))
 
       check :| resultText
     }
