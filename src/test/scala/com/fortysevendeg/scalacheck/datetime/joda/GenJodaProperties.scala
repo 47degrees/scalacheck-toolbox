@@ -1,4 +1,4 @@
-package com.fortysevendeg.scalacheck.datetime
+package com.fortysevendeg.scalacheck.datetime.joda
 
 import org.scalacheck._
 import org.scalacheck.Prop._
@@ -6,9 +6,12 @@ import org.scalacheck.Prop._
 import org.joda.time._
 import org.joda.time.format.PeriodFormat
 
-import GenDateTime._
+import com.fortysevendeg.scalacheck.datetime.GenDateTime._
+import com.fortysevendeg.scalacheck.datetime.instances.joda._
 
-object GenDateTimeProperties extends Properties("Date Time Generators") {
+import GenJoda._
+
+object GenJodaProperties extends Properties("Date Time Generators") {
 
   /*
    * These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
