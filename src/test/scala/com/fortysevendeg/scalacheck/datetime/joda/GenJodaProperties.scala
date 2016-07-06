@@ -11,7 +11,7 @@ import com.fortysevendeg.scalacheck.datetime.instances.joda._
 
 import GenJoda._
 
-object GenJodaProperties extends Properties("Date Time Generators") {
+object GenJodaProperties extends Properties("Joda Generators") {
 
   /*
    * These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
@@ -33,11 +33,11 @@ object GenJodaProperties extends Properties("Date Time Generators") {
 
   property("genPeriod creates valid periods containing a selection of other periods") = forAll(genPeriod) { _ => passed }
 
-  property("genDateTimeWithinPeriod should generate DateTimes between the given date and the end of the specified period") = forAll(genPeriod) { p =>
+  property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period") = forAll(genPeriod) { p =>
 
     val now = new DateTime()
 
-    forAll(genDateTimeWithinPeriod(now, p)) { generated =>
+    forAll(genDateTimeWithinRange(now, p)) { generated =>
 
       // if period is negative, then periodBoundary will be before now
       val periodBoundary = now.plus(p)
