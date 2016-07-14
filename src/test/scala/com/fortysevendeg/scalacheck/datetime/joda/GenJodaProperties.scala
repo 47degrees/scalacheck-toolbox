@@ -11,6 +11,8 @@ import com.fortysevendeg.scalacheck.datetime.instances.joda._
 
 import GenJoda._
 
+import com.fortysevendeg.scalacheck.datetime.Granularity
+
 object GenJodaProperties extends Properties("Joda Generators") {
 
   /*
@@ -33,7 +35,32 @@ object GenJodaProperties extends Properties("Joda Generators") {
 
   property("genPeriod creates valid periods containing a selection of other periods") = forAll(genPeriod) { _ => passed }
 
-  property("genDateTime creates valid DateTime instances") = forAll(genDateTime) { _ => passed }
+  property("genDateTime creates valid DateTime instances (with no granularity)") = forAll(genDateTime) { _ => passed }
+
+  val granularityGeneratorsWithPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
+
+    def zeroMillis(dt: DateTime)  =                    dt.getMillisOfSecond == 0
+    def zeroSeconds(dt: DateTime) = zeroMillis(dt)  && dt.getSecondOfMinute == 0
+    def zeroMinutes(dt: DateTime) = zeroSeconds(dt) && dt.getMinuteOfHour == 0
+    def zeroHours(dt: DateTime)   = zeroMinutes(dt) && dt.getHourOfDay == 0
+    def firstDay(dt: DateTime)    = zeroHours(dt)   && dt.getDayOfYear == 1
+
+    List(
+      (granularity.seconds, zeroMillis _),
+      (granularity.minutes, zeroSeconds _),
+      (granularity.hours, zeroMinutes _),
+      (granularity.days, zeroHours _),
+      (granularity.years, firstDay _)
+    )
+  }
+
+  property("genDateTime with a granularity generates appropriate DateTimes") = forAll(Gen.oneOf(granularityGeneratorsWithPredicates)) { case (granularity, predicate) =>
+    implicit val generatedGranularity = granularity
+
+    forAll(genDateTime) { dt =>
+      predicate(dt) :| s"${granularity.description}: $dt"
+    }
+  }
 
   property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period") = forAll(genPeriod) { p =>
 

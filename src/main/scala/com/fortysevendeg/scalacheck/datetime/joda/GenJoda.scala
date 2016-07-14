@@ -1,5 +1,7 @@
 package com.fortysevendeg.scalacheck.datetime.joda
 
+import com.fortysevendeg.scalacheck.datetime.Granularity
+
 import org.scalacheck.Gen
 import org.joda.time._
 
@@ -42,7 +44,7 @@ object GenJoda {
   } yield Period.years(years.getYears).withDays(days).withHours(hours).withMinutes(minutes).withSeconds(seconds).withMillis(millis)
 
   /** A <code>DateTime</code> generator. */
-  val genDateTime: Gen[DateTime] = for {
+  def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] = for {
     year <- Gen.choose(-292275055,292278994)
     month <- Gen.choose(1, 12)
     yearAndMonthDt = new DateTime(year, month, 1, 0, 0)
@@ -51,5 +53,5 @@ object GenJoda {
     minuteOfHour <- Gen.choose(0, 59)
     secondOfMinute <- Gen.choose(0, 59)
     millisOfSecond <- Gen.choose(0, 999)
-  } yield new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond)
+  } yield granularity.normalize(new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 }
