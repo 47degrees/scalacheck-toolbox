@@ -1,4 +1,4 @@
-package com.fortysevendeg.scalacheck.datetime.j8
+package com.fortysevendeg.scalacheck.datetime.jdk8
 
 import scala.util.Try
 
@@ -8,13 +8,13 @@ import org.scalacheck.Prop._
 import java.time._
 
 import com.fortysevendeg.scalacheck.datetime.GenDateTime._
-import com.fortysevendeg.scalacheck.datetime.instances.j8._
+import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
 
-import GenJ8._
+import GenJdk8._
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
 
-object GenJ8Properties extends Properties("Java 8 Generators") {
+object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   property("genDuration creates valid durations") = forAll(genDuration) { _ => passed }
 

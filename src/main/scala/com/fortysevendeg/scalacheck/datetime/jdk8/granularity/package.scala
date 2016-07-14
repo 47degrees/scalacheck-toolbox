@@ -1,4 +1,4 @@
-package com.fortysevendeg.scalacheck.datetime.j8
+package com.fortysevendeg.scalacheck.datetime.jdk8
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
 import java.time.ZonedDateTime
@@ -29,7 +29,4 @@ package object granularity {
     val normalize = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0).withMinute(0).withHour(0).withDayOfYear(1)
     val description = "Years"
   }
-  
-
-
 }

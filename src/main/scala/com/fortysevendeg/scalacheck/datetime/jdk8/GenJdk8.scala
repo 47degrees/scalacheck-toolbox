@@ -1,4 +1,4 @@
-package com.fortysevendeg.scalacheck.datetime.j8
+package com.fortysevendeg.scalacheck.datetime.jdk8
 
 import collection.JavaConverters._
 
@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit.MILLIS
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
 
-object GenJ8 {
+object GenJdk8 {
 
   def genZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Gen[ZonedDateTime] = for {
     year <- Gen.choose(-292278994, 292278994)
