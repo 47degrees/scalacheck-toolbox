@@ -33,6 +33,8 @@ object GenJodaProperties extends Properties("Joda Generators") {
 
   property("genPeriod creates valid periods containing a selection of other periods") = forAll(genPeriod) { _ => passed }
 
+  property("genDateTime creates valid DateTime instances") = forAll(genDateTime) { _ => passed }
+
   property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period") = forAll(genPeriod) { p =>
 
     val now = new DateTime()
