@@ -1,3 +1,13 @@
 language: scala
 scala:
    - 2.11.7
+
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
+
+jdk:
+  - oraclejdk8
+
+after_success:
+  - sbt coverageReport
+  - bash <(curl -s https://codecov.io/bash) -t d8c6d7cf-f05c-4953-9f6e-ff046716a0f0
