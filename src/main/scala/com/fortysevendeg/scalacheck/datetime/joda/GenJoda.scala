@@ -5,8 +5,6 @@ import com.fortysevendeg.scalacheck.datetime.Granularity
 import org.scalacheck.Gen
 import org.joda.time._
 
-import org.scalacheck.Arbitrary.arbitrary
-
 /**
   * Generators specific for Joda time.
   */

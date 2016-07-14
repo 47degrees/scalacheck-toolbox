@@ -37,7 +37,7 @@ object GenJodaProperties extends Properties("Joda Generators") {
 
   property("genDateTime creates valid DateTime instances (with no granularity)") = forAll(genDateTime) { _ => passed }
 
-  val granularityGeneratorsWithPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
+  val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
 
     def zeroMillis(dt: DateTime)  =                    dt.getMillisOfSecond == 0
     def zeroSeconds(dt: DateTime) = zeroMillis(dt)  && dt.getSecondOfMinute == 0
@@ -54,7 +54,9 @@ object GenJodaProperties extends Properties("Joda Generators") {
     )
   }
 
-  property("genDateTime with a granularity generates appropriate DateTimes") = forAll(Gen.oneOf(granularityGeneratorsWithPredicates)) { case (granularity, predicate) =>
+  val granularitiesAndPredicatesWithDefault: List[(Granularity[DateTime], DateTime => Boolean)] = (Granularity.identity[DateTime], (_: DateTime) => true) :: granularitiesAndPredicates
+
+  property("genDateTime with a granularity generates appropriate DateTimes") = forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
     implicit val generatedGranularity = granularity
 
     forAll(genDateTime) { dt =>
@@ -62,26 +64,33 @@ object GenJodaProperties extends Properties("Joda Generators") {
     }
   }
 
-  property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period") = forAll(genPeriod) { p =>
+  property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period, with the relevant granularity") = forAll(genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefault)) { case (period, (granularity, predicate)) =>
+
+    implicit val generatedGranularity = granularity
 
     val now = new DateTime()
 
-    forAll(genDateTimeWithinRange(now, p)) { generated =>
+    forAll(genDateTimeWithinRange(now, period)) { generated =>
 
       // if period is negative, then periodBoundary will be before now
-      val periodBoundary = now.plus(p)
+      val periodBoundary = now.plus(period)
 
-      val resultText = s"""Period:          ${PeriodFormat.getDefault().print(p)}
+      val resultText = s"""Period:          ${PeriodFormat.getDefault().print(period)}
                           |Now:             $now
                           |Generated:       $generated
-                          |Period Boundary: $periodBoundary""".stripMargin
+                          |Period Boundary: $periodBoundary
+                          |Granularity:     ${granularity.description}""".stripMargin
 
       val (lowerBound, upperBound) = if(periodBoundary.isAfter(now)) (now, periodBoundary) else (periodBoundary, now)
 
-      val check = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
-                  (upperBound.isAfter(generated)  || upperBound.isEqual(generated))
+      val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
+                       (upperBound.isAfter(generated)  || upperBound.isEqual(generated))
 
-      check :| resultText
+      val granularityCheck = predicate(generated)
+
+      val prop = rangeCheck && granularityCheck
+
+      prop :| resultText
     }
   }
 }
