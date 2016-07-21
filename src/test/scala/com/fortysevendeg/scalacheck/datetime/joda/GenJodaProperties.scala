@@ -64,7 +64,8 @@ object GenJodaProperties extends Properties("Joda Generators") {
     }
   }
 
-  property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period, with the relevant granularity") = forAll(genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefault)) { case (period, (granularity, predicate)) =>
+  property("genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period, with the relevant granularity") =
+    forAll(genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefault)) { case (period, (granularity, predicate)) =>
 
     implicit val generatedGranularity = granularity
 
