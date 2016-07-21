@@ -17,6 +17,13 @@ arbitrary[DateTime].sample
 # A helping hand for creating sensible generated data for a given range and precision
   When testing dates and times, sometimes you want to limit the test data to a certain range of times, and sometimes you only care about a certain level of precision. This lightweight library aims to provide both of these with ease.
 
+### Installation
+
+```scala
+"com.fortysevendeg" %% "scalacheck-datetime" % "0.1-SNAPSHOT"
+```
+
+
 ### Works for both Joda Time and Java 8's java.time APIs
   The scalacheck-datetime library is configured to work with existing date and time libraries with ease. `Arbitrary` instances can be pulled into scope with the right import.
 
@@ -56,4 +63,4 @@ val generator = genDateTimeWithinRange(now, Duration.ofDays(100))
 (1 to 3).foreach(_ => println(generator.sample))
 ```
 
-Check out the [documentation](/docs) for more tips on how to get the best from these tools.
+Check out the [documentation](/scalacheck-datetime/docs) for more tips on how to get the best from these tools.

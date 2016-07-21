@@ -2,189 +2,148 @@
 layout: docs
 ---
 
-# What is a microsite?
+# Get started
 
-TODO Include tips on how to build ranges of both before, after and around a date
-A microsite is an instance of Jekyll, ready to publish a static web page for your new library. Some of the benefits of having these auto-generated web pages are:
+The motivation behind this library is to provide a simple, easy way to provide generated date and time instances that are useful to your own domain.
 
-- You can write documentation easily in markdown format.
-- Templates, layouts, styles and other resources will be able in an external CDN. We can easily change them, and updates will be reflected in every microsite.
-- You don't have to deal with the styling.
+This library is relatively immature. Any issues, suggestions or criticisms are more than welcome.
 
-Currently microsites includes two pages:
+For SBT, you can add the dependency to your project's build file:
 
-- Home: The landing page, the public face of your library.
-- Docs (Optional): The page where the documentation of your library should be included. Probably you are watching the `Docs` page of this repo right now.
-
-# How to start?
-
-You only need address a few steps to have a microsite in your repo:
-
-## Copy the template
-
-Copy the content of the directory [Jekyll](https://github.com/47deg/microsites/tree/master/jekyll) locally. If your library is a _SBT_ project you will want to choose `docs/src/jekyll` as the destination folder. (_FYI: We are working on developing a SBT plugin to do that automatically with a SBT task_)
-
-
-## Set parameters
-
-Edit `_config.yml` file to set the parameters of your microsite:
-
-```
-name: <NAME_OF_YOUR_LIBRARY>
-description: "<DESCRIPTION_OF_YOUR_LIBRARY>"
-github_owner: 47deg
-baseurl: /microsites
-style: default
-docs: false
-markdown: redcarpet
-collections:
-  tut:
-    output: true
-
+```scala
+"com.fortysevendeg" %% "scalacheck-datetime" % "0.1-SNAPSHOT"
 ```
 
-## Fill home content
+# Current Status
 
-Edit the file `index.md`:
+As of version 0.1, the following libraries and classes are supported:
 
-- Add three technologies used in your libraries:
+  * [Joda Time](http://www.joda.org/joda-time/): The [`DateTime`](http://joda-time.sourceforge.net/apidocs/org/joda/time/DateTime.html) class, and [`Period`](http://joda-time.sourceforge.net/apidocs/org/joda/time/Period.html) for specifying a range of time.
+  * [Java SE 8 Date and Time](http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html): The [`ZonedDateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html) and [`Duration`](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html) classes.
 
-	```
-technologies:
- - scala: ["Scala", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
- - android: ["Android", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
- - database: ["Database", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
- ```
+There is an expectation of including more date/time and range classes before 1.0.
 
-	It will produce somethig like that:
+# Usage
 
-	![](http://rafp.es/1NFaThr)
+To arbitrarily generate dates and times, you need to have the `Arbitrary` in scope for your date/time class. Assuming Joda Time:
 
+```tut:invisible
+// this is here to remove noisy warnings
+import org.scalacheck.Prop.passed
+import org.scalacheck.Prop.forAll
+import org.joda.time.DateTime
+import com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._
 
-- Add as many features as you need, in markdown format, inside lists (`*`) as below:
+val prop = forAll { dt: DateTime =>
+  // some calculations here using the dt parameter
+  passed
+}
 
-	```markdown
-	* ## Feature one
-	  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mollis, enim quis mollis blandit, orci urna lobortis eros, quis tristique quam tellus sit amet nulla. Vivamus congue est quis magna vehicula lobortis. Pellentesque suscipit lectus eu mi vehicula, sed vehicula lectus porta. Aenean tempor metus ac viverra tempus.
-
-	* ```scala
-	object repositories {
-
-		  class Repository[F[_]](implicit D: DataSource[F]) {
-			def add[A](a: A): FreeC[F, Option[A]] = D.add(a)
-			def getAll[A]: FreeC[F, List[A]] = D.getAll
-		  }
-
-		  object Repository {
-			implicit def repository[F[_]]
-			(implicit D: DataSource[F]): Repository[F] = new Repository[F]
-		  }
-
-		}
-	``.`
-
-	* ## Feature two
-	  Morbi mollis molestie vulputate. Quisque interdum maximus fringilla. Mauris id ligula eu lacus egestas euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in velit a lacus pellentesque interdum. Suspendisse ipsum massa, convallis in venenatis eleifend, congue vitae tellus
-
-	* ```scala
-	  def or[F[_], G[_], H[_]]
-	   (f: F ~> H, g: G ~> H):
-	   ({type cp[α] = Coproduct[F, G, α]})#cp ~> H =
-		  new NaturalTransformation[({type cp[α] =
-			Coproduct[F, G, α]})#cp, H] {
-			  def apply[A](fa: Coproduct[F, G, A]): H[A] = fa.run match {
-				case -\/(ff) => f(ff)
-				case \/-(gg) => g(gg)
-			  }
-		}
-	``.`
-```
-
-	It will produce somethig like that:
-
-	![](http://rafp.es/1NFbsb5)
-
-## The docs page (optional)
-
-If you want to include a documentation page, you should set the parameter `docs` to `true` in the file `_config.yml`. You also have to write the sections into the file `docs.md` keeping in mind only one detail: headers `#` and `##` not only will produce html `h1` and `h2` items but also will generate items in the sidebar menu.
-
-
-# Customize your microsite
-
-Although common resources are retrieved from a [CDN](https://github.com/47deg/microsites/tree/cdn), you can customize your microsite easily. Just create a directory in [CDN branch](https://github.com/47deg/microsites/tree/cdn) with the same name that you have set the parameter `style` in the `_config.yml` file. As you can see, the `style` parameter has been set to `default` value, so logos and palette of colours are retrieved from the `default` folder in the branch. Once your folder created, you have to provide these files within:
-
-- `navbar_brand.png` and `sidebar_brand.png`: Logos for home and docs pages.
-- `jumbotron_pattern.png`: Background pattern for home's jumbotron.
-- `palette.css`: Color rules that overrides default ones.
-
-The proper protocol to address these steps is, firstly create a issue for providing these resources and assign it to the design department, and then set the `style` parameter in your `_config.yml` file.
-
-# Test it locally
-
-You can monitor how looks your microsite in every moment, just running the command `jekyll server` and next open `http://127.0.0.1:4000/<base_url>/` in your browser.
-
-We are assuming you have installed Jekyll, otherwise you can [do it thus](https://jekyllrb.com/docs/installation/): `gem install jekyll nokogiri redcarpet` _(Nokogiri and Redcarpet are required plugins)_.
-
-# Deploy the microsite
-
-## Non-Scala projects
-
-Usually, Github is able to compile Jekyll sites for deploying in `gh-pages` branch so in a general context the only step to do would be pushing the microsite directly in the `gh-pages` of your repo. However, GitHub doesn't compile Jekyll plugins and consequently it'd ignore the feature for retrieving remote layouts from our CDN.
-
-For that reason we have to push static files after compiling:
-
-- Run `jekyll server`.
-- Copy de content of the auto-generated folder: `_site` (It should only contain the files `home.html` and `docs.html`).
-- Paste both files in the `gh-pages` brach of you repo and push them.
-
-You should be able to open the site: `http://47deg.github.io/<base_url>`.
-
-## Scala projects
-
-### Step 1: Create a new sbt project called _docs_:
-
-Edit `Build.scala` (or `build.sbt`) for adding:
+import org.joda.time._
+val from = new DateTime(2016, 1, 1, 0, 0)
+val range = Period.years(1)
 
 ```
-lazy val docs = (project in file("docs"))
-  .settings(moduleName := "your-library-docs")
-  .settings(docsSettings: _*)
+
+```tut
+import org.scalacheck.Prop.forAll
+import org.joda.time.DateTime
+import com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._
+
+val prop = forAll { dt: DateTime =>
+  // some calculations here using the dt parameter
+  passed
+}
+
+prop.check
 ```
 
-Where `docsSettings` could be the standard settings parameters as `organization`, `organizationName`, etc. Maybe it's interesting to set parameters in order to avoid publishing:
+## A note on imports
+
+For all of the examples given in this document, you can substitute `jdk8` for `joda` and vice-versa, depending on which library you would like to generate instances for.
+
+## Implementation
+
+The infrastructure behind the generation of date/time instances for _any given date/time library_, which may take ranges into account, is done using a fairly simple typeclass, which has the type signature `ScalaCheckDateTimeInfra[D, R]`. That is to say, as long as there is an implicit `ScalaCheckDateTimeInfra` instance in scope for a given date/time type `D` (such as Joda's `DateTime`) and a range type `R` (such as Joda's `Period`), then the code will compile and be able to provide generated date/time instances.
+
+As stated, currently there are two instances, `ScalaCheckDateTimeInfra[DateTime, Period]` for Joda Time and `ScalaCheckDateTimeInfra[ZonedDateTime, Duration]` for Java SE 8's Date and Time.
+
+# Granularity
+
+If you wish to restrict the precision of the generated instances, this library refers to that as _granularity_.
+
+You can constrain the granularity to:
+
+  * Seconds
+  * Minutes
+  * Hours
+  * Days
+  * Years
+
+When a value is constrained, the time fields are set to zero, and the rest to the first day of the month, or day of the year. For example, if you constrain a field to be years, the generated instance will be midnight exactly, on the first day of January.
+
+To constrain a generated type, you simply need to provide an import for the typeclass for your date/time and range, and also an import for the granularity. As an example, this time using Java SE 8's `java.time` package:
+
+```tut
+import java.time._
+import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
+import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
+import com.fortysevendeg.scalacheck.datetime.jdk8.granularity.years
+
+val prop = forAll { zdt: ZonedDateTime =>
+  (zdt.getMonth == Month.JANUARY)
+  (zdt.getDayOfMonth == 1) &&
+  (zdt.getHour == 0) &&
+  (zdt.getMinute == 0) &&
+  (zdt.getSecond == 0) &&
+  (zdt.getNano == 0)
+}
+
+prop.check
+```
+
+# Creating Ranges
+
+You can generate date/time instances only within a certain range, using the `genDateTimeWithinRange` in the `GenDateTime` class. The function takes two parameters, the date/time instances as a base from which to generate new date/time instances, and a range for the generated instances. If the range is positive, it will be in the future from the base date/time, negative in the past.
+
+Showing this usage with Joda Time:
+
+```tut
+import org.joda.time._
+import com.fortysevendeg.scalacheck.datetime.instances.joda._
+import com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange
+
+val from = new DateTime(2016, 1, 1, 0, 0)
+val range = Period.years(1)
+
+val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
+  dt.getYear == 2016
+}
+
+prop.check
 
 ```
-Seq(
-    publish := (),
-    publishLocal := (),
-    publishArtifact := false)
+
+# Using Granularity and Ranges Together
+
+As you would expect, it is possible to use the granularity and range concepts together. This example should not show anything surprising by now:
+
+```tut
+import com.fortysevendeg.scalacheck.datetime.instances.joda._
+import com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange
+import com.fortysevendeg.scalacheck.datetime.joda.granularity.days
+
+val from = new DateTime(2016, 1, 1, 0, 0)
+val range = Period.years(1)
+
+val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
+  (dt.getYear == 2016) &&
+  (dt.getHourOfDay == 0) &&
+  (dt.getMinuteOfHour == 0) &&
+  (dt.getSecondOfMinute == 0) &&
+  (dt.getMillisOfSecond == 0)
+}
+
+prop.check
+
 ```
-
-### Step 2: Install `sbt-site`:
-
-This great [plugin](https://github.com/sbt/sbt-site) generates project websites from static content, Jekyll, Sphinx, Pamflet, Nanoc, GitBook, and/or Asciidoctor, and can optionally include generated ScalaDoc.
-
-- Add `addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.0.0")` in `plugins.sbt` file.
-- Add `enablePlugins(JekyllPlugin)` in the `docsSettings` mentioned above.
-
-Once done, you can compile the Jekyll microsite just with the task `makeSite` when the sbt project `docs` is active.
-
-### Step 3: Install `sbt-ghpages`:
-
-[This plugin](https://github.com/sbt/sbt-ghpages) moves the static site auto-generated by `sbt-site` into `gh-pages` branch, assuming that this branch already exists in your repo.
-
-- Add these plugins in `plugins.sbt` file.
-
-    ```
-    addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.4" exclude("com.typesafe.sbt", "sbt-git"))
-    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.5")
-    ```
-
-- Add these config settings in the previously mentioned `docsSettings`:
-
-    ```
-    ghpages.settings ++
-    Seq(git.remoteRepo := "git@github.com:47deg/<YOUR_REPO_NAME>.git")
-    ```
-
-Once added this plugin, the task `ghpages-push-site` will push the site.

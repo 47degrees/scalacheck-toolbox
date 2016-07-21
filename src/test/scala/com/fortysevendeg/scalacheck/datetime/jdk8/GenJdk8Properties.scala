@@ -55,6 +55,16 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
   }
 
+  property("arbitrary generation with a granularity generates appropriate ZonedDateTimes") = forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+    import ArbitraryJdk8._
+
+    implicit val generatedGranularity = granularity
+
+    forAll { dt: ZonedDateTime =>
+      predicate(dt) :| s"${granularity.description}: $dt"
+    }
+  }
+
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
   private[this] def tooLargeForAddingRanges(dateTime: ZonedDateTime, d: Duration): Boolean = {
     Try(dateTime.plus(d).toInstant().toEpochMilli()).isFailure
