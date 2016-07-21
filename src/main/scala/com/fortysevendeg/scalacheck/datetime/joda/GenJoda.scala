@@ -3,12 +3,13 @@ package com.fortysevendeg.scalacheck.datetime.joda
 import com.fortysevendeg.scalacheck.datetime.Granularity
 
 import org.scalacheck.Gen
+import org.scalacheck.Arbitrary
 import org.joda.time._
 
 /**
   * Generators specific for Joda time.
   */
-object GenJoda {
+trait GenJoda {
 
   /** A <code>Years</code> period generator. */
   val genYearsPeriod: Gen[Years] = Gen.choose(-292275054, 292278993).map(Years.ZERO.plus(_)) // Years.MIN_VALUE produces exception-throwing results
@@ -52,4 +53,10 @@ object GenJoda {
     secondOfMinute <- Gen.choose(0, 59)
     millisOfSecond <- Gen.choose(0, 999)
   } yield granularity.normalize(new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
+}
+
+object GenJoda extends GenJoda
+
+object ArbitraryJoda extends GenJoda {
+  implicit val arbJoda: Arbitrary[DateTime] = Arbitrary(genDateTime)
 }

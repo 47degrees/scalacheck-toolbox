@@ -3,6 +3,7 @@ package com.fortysevendeg.scalacheck.datetime.jdk8
 import collection.JavaConverters._
 
 import org.scalacheck.Gen
+import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 
 import java.time._
@@ -10,7 +11,7 @@ import java.time.temporal.ChronoUnit.MILLIS
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
 
-object GenJdk8 {
+trait GenJdk8 {
 
   def genZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Gen[ZonedDateTime] = for {
     year <- Gen.choose(-292278994, 292278994)
@@ -25,4 +26,10 @@ object GenJdk8 {
   } yield granularity.normalize(ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, ZoneId.of(zoneId)))
 
   val genDuration: Gen[Duration] = Gen.choose(Long.MinValue, Long.MaxValue / 1000).map(l => Duration.of(l, MILLIS))
+}
+
+object GenJdk8 extends GenJdk8
+
+object ArbitraryJdk8 extends GenJdk8 {
+  implicit val arbJdk8: Arbitrary[ZonedDateTime] = Arbitrary(genZonedDateTime)
 }
