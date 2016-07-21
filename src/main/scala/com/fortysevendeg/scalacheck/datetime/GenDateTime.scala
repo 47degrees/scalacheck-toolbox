@@ -16,8 +16,8 @@ object GenDateTime {
     * @param period An offset from <code>dateTime</code>, serving as an upper bound for generated <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided <code>DateTime</code>.
     * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
     */
-  def genDateTimeWithinRange[D, R](dateTime: D, range: R)(implicit scDateTime: ScalaCheckDateTimeInfra[D, R]): Gen[D] = {
+  def genDateTimeWithinRange[D, R](dateTime: D, range: R)(implicit scDateTime: ScalaCheckDateTimeInfra[D, R], granularity: Granularity[D]): Gen[D] = {
     val diffMillis = scDateTime.getMillis(scDateTime.addRange(dateTime, range)) - scDateTime.getMillis(dateTime)
-    Gen.choose(0L min diffMillis, 0L max diffMillis).map(millis => scDateTime.addMillis(dateTime, millis))
+    Gen.choose(0L min diffMillis, 0L max diffMillis).map(millis => granularity.normalize(scDateTime.addMillis(dateTime, millis)))
   }
 }

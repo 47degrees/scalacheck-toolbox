@@ -1,5 +1,7 @@
 package com.fortysevendeg.scalacheck.datetime.joda
 
+import com.fortysevendeg.scalacheck.datetime.Granularity
+
 import org.scalacheck.Gen
 import org.joda.time._
 
@@ -8,7 +10,7 @@ import org.joda.time._
   */
 object GenJoda {
 
-    /** A <code>Years</code> period generator. */
+  /** A <code>Years</code> period generator. */
   val genYearsPeriod: Gen[Years] = Gen.choose(-292275054, 292278993).map(Years.ZERO.plus(_)) // Years.MIN_VALUE produces exception-throwing results
 
   /** A <code>Months</code> period generator. */
@@ -29,9 +31,7 @@ object GenJoda {
   /** A <code>Seconds</code> period generator. */
   val genSecondsPeriod: Gen[Seconds] = Gen.choose(Seconds.MIN_VALUE.getSeconds, Seconds.MAX_VALUE.getSeconds).map(Seconds.ZERO.plus(_))
 
-  /**
-    * A <code>Period</code> generator consisting of years, days, hours, minutes, seconds and millis.
-    */
+  /** A <code>Period</code> generator consisting of years, days, hours, minutes, seconds and millis. */
   val genPeriod: Gen[Period] = for {
     years <- genYearsPeriod
     days <- Gen.choose(1, 365)
@@ -41,4 +41,15 @@ object GenJoda {
     millis <- Gen.choose(0, 999)
   } yield Period.years(years.getYears).withDays(days).withHours(hours).withMinutes(minutes).withSeconds(seconds).withMillis(millis)
 
+  /** A <code>DateTime</code> generator. */
+  def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] = for {
+    year <- Gen.choose(-292275055,292278994)
+    month <- Gen.choose(1, 12)
+    yearAndMonthDt = new DateTime(year, month, 1, 0, 0)
+    dayOfMonth <- Gen.choose(1, yearAndMonthDt.dayOfMonth.getMaximumValue)
+    hourOfDay <- Gen.choose(0, 23)
+    minuteOfHour <- Gen.choose(0, 59)
+    secondOfMinute <- Gen.choose(0, 59)
+    millisOfSecond <- Gen.choose(0, 999)
+  } yield granularity.normalize(new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 }

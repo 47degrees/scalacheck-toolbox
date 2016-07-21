@@ -1,4 +1,4 @@
-package com.fortysevendeg.scalacheck.datetime.j8
+package com.fortysevendeg.scalacheck.datetime.jdk8
 
 import collection.JavaConverters._
 
@@ -8,9 +8,11 @@ import org.scalacheck.Arbitrary.arbitrary
 import java.time._
 import java.time.temporal.ChronoUnit.MILLIS
 
-object GenJ8 {
+import com.fortysevendeg.scalacheck.datetime.Granularity
 
-  val genZonedDateTime: Gen[ZonedDateTime] = for {
+object GenJdk8 {
+
+  def genZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Gen[ZonedDateTime] = for {
     year <- Gen.choose(-292278994, 292278994)
     month <- Gen.choose(1, 12)
     maxDaysInMonth = Month.of(month).length(Year.of(year).isLeap)
@@ -20,7 +22,7 @@ object GenJ8 {
     second <- Gen.choose(0, 59)
     nanoOfSecond <- Gen.choose(0, 999999999)
     zoneId <- Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.toList)
-  } yield ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, ZoneId.of(zoneId))
+  } yield granularity.normalize(ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, ZoneId.of(zoneId)))
 
   val genDuration: Gen[Duration] = Gen.choose(Long.MinValue, Long.MaxValue / 1000).map(l => Duration.of(l, MILLIS))
 }
