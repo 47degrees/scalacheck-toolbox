@@ -2,4 +2,6 @@
 target/*
 project/target/*
 project/project/target/*
-jekyll/_site
+docs/src/jekyll/_site
+docs/src/jekyll/*.md
+docs/target/*
