@@ -24,14 +24,16 @@ lazy val tutDirectoriesSettings = Seq(
   tutTargetDirectory := sourceDirectory.value / "jekyll"
 )
 
-lazy val noPublishSettings = Seq(
-  publish := (),
-  publishLocal := (),
-  publishArtifact := false)
+lazy val ghpagesSettings =
+  ghpages.settings ++
+  Seq(git.remoteRepo := "git@github.com:47deg/scalacheck-datetime.git")
 
-lazy val ghpagesSettings = ghpages.settings ++ Seq(git.remoteRepo := "git@github.com:47deg/scalacheck-datetime.git")
-
-lazy val docsSettings = buildSettings ++ dependencies ++ tutSettings ++ tutDirectoriesSettings ++ noPublishSettings ++ ghpagesSettings
+lazy val docsSettings =
+  buildSettings ++
+  dependencies ++
+  tutSettings ++
+  tutDirectoriesSettings ++
+  ghpagesSettings
 
 lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
