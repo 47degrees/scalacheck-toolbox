@@ -2,7 +2,7 @@
 layout: home
 technologies:
  - scala: ["ScalaCheck", "This library is for use with ScalaCheck: the property-based testing framework for Scala."]
- - cats: ["Typelevel", "ScalaCheck is part of Typeleve.scala: supplements to the standard library, and much more."]
+ - cats: ["Typelevel", "ScalaCheck is part of Typelevel.scala: supplements to the standard library, and much more."]
  - fp: ["Functional Programming", "scalacheck-datetime aims to make functional programming easier to understand and more accessible to all."]
 ---
 

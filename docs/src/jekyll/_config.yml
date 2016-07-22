@@ -4,6 +4,7 @@ github_owner: 47deg
 url: http://47deg.github.io/scalacheck-datetime
 baseurl: /scalacheck-datetime
 style: default
+highlight_theme: default
 docs: true
 
 markdown: redcarpet
