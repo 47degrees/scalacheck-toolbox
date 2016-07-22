@@ -37,6 +37,10 @@ object GenJodaProperties extends Properties("Joda Generators") {
 
   property("genDateTime creates valid DateTime instances (with no granularity)") = forAll(genDateTime) { _ => passed }
 
+  property("arbitrary generation creates valid DateTime instances (with no granularity)") = {
+    import ArbitraryJoda._
+    forAll { dt: DateTime => passed }
+  }
   val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
 
     def zeroMillis(dt: DateTime)  =                    dt.getMillisOfSecond == 0

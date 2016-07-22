@@ -1,0 +1,24 @@
+name: scalacheck-datetime
+description: "A library for helping use date and time libraries with ScalaCheck"
+github_owner: 47deg
+url: http://47deg.github.io/scalacheck-datetime
+baseurl: /scalacheck-datetime
+style: default
+docs: true
+
+markdown: redcarpet
+collections:
+  tut:
+    output: true
+
+cdn:
+  url: https://rawgit.com/47deg/microsites/cdn/
+
+favicon:
+  url: http://www.47deg.com/assets/img/custom/favicon.png
+
+twitter: "@47deg"
+
+organization:
+  url: http://www.47deg.com/
+  name: 47 Degrees

@@ -18,7 +18,12 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   property("genDuration creates valid durations") = forAll(genDuration) { _ => passed }
 
-  property("genZonedDateTime created valid times (with no granularity)") = forAll(genZonedDateTime) { _ => passed }
+  property("genZonedDateTime creates valid times (with no granularity)") = forAll(genZonedDateTime) { _ => passed }
+
+  property("arbitrary generation creates valid times (with no granularity)") = {
+    import ArbitraryJdk8._
+    forAll { dt: ZonedDateTime => passed }
+  }
 
   val granularitiesAndPredicates: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] = {
 
@@ -46,6 +51,16 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     implicit val generatedGranularity = granularity
 
     forAll(genZonedDateTime) { dt =>
+      predicate(dt) :| s"${granularity.description}: $dt"
+    }
+  }
+
+  property("arbitrary generation with a granularity generates appropriate ZonedDateTimes") = forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+    import ArbitraryJdk8._
+
+    implicit val generatedGranularity = granularity
+
+    forAll { dt: ZonedDateTime =>
       predicate(dt) :| s"${granularity.description}: $dt"
     }
   }
