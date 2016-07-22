@@ -6,7 +6,7 @@ layout: docs
 
 The motivation behind this library is to provide a simple, easy way to provide generated date and time instances that are useful to your own domain.
 
-This library is relatively immature. Any issues, suggestions or criticisms are more than welcome.
+Any issues, suggestions or criticisms are more than welcome.
 
 For SBT, you can add the dependency to your project's build file:
 
