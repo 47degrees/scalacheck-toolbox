@@ -1,3 +1,6 @@
+import com.typesafe.sbt.SbtGhPages.ghpages
+import com.typesafe.sbt.SbtGit.git
+
 lazy val buildSettings = Seq(
   organization := "com.fortysevendeg",
   organizationName := "47 Degrees",
@@ -21,7 +24,14 @@ lazy val tutDirectoriesSettings = Seq(
   tutTargetDirectory := sourceDirectory.value / "jekyll"
 )
 
-lazy val docsSettings = buildSettings ++ dependencies ++ tutSettings ++ tutDirectoriesSettings
+lazy val noPublishSettings = Seq(
+  publish := (),
+  publishLocal := (),
+  publishArtifact := false)
+
+lazy val ghpagesSettings = ghpages.settings ++ Seq(git.remoteRepo := "git@github.com:47deg/scalacheck-datetime.git")
+
+lazy val docsSettings = buildSettings ++ dependencies ++ tutSettings ++ tutDirectoriesSettings ++ noPublishSettings ++ ghpagesSettings
 
 lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
@@ -30,4 +40,5 @@ lazy val root = (project in file("."))
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "scalacheck-datetime-docs")
   .settings(docsSettings:_ *)
+  .enablePlugins(JekyllPlugin)
   .dependsOn(root)
