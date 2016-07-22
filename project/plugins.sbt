@@ -7,3 +7,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.4" exclude("com.typesafe.
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.5")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.0.0")
+
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
