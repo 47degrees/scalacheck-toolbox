@@ -20,7 +20,7 @@ arbitrary[DateTime].sample
 ### Installation
 
 ```scala
-"com.fortysevendeg" %% "scalacheck-datetime" % "0.1-SNAPSHOT"
+"com.fortysevendeg" %% "scalacheck-datetime" % "0.1.0" % "test"
 ```
 
 
