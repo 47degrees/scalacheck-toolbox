@@ -70,11 +70,13 @@
 <p>Any issues, suggestions or criticisms are more than welcome.</p>
 
 <p>For SBT, you can add the dependency to your project&#39;s build file:</p>
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">"com.fortysevendeg"</span> <span class="o">%%</span> <span class="s">"scalacheck-datetime"</span> <span class="o">%</span> <span class="s">"0.1-SNAPSHOT"</span>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">resolvers</span> <span class="o">+=</span> <span class="nc">Resolver</span><span class="o">.</span><span class="n">sonatypeRepo</span><span class="o">(</span><span class="s">"releases"</span><span class="o">)</span>
+
+<span class="s">"com.fortysevendeg"</span> <span class="o">%%</span> <span class="s">"scalacheck-datetime"</span> <span class="o">%</span> <span class="s">"0.1.0"</span> <span class="o">%</span> <span class="s">"test"</span>
 </code></pre></div>
 <h1>Current Status</h1>
 
-<p>As of version 0.1, the following libraries and classes are supported:</p>
+<p>As of version 0.1.0, the following libraries and classes are supported:</p>
 
 <ul>
 <li><a href="http://www.joda.org/joda-time/">Joda Time</a>: The <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/DateTime.html"><code>DateTime</code></a> class, and <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/Period.html"><code>Period</code></a> for specifying a range of time.</li>
