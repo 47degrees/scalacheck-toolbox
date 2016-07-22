@@ -20,6 +20,8 @@ arbitrary[DateTime].sample
 ### Installation
 
 ```scala
+resolvers += Resolver.sonatypeRepo("releases")
+
 "com.fortysevendeg" %% "scalacheck-datetime" % "0.1.0" % "test"
 ```
 

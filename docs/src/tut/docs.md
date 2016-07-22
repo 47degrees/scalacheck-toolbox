@@ -11,6 +11,8 @@ Any issues, suggestions or criticisms are more than welcome.
 For SBT, you can add the dependency to your project's build file:
 
 ```scala
+resolvers += Resolver.sonatypeRepo("releases")
+
 "com.fortysevendeg" %% "scalacheck-datetime" % "0.1.0" % "test"
 ```
 
