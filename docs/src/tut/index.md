@@ -1,9 +1,9 @@
 ---
 layout: home
 technologies:
- - scala: ["Scala", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
- - scalacheck: ["ScalaCheck", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
- - typelevel: ["Typelevel", "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolo…"]
+ - scala: ["ScalaCheck", "This library is for use with ScalaCheck: the property-based testing framework for Scala."]
+ - cats: ["Typelevel", "ScalaCheck is part of Typeleve.scala: supplements to the standard library, and much more."]
+ - fp: ["Functional Programming", "scalacheck-datetime aims to make functional programming easier to understand and more accessible to all."]
 ---
 
 ```tut:invisible
