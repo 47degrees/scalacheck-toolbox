@@ -3,7 +3,7 @@ description: "A library for helping use date and time libraries with ScalaCheck"
 github_owner: 47deg
 url: http://47deg.github.io/scalacheck-datetime
 baseurl: /scalacheck-datetime
-style: default
+style: scalacheck-datetime
 highlight_theme: default
 docs: true
 
