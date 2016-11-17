@@ -38,7 +38,7 @@ lazy val docsSettings =
 
 lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
-  .settings(version := "0.2.0")
+  .settings(version := "0.2.1-SNAPSHOT")
   .settings(scalacheckDatetimeSettings:_ *)
 
 lazy val docs = (project in file("docs"))
