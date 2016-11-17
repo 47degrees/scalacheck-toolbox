@@ -6,14 +6,15 @@ lazy val buildSettings = Seq(
   organizationName := "47 Degrees",
   description := "A library for helping use date and time libraries with ScalaCheck",
   startYear := Option(2016),
-  homepage := Option(url("http://47deg.github.io/github4s/")),
+  homepage := Option(url("https://47deg.github.io/scalacheck-datetime/")),
   organizationHomepage := Option(url("http://47deg.com")),
-  scalaVersion := "2.11.8",
+  scalaVersion := "2.12.0",
+  crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0"),
   licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 )
 
 lazy val dependencies = libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.13.0",
+  "org.scalacheck" %% "scalacheck" % "1.13.4",
   "joda-time" % "joda-time" % "2.9.4"
 )
 
@@ -37,7 +38,7 @@ lazy val docsSettings =
 
 lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
-  .settings(version := "0.2.0-SNAPSHOT")
+  .settings(version := "0.2.1-SNAPSHOT")
   .settings(scalacheckDatetimeSettings:_ *)
 
 lazy val docs = (project in file("docs"))
