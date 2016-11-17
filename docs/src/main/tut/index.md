@@ -19,6 +19,8 @@ arbitrary[DateTime].sample
 
 ### Installation
 
+The library is available for Scala 2.10, 2.11 and 2.12.
+
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 

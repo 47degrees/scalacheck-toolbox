@@ -20,21 +20,18 @@ lazy val dependencies = libraryDependencies ++= Seq(
 
 lazy val scalacheckDatetimeSettings = buildSettings ++ dependencies
 
-lazy val tutDirectoriesSettings = Seq(
-  tutSourceDirectory := sourceDirectory.value / "tut",
-  tutTargetDirectory := sourceDirectory.value / "jekyll"
-)
-
 lazy val ghpagesSettings =
   ghpages.settings ++
   Seq(git.remoteRepo := "git@github.com:47deg/scalacheck-datetime.git")
 
-lazy val docsSettings =
+lazy val docsSettings = Seq(
+    micrositeName := "scalacheck-datetime",
+    micrositeGithubRepo := "scalacheck-datetime",
+    micrositeDocumentationUrl := "/scalacheck-datetime/docs/",
+    micrositeBaseUrl := "/scalacheck-datetime"
+  ) ++
   buildSettings ++
-  dependencies ++
-  tutSettings ++
-  tutDirectoriesSettings ++
-  ghpagesSettings
+  dependencies
 
 lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
@@ -44,5 +41,5 @@ lazy val root = (project in file("."))
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "scalacheck-datetime-docs")
   .settings(docsSettings:_ *)
-  .enablePlugins(JekyllPlugin)
+  .enablePlugins(MicrositesPlugin)
   .dependsOn(root)
