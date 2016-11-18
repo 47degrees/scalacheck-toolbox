@@ -1,0 +1,29 @@
+<html><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>scalacheck-datetime</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="A library for helping use date and time libraries with ScalaCheck" /><meta name="author" content="47 Degrees" /><meta name="og:image" content="/scalacheck-datetime/img/poster.png" /><meta name="og:title" content="scalacheck-datetime" /><meta name="og:site_name" content="scalacheck-datetime" /><meta name="og:url" content="https://47deg.github.io/scalacheck-datetime/" /><meta name="og:type" content="website" /><meta name="og:description" content="A library for helping use date and time libraries with ScalaCheck" /><meta name="twitter:image" content="/scalacheck-datetime/img/poster.png" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="" /><link rel="icon" type="image/png" href="/scalacheck-datetime/img/favicon.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/scalacheck-datetime/highlight/styles/default.css" /><link rel="stylesheet" href="/scalacheck-datetime/css/style.css" /><link rel="stylesheet" href="/scalacheck-datetime/css/palette.css" /><link rel="stylesheet" href="/scalacheck-datetime/css/override.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><ul id="sidebar" class="sidebar-nav"><li class="sidebar-brand"><a href="/scalacheck-datetime/" class="brand"><div class="brand-wrapper" style="background:url('/scalacheck-datetime/img/sidebar_brand.png') no-repeat"><span>scalacheck-datetime</span></div></a></li> <li><a href="/scalacheck-datetime/docs/index.html" class="">Get started</a></li> <li><a href="/scalacheck-datetime/docs/usage.html" class="">Usage</a></li> <li><a href="/scalacheck-datetime/docs/granularity.html" class="">Granularity</a></li> <li><a href="/scalacheck-datetime/docs/range.html" class="">Creating Ranges</a></li></ul></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li class="hidden-xs"><a href="https://github.com/47deg/scalacheck-datetime"><i class="fa fa-eye"></i><span>WATCH<span id="eyes" class="label label-default">--</span></span></a></li><li class="hidden-xs"><a href="https://github.com/47deg/scalacheck-datetime"><i class="fa fa-star-o"></i><span>STARS<span id="stars" class="label label-default">--</span></span></a></li><li><a href="#" onclick="shareSiteTwitter('scalacheck-datetime A library for helping use date and time libraries with ScalaCheck');"><i class="fa fa-twitter"></i></a></li><li><a href="#" onclick="shareSiteFacebook('scalacheck-datetime A library for helping use date and time libraries with ScalaCheck');"><i class="fa fa-facebook"></i></a></li><li><a href="#" onclick="shareSiteGoogle();"><i class="fa fa-google-plus"></i></a></li></ul></div></div></div></div><div id="content" data-github-owner="47deg" data-github-repo="scalacheck-datetime"><div class="content-wrapper"><section><h1 id="get-started">Get started</h1>
+
+<p>The motivation behind this library is to provide a simple, easy way to provide generated date and time instances that are useful to your own domain.</p>
+
+<p>Any issues, suggestions or criticisms are more than welcome.</p>
+
+<p>For SBT, you can add the dependency to your project’s build file:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">resolvers</span> <span class="o">+=</span> <span class="nc">Resolver</span><span class="o">.</span><span class="n">sonatypeRepo</span><span class="o">(</span><span class="s">"releases"</span><span class="o">)</span>
+
+<span class="s">"com.fortysevendeg"</span> <span class="o">%%</span> <span class="s">"scalacheck-datetime"</span> <span class="o">%</span> <span class="s">"0.2.0"</span> <span class="o">%</span> <span class="s">"test"</span>
+</code></pre>
+</div>
+
+<h1 id="current-status">Current Status</h1>
+
+<p>As of version 0.2.0, the following libraries and classes are supported:</p>
+
+<ul>
+  <li><a href="http://www.joda.org/joda-time/">Joda Time</a>: The <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/DateTime.html"><code class="highlighter-rouge">DateTime</code></a> class, and <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/Period.html"><code class="highlighter-rouge">Period</code></a> for specifying a range of time.</li>
+  <li><a href="http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html">Java SE 8 Date and Time</a>: The <a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html"><code class="highlighter-rouge">ZonedDateTime</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html"><code class="highlighter-rouge">Duration</code></a> classes.</li>
+</ul>
+
+<p>There is an expectation of including more date/time and range classes before 1.0.</p>
+</section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/scalacheck-datetime/highlight/highlight.pack.js"></script><script>hljs.configure({
+languages:['scala','java','bash']
+});
+hljs.initHighlighting();
+             </script><script src="/scalacheck-datetime/js/main.js"></script></body></html>
