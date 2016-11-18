@@ -1,0 +1,13 @@
+options:
+  - title: Get started
+    url: docs/index.html
+
+  - title: Usage
+    url: docs/usage.html
+
+  - title: Granularity
+    url: docs/granularity.html
+
+  - title: Creating Ranges
+    url: docs/range.html
+  
