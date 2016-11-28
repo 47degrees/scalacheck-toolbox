@@ -41,6 +41,7 @@ object GenJodaProperties extends Properties("Joda Generators") {
     import ArbitraryJoda._
     forAll { dt: DateTime => passed }
   }
+
   val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
 
     def zeroMillis(dt: DateTime)  =                    dt.getMillisOfSecond == 0
