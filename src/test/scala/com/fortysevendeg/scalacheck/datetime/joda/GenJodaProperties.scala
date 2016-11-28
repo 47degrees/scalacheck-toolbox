@@ -75,9 +75,7 @@ object GenJodaProperties extends Properties("Joda Generators") {
     implicit val generatedGranularity = granularity
 
     val now = new DateTime()
-
     forAll(genDateTimeWithinRange(now, period)) { generated =>
-
       // if period is negative, then periodBoundary will be before now
       val periodBoundary = now.plus(period)
 
