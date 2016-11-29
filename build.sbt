@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtGhPages.ghpages
 import com.typesafe.sbt.SbtGit.git
+import de.heikoseeberger.sbtheader.HeaderPattern
 
 lazy val buildSettings = Seq(
   organization := "com.fortysevendeg",
@@ -10,7 +11,18 @@ lazy val buildSettings = Seq(
   organizationHomepage := Option(url("http://47deg.com")),
   scalaVersion := "2.12.0",
   crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0"),
-  licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+  licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+  headers := Map(
+  "scala" -> (
+    HeaderPattern.cStyleBlockComment,
+      """|/*
+         | * scalacheck-datetime
+         | * Copyright (C) 2016 47 Degrees, LLC. <http://www.47deg.com>
+         | */
+         |
+         |""".stripMargin
+    )
+  )
 )
 
 lazy val dependencies = libraryDependencies ++= Seq(
@@ -37,6 +49,7 @@ lazy val root = (project in file("."))
   .settings(moduleName := "scalacheck-datetime")
   .settings(version := "0.2.1-SNAPSHOT")
   .settings(scalacheckDatetimeSettings:_ *)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "scalacheck-datetime-docs")
