@@ -5,3 +5,7 @@ scalacheck-datetime
 [![codecov.io](http://codecov.io/github/47deg/scalacheck-datetime/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-datetime?branch=master)
 
 A helper library for using datetime libraries with ScalaCheck
+
+---
+
+This project is licenced under the terms of the [Apache Licence, Version 2.0](LICENCE.txt)
