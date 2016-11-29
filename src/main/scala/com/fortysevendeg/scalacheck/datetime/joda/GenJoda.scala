@@ -2,6 +2,8 @@ package com.fortysevendeg.scalacheck.datetime.joda
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
 
+import scala.util.Try
+
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary
 import org.joda.time._
@@ -44,15 +46,16 @@ trait GenJoda {
 
   /** A <code>DateTime</code> generator. */
   def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] = for {
-    year <- Gen.choose(-292275055,292278994)
+    year <- Gen.choose(-292275054,292278993)
     month <- Gen.choose(1, 12)
-    yearAndMonthDt = new DateTime(year, month, 1, 0, 0)
+    yearAndMonthDt <- Try(Gen.const(new DateTime(year, month, 1, 0, 0))).getOrElse(Gen.fail)
     dayOfMonth <- Gen.choose(1, yearAndMonthDt.dayOfMonth.getMaximumValue)
     hourOfDay <- Gen.choose(0, 23)
     minuteOfHour <- Gen.choose(0, 59)
     secondOfMinute <- Gen.choose(0, 59)
     millisOfSecond <- Gen.choose(0, 999)
-  } yield granularity.normalize(new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
+    attempt <- Try(Gen.const(new DateTime(year, month, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))).getOrElse(Gen.fail)
+  } yield granularity.normalize(attempt)
 }
 
 object GenJoda extends GenJoda

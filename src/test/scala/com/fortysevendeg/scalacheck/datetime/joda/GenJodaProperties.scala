@@ -41,6 +41,7 @@ object GenJodaProperties extends Properties("Joda Generators") {
     import ArbitraryJoda._
     forAll { dt: DateTime => passed }
   }
+
   val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
 
     def zeroMillis(dt: DateTime)  =                    dt.getMillisOfSecond == 0
@@ -74,9 +75,7 @@ object GenJodaProperties extends Properties("Joda Generators") {
     implicit val generatedGranularity = granularity
 
     val now = new DateTime()
-
     forAll(genDateTimeWithinRange(now, period)) { generated =>
-
       // if period is negative, then periodBoundary will be before now
       val periodBoundary = now.plus(period)
 

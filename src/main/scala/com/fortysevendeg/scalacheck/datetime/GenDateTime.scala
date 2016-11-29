@@ -1,5 +1,7 @@
 package com.fortysevendeg.scalacheck.datetime
 
+import scala.util.Try
+
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary.arbitrary
 
@@ -17,7 +19,10 @@ object GenDateTime {
     * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
     */
   def genDateTimeWithinRange[D, R](dateTime: D, range: R)(implicit scDateTime: ScalaCheckDateTimeInfra[D, R], granularity: Granularity[D]): Gen[D] = {
-    val diffMillis = scDateTime.getMillis(scDateTime.addRange(dateTime, range)) - scDateTime.getMillis(dateTime)
-    Gen.choose(0L min diffMillis, 0L max diffMillis).map(millis => granularity.normalize(scDateTime.addMillis(dateTime, millis)))
+    for {
+      addedRange <- Try(Gen.const(scDateTime.addRange(dateTime, range))).getOrElse(Gen.fail)
+      diffMillis = scDateTime.getMillis(addedRange) - scDateTime.getMillis(dateTime)
+      millis <- Gen.choose(0L min diffMillis, 0L max diffMillis)
+    } yield granularity.normalize(scDateTime.addMillis(dateTime, millis))
   }
 }
