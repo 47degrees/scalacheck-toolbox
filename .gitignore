@@ -5,3 +5,6 @@ project/project/target/*
 docs/src/jekyll/_site
 docs/src/jekyll/*.md
 docs/target/*
+combinators/target/*
+magic/target/*
+datetime/target/*
