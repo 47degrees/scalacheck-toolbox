@@ -67,6 +67,7 @@ lazy val combinators = (project in file ("combinators"))
 
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "scalacheck-toolbox-docs")
+  .settings(name := "scalacheck-toolbox")
   .settings(docsSettings:_ *)
   .enablePlugins(MicrositesPlugin)
   .dependsOn(datetime)
