@@ -1,99 +1,19 @@
-<html><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>scalacheck-toolbox</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="docs" /><meta name="author" content="47 Degrees" /><meta name="og:image" content="/scalacheck-toolbox/img/poster.png" /><meta name="og:title" content="scalacheck-toolbox" /><meta name="og:site_name" content="scalacheck-toolbox" /><meta name="og:url" content="https://47deg.github.io/scalacheck-toolbox/" /><meta name="og:type" content="website" /><meta name="og:description" content="docs" /><meta name="twitter:image" content="/scalacheck-toolbox/img/poster.png" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="" /><link rel="icon" type="image/png" href="/scalacheck-toolbox/img/favicon.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/scalacheck-toolbox/highlight/styles/default.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/style.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/palette.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/override.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/scalacheck-toolbox/" class="brand"><div class="icon-wrapper"><span>scalacheck-toolbox</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/47deg/scalacheck-toolbox"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li><li><a href="/scalacheck-toolbox/docs/"><i class="fa fa-file-text"></i><span class="hidden-xs">Documentation</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">docs</h1><h2></h2><p class="text-center"><a href="https://github.com/47deg/scalacheck-toolbox" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">              </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><h1 id="a-helping-hand-for-creating-sensible-generated-data-for-a-given-range-and-precision">A helping hand for creating sensible generated data for a given range and precision</h1>
-<p>When testing dates and times, sometimes you want to limit the test data to a certain range of times, and sometimes you only care about a certain level of precision. This lightweight library aims to provide both of these with ease.</p>
+<html><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>scalacheck-toolbox</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="A helping hand for generating sensible data with ScalaCheck" /><meta name="author" content="47 Degrees" /><meta name="og:image" content="/scalacheck-toolbox/img/poster.png" /><meta name="og:title" content="scalacheck-toolbox" /><meta name="og:site_name" content="scalacheck-toolbox" /><meta name="og:url" content="https://47deg.github.io/scalacheck-toolbox/" /><meta name="og:type" content="website" /><meta name="og:description" content="A helping hand for generating sensible data with ScalaCheck" /><meta name="twitter:image" content="/scalacheck-toolbox/img/poster.png" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="" /><link rel="icon" type="image/png" href="/scalacheck-toolbox/img/favicon.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/scalacheck-toolbox/highlight/styles/default.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/style.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/palette.css" /><link rel="stylesheet" href="/scalacheck-toolbox/css/override.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/scalacheck-toolbox/" class="brand"><div class="icon-wrapper"><span>scalacheck-toolbox</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/47deg/scalacheck-toolbox"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li><li><a href="/scalacheck-toolbox/docs/"><i class="fa fa-file-text"></i><span class="hidden-xs">Documentation</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">A helping hand for generating sensible data with ScalaCheck</h1><h2></h2><p class="text-center"><a href="https://github.com/47deg/scalacheck-toolbox" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">                  </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><h1 id="a-helping-hand-for-generating-sensible-data-with-scalacheck">A helping hand for generating sensible data with ScalaCheck</h1>
+<p>The ScalaCheck Toolbox is intended to be a set of libraries that can help rein in the power of ScalaCheck in a sensible way, while not impeding your tests. There are three libraries to help you:</p>
 
-<h3 id="installation">Installation</h3>
+<ul>
+  <li><a href="/scalacheck-toolbox/docs/datetime/"><code class="highlighter-rouge">datetime</code></a>: Limit the test data to a certain range of times, and constrain generation to a certain level of precision.</li>
+  <li><a href="/scalacheck-toolbox/docs/magic/"><code class="highlighter-rouge">magic</code></a>: Enhance the provided generators with some values that are often used to signal danger, or perhaps something more sinister, such as the Strings “<em>null</em>”, “<em>False</em>” or “<em>Robert’); DROP TABLE Students;–</em>”.</li>
+  <li><a href="/scalacheck-toolbox/docs/combinators"><code class="highlighter-rouge">combinators</code></a>: Provide some useful combinators of generators, such as the pairing of a map <em>and a list of values that are present in the map</em>.</li>
+</ul>
 
-<p>The library is available for Scala 2.10, 2.11 and 2.12.</p>
-
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">resolvers</span> <span class="o">+=</span> <span class="nc">Resolver</span><span class="o">.</span><span class="n">sonatypeRepo</span><span class="o">(</span><span class="s">"releases"</span><span class="o">)</span>
-
-<span class="s">"com.fortysevendeg"</span> <span class="o">%%</span> <span class="s">"scalacheck-datetime"</span> <span class="o">%</span> <span class="s">"0.2.0"</span> <span class="o">%</span> <span class="s">"test"</span>
-</code></pre>
-</div>
-
-<h3 id="works-for-both-joda-time-and-java-8s-javatime-apis">Works for both Joda Time and Java 8’s java.time APIs</h3>
-<p>The scalacheck-datetime library is configured to work with existing date and time libraries with ease. <code class="highlighter-rouge">Arbitrary</code> instances can be pulled into scope with the right import.</p>
-
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-<span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.joda.time._</span>
-<span class="k">import</span> <span class="nn">org.joda.time._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="n">arbitrary</span><span class="o">[</span><span class="kt">DateTime</span><span class="o">].</span><span class="n">sample</span>
-<span class="n">res2</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">org.joda.time.DateTime</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(-</span><span class="mi">109958616</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span><span class="n">T19</span><span class="k">:</span><span class="err">00</span><span class="kt">:</span><span class="err">10</span><span class="kt">.</span><span class="err">466</span><span class="kt">-</span><span class="err">00</span><span class="kt">:</span><span class="err">01</span><span class="kt">:</span><span class="err">15</span><span class="o">)</span>
-</code></pre>
-</div>
-
-<h3 id="generate-date-time-instances-within-a-given-range">Generate date time instances within a given range</h3>
-<p>Rather than generating dates and times ranging from both prehistoric times and dates way into the future, you can specify a range to build your instances.</p>
-
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-<span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">java.time._</span>
-<span class="k">import</span> <span class="nn">java.time._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.instances.jdk8._</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.instances.jdk8._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">now</span> <span class="k">=</span> <span class="nc">ZonedDateTime</span><span class="o">.</span><span class="n">now</span>
-<span class="n">now</span><span class="k">:</span> <span class="kt">java.time.ZonedDateTime</span> <span class="o">=</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span><span class="n">T13</span><span class="k">:</span><span class="err">47</span><span class="kt">:</span><span class="err">23</span><span class="kt">.</span><span class="err">360</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">]</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">generator</span> <span class="k">=</span> <span class="n">genDateTimeWithinRange</span><span class="o">(</span><span class="n">now</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="n">ofDays</span><span class="o">(</span><span class="mi">7</span><span class="o">))</span>
-<span class="n">generator</span><span class="k">:</span> <span class="kt">org.scalacheck.Gen</span><span class="o">[</span><span class="kt">java.time.ZonedDateTime</span><span class="o">]</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">scalacheck</span><span class="o">.</span><span class="nc">Gen$$anon$3</span><span class="k">@</span><span class="mi">7</span><span class="n">ed52d57</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">).</span><span class="n">foreach</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">generator</span><span class="o">.</span><span class="n">sample</span><span class="o">))</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">21</span><span class="n">T23</span><span class="k">:</span><span class="err">33</span><span class="kt">:</span><span class="err">28</span><span class="kt">.</span><span class="err">877</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">])</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">25</span><span class="n">T08</span><span class="k">:</span><span class="err">27</span><span class="kt">:</span><span class="err">36</span><span class="kt">.</span><span class="err">814</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">])</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">21</span><span class="n">T10</span><span class="k">:</span><span class="err">09</span><span class="kt">:</span><span class="err">38</span><span class="kt">.</span><span class="err">463</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">])</span>
-</code></pre>
-</div>
-
-<h3 id="generate-date-time-instances-to-a-given-precision">Generate date time instances to a given precision</h3>
-<p>Depending on your use-case, you may not care about generating many different instances at the per-millisecond level. This library lets you specify the granularity of your generated instances. You can ask for seconds, minutes, days, months or years. And, of course, this can be paired up with the generator for ranges, too.</p>
-
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-<span class="k">import</span> <span class="nn">org.scalacheck.Arbitrary.arbitrary</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">java.time._</span>
-<span class="k">import</span> <span class="nn">java.time._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.instances.jdk8._</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.instances.jdk8._</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.jdk8.granularity.days</span>
-<span class="k">import</span> <span class="nn">com.fortysevendeg.scalacheck.datetime.jdk8.granularity.days</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">now</span> <span class="k">=</span> <span class="nc">ZonedDateTime</span><span class="o">.</span><span class="n">now</span>
-<span class="n">now</span><span class="k">:</span> <span class="kt">java.time.ZonedDateTime</span> <span class="o">=</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span><span class="n">T13</span><span class="k">:</span><span class="err">47</span><span class="kt">:</span><span class="err">23</span><span class="kt">.</span><span class="err">831</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">]</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">generator</span> <span class="k">=</span> <span class="n">genDateTimeWithinRange</span><span class="o">(</span><span class="n">now</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="n">ofDays</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span>
-<span class="n">generator</span><span class="k">:</span> <span class="kt">org.scalacheck.Gen</span><span class="o">[</span><span class="kt">java.time.ZonedDateTime</span><span class="o">]</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">scalacheck</span><span class="o">.</span><span class="nc">Gen$$anon$3</span><span class="k">@</span><span class="mi">11162291</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">).</span><span class="n">foreach</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">generator</span><span class="o">.</span><span class="n">sample</span><span class="o">))</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">18</span><span class="n">T00</span><span class="k">:</span><span class="err">00</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">])</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">30</span><span class="n">T00</span><span class="k">:</span><span class="err">00</span><span class="kt">Z</span><span class="o">[</span><span class="kt">Europe/London</span><span class="o">])</span>
-<span class="nc">Some</span><span class="o">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">10</span><span class="n">T00</span><span class="k">:</span><span class="err">00</span><span class="kt">+</span><span class="err">01</span><span class="kt">:</span><span class="err">00[</span><span class="kt">Europe/London</span><span class="err">]</span><span class="o">)</span>
-</code></pre>
-</div>
-
-<p>Check out the <a href="/scalacheck-datetime/docs">documentation</a> for more tips on how to get the best from these tools.</p>
+<p>View the <a href="/scalacheck-toolbox/docs">documentation</a> for more tips on how to get the best from these tools.</p>
 </div></div></section><section class="technologies"><div class="container"><div class="row">
             <div class="col-md-4"><div class="scala-icon-wrapper"></div><h3>ScalaCheck</h3><p>This library is for use with ScalaCheck: the property-based testing framework for Scala.</p></div>
           
             <div class="col-md-4"><div class="cats-icon-wrapper"></div><h3>Typelevel</h3><p>ScalaCheck is part of Typelevel.scala: supplements to the standard library, and much more.</p></div>
           
-            <div class="col-md-4"><div class="fp-icon-wrapper"></div><h3>Functional Programming</h3><p>scalacheck-datetime aims to make functional programming easier to understand and more accessible to all.</p></div>
+            <div class="col-md-4"><div class="fp-icon-wrapper"></div><h3>Functional Programming</h3><p>scalacheck-toolbox aims to make functional programming easier to understand and more accessible to all.</p></div>
           </div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>scalacheck-toolbox is designed and developed by <a href="https://47deg.github.io/scalacheck-toolbox/" target="_blank">47 Degrees</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/47deg/scalacheck-toolbox"><span class="fa fa-github"></span>View on Github</a></p></div></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/scalacheck-toolbox/highlight/highlight.pack.js"></script><script>hljs.configure({
 languages:['scala','java','bash']
 });
