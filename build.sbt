@@ -5,7 +5,7 @@ import de.heikoseeberger.sbtheader.HeaderPattern
 lazy val commonSettings = Seq(
   organization := "com.fortysevendeg",
   organizationName := "47 Degrees",
-  version := "0.2.1",
+  version := "0.2.2-SNAPSHOT",
   startYear := Option(2016),
   homepage := Option(url("https://47deg.github.io/scalacheck-toolbox/")),
   organizationHomepage := Option(url("http://47deg.com")),
