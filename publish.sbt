@@ -6,7 +6,7 @@ publishMavenStyle in ThisBuild := true
 
 startYear in ThisBuild := Some(2016)
 
-description in ThisBuild := "A library for helping use date and time libraries with ScalaCheck"
+description in ThisBuild := "A helping hand for generating sensible data with ScalaCheck"
 
 homepage in ThisBuild := Some(url("http://47deg.com"))
 
