@@ -10,7 +10,7 @@ description := "A library for helping use date and time libraries with ScalaChec
 
 homepage := Some(url("http://47deg.com"))
 
-scmInfo := Some(ScmInfo(url("https://github.com/47deg/scalacheck-datetime"), "https://github.com/47deg/scalacheck-datetime.git"))
+scmInfo := Some(ScmInfo(url("https://github.com/47deg/scalacheck-toolbox"), "https://github.com/47deg/scalacheck-toolbox.git"))
 
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
@@ -25,7 +25,7 @@ pomExtra :=
       </developer>
     </developers>
 
-publishTo := {
+publishTo in ThisBuild := {
   val nexus = "https://oss.sonatype.org/"
   if (isSnapshot.value)
     Some("snapshots" at nexus + "content/repositories/snapshots")

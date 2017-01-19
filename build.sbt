@@ -44,6 +44,7 @@ lazy val docsSettings = Seq(
   dependencies
 
 lazy val root = (project in file("."))
+  .settings(publishArtifact := false)
   .enablePlugins(AutomateHeaderPlugin)
   .aggregate(datetime, magic, combinators)
 
