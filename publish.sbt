@@ -1,20 +1,20 @@
-organizationName := "47 Degrees"
+organizationName in ThisBuild := "47 Degrees"
 
-organizationHomepage := Some(new URL("http://47deg.com"))
+organizationHomepage in ThisBuild := Some(new URL("http://47deg.com"))
 
-publishMavenStyle := true
+publishMavenStyle in ThisBuild := true
 
-startYear := Some(2016)
+startYear in ThisBuild := Some(2016)
 
-description := "A library for helping use date and time libraries with ScalaCheck"
+description in ThisBuild := "A library for helping use date and time libraries with ScalaCheck"
 
-homepage := Some(url("http://47deg.com"))
+homepage in ThisBuild := Some(url("http://47deg.com"))
 
-scmInfo := Some(ScmInfo(url("https://github.com/47deg/scalacheck-toolbox"), "https://github.com/47deg/scalacheck-toolbox.git"))
+scmInfo in ThisBuild := Some(ScmInfo(url("https://github.com/47deg/scalacheck-toolbox"), "https://github.com/47deg/scalacheck-toolbox.git"))
 
-licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+licenses in ThisBuild := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
-pomExtra :=
+pomExtra in ThisBuild :=
     <developers>
       <developer>
         <name>47 Degrees (twitter: @47deg)</name>
@@ -35,11 +35,11 @@ publishTo in ThisBuild := {
 
 lazy val gpgFolder = sys.env.getOrElse("GPG_FOLDER", ".")
 
-pgpPassphrase := Some(sys.env.getOrElse("GPG_PASSPHRASE", "").toCharArray)
+pgpPassphrase in ThisBuild := Some(sys.env.getOrElse("GPG_PASSPHRASE", "").toCharArray)
 
-pgpPublicRing := file(s"$gpgFolder/pubring.gpg")
+pgpPublicRing in ThisBuild := file(s"$gpgFolder/pubring.gpg")
 
-pgpSecretRing := file(s"$gpgFolder/secring.gpg")
+pgpSecretRing in ThisBuild := file(s"$gpgFolder/secring.gpg")
 
 credentials += Credentials("Sonatype Nexus Repository Manager",
   "oss.sonatype.org",

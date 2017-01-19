@@ -5,7 +5,7 @@ import de.heikoseeberger.sbtheader.HeaderPattern
 lazy val commonSettings = Seq(
   organization := "com.fortysevendeg",
   organizationName := "47 Degrees",
-  version := "0.2.1-SNAPSHOT",
+  version := "0.2.1",
   startYear := Option(2016),
   homepage := Option(url("https://47deg.github.io/scalacheck-toolbox/")),
   organizationHomepage := Option(url("http://47deg.com")),
@@ -44,7 +44,7 @@ lazy val docsSettings = Seq(
   dependencies
 
 lazy val root = (project in file("."))
-  .settings(publishArtifact := false)
+  .settings(Seq(publishArtifact := false) ++ commonSettings)
   .enablePlugins(AutomateHeaderPlugin)
   .aggregate(datetime, magic, combinators)
 
