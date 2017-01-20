@@ -2,12 +2,18 @@ options:
   - title: Get started
     url: docs/index.html
 
-  - title: Usage
-    url: docs/usage.html
+  - title: Datetime
+    url: docs/datetime/index.html
 
-  - title: Granularity
-    url: docs/granularity.html
+    nested_options:
+    - title: Granularity
+      url: docs/datetime/granularity.html
 
-  - title: Creating Ranges
-    url: docs/range.html
-  
+    - title: Creating Ranges
+      url: docs/datetime/range.html
+
+  - title: Magic
+    url: docs/magic/index.html
+
+  - title: Combinators
+    url: docs/combinators/index.html

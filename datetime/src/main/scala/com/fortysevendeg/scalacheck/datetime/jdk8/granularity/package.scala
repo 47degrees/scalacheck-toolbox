@@ -1,5 +1,5 @@
 /*
- * scalacheck-datetime
+ * scalacheck-toolbox
  * Copyright (C) 2016-2017 47 Degrees, LLC. <http://www.47deg.com>
  */
 
