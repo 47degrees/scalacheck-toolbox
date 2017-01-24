@@ -1,9 +1,11 @@
 language: scala
 scala:
-   - 2.12.0
+   - 2.12.1
+   - 2.11.8
+   - 2.10.6
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION clean coverage "test-only * -- -minSuccessfulTests 1000000" docs/tut
+  - sbt ++$TRAVIS_SCALA_VERSION +clean +coverage "+test-only * -- -minSuccessfulTests 100000" docs/tut
 
 jdk:
   - oraclejdk8
@@ -11,3 +13,11 @@ jdk:
 after_success:
   - sbt coverageReport
   - bash <(curl -s https://codecov.io/bash) -t d8c6d7cf-f05c-4953-9f6e-ff046716a0f0
+  - if [[ "$TRAVIS_BRANCH" == "master" && $(cat version.sbt) =~ "-SNAPSHOT"]]; then
+      sbt +publish;
+    fi
+
+env:
+  global:
+  - secure: "alNd7DgX734/6zFcU+87hKtofaHnJx6lpducrXbjw9T6bdE8Kw0l7jLMLutjAEebOc/rTJ6nkfGRBcU7f8yRSNmqJ844laWYD1mbGUDQsMa9BHp9uy3vLlpAsnl5NGVhT2qGdL89/gkI3jGCD2SXp7k/v8Dh7bJoD4fhfVI1I2tQ4nYdE9IIo0DtcF7+yNOw4lARtCQCHZQ5tSrX3QJbKYnSYCmen6fUYVCDvhvfxRTQbUyozkVspjZB2rIHUYB7783YjBCrxdznp5VYhoeZl6hRHnhhHTK5iS9cisdtngW7RfKHcBc6PWTdvYg2CCSus+jWLLFbfaabjjJ5kbwRootcvtBR0OG0IyQnCmELPkeqO3B758JDJ7ps9KEkAOqCJVsanFgDNWdENhrvKDj6ahwYtxgK5lm+yud3LI4ET3PoBSkeFSDtfL1+vqsF50N/scCMxLLKeTzyZNwWWG0YTiiw88lkPY/1Lwaxy1sTtHwRjslmr/dI7E7wTAYbhD0LIbgh1HTkTS3cyGOFiIV3ITZ1vHhtr1QnjXA2EeTQZWuGkZjo/nIUaquFfeiNWByQfk702raCIHvpLO5nEC3I61knIvKofDXAdN7IFHT9g9/Q52AaO/ktMN9yVOqwHyXbfGJohkOegUw6S5A6Bsb1B6VVXh/wgP/2rdtPCcpsH7A="
+  - secure: "nAJAjWrn3rhuQcPzKXJfqOn6/IYlQvMXCzT67hJg5QZ3Om/WvlgaidswImRs+2v+BEYM3RACLI8I62dOPrOds6yJOLPM4qUvYBPQFlM0irf+iyhlkNxAjKWVbcLKv44MrVee+NduyKtGazbszKLeVI5ZU2unAC2DGaNzvtky5rSg69jpUq2w5xFTPY2tSupQf5PhOdwwsZwVEBJn1QyUP539fMRZ5CqsJmr0tJJZTIBMCyz+J5/clPGzhE0UOHfLMfy4PRVNJZ0sI05z61c67Ab6wtIHOp/BHxPaXZUcAvxYjuBSeTQ1907cIAKD/9+qV61+cDG4yh+GxbGMtDCmbH54ngZ5pEgNzihv8PwQk5MdKGUQmRK5Pk2NBpdBoWORsZeRRI7TkwhQMTkbEbVT6xve1SwHbFFFA2PZI5Ma4ycPQKwKNA6yILCOZ7yFdYh5r/jniiVj1eTVlcIiQbMiAm2Di5+KsE6OvPnSR8lkJSQ5BKmH7XTGqCB0A77xe6U/AE4hwVHDHIzB6ioP43eGmZcGqJOhFOpnj85RJF76ecbFuwI8XiHcbBfWMZXl7rV3UG2tj98Poi0xYjdSmwmMdPVTucV/14tf5s4UciFgupHlax9C+NCgJvgl3xKsCQruyUrlOuwDT9aczfUeHQgwS0++78T8rTrU+J+GcEaunh4="
