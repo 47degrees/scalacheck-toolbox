@@ -11,9 +11,7 @@ jdk:
 after_success:
   - sbt coverageReport
   - bash <(curl -s https://codecov.io/bash) -t d8c6d7cf-f05c-4953-9f6e-ff046716a0f0
-  - if [[ "$TRAVIS_BRANCH" == "master" && $(cat version.sbt) =~ "-SNAPSHOT"]]; then
-      sbt +publish;
-    fi
+  - scripts/travis-snapshot-publish.sh
 
 env:
   global:
