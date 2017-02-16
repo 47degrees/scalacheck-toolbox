@@ -15,5 +15,6 @@ trait JodaInstances {
     def addRange(dateTime: DateTime, period: Period): DateTime = dateTime.plus(period)
     def addMillis(dateTime: DateTime, millis: Long): DateTime =  dateTime.plus(millis)
     def getMillis(dateTime: DateTime): Long = dateTime.getMillis
+    def isBefore(dt1: DateTime, dt2: DateTime): Boolean = dt1.isBefore(dt2)
   }
 }
