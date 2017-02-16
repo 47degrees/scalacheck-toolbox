@@ -26,6 +26,7 @@ lazy val commonSettings = Seq(
 
 lazy val dependencies = libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.13.4",
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test",
   "joda-time" % "joda-time" % "2.9.4"
 )
 

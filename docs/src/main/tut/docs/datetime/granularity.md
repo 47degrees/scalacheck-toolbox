@@ -43,3 +43,4 @@ val prop = forAll { zdt: ZonedDateTime =>
 prop.check
 ```
 
+Note that the granularity of Instant not strictly valid as Instant does not really support the notion. However for convenience a Instants can be constrained as for the other types but is performed by transforming the Instant to the ZonedDateTime for UTC, constraining that and converting back again afternwards.  

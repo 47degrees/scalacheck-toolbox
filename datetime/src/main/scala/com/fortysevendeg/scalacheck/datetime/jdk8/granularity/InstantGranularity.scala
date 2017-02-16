@@ -45,7 +45,7 @@ object InstantGranularity {
     // If you then set the day of year to Jan 1, and that day starts at 12am,
     // then the granularity has been set wrong in that case. Insane.
     val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).toInstant
+      dt.atOffset(ZoneOffset.UTC).withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).withHour(0).toInstant
     val description = "Years"
   }
 

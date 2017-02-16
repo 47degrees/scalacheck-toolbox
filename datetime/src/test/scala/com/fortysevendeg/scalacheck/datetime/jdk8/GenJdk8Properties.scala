@@ -455,11 +455,12 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     override def zeroHours(dt: Instant)   = zeroMinutes(dt) && {
       // Very very rarely, some days start at 1am, rather than 12am
       // In this case, check that the minute before is in the day before.
-      dt.get(HOUR_OF_DAY) match {
+      val zdt = dt.atOffset(ZoneOffset.UTC)
+      zdt.get(HOUR_OF_DAY) match {
         case 0 => true
         case 1 =>
-          val prevMinute = dt.atOffset(ZoneOffset.UTC).minus(Duration.ofMinutes(1))
-          val prevDay = dt.atOffset(ZoneOffset.UTC).minus(Duration.ofDays(1))
+          val prevMinute = zdt.minus(Duration.ofMinutes(1))
+          val prevDay = zdt.minus(Duration.ofDays(1))
 
           (prevMinute.get(DAY_OF_YEAR) == prevDay.get(DAY_OF_YEAR)) && (prevMinute.get(YEAR) == prevDay.get(YEAR))
         case _ => false
@@ -473,14 +474,14 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     val gp = new InstantGranularitiesAndPredicates
     import gp._
 
-    def firstDay(dt: Instant)    = zeroHours(dt)   && dt.get(DAY_OF_YEAR) == 1
+    def firstDay(dt: Instant) = zeroHours(dt)   && dt.atOffset(ZoneOffset.UTC).get(DAY_OF_YEAR) == 1
 
     List(
-  //    (InstantGranularity.seconds, zeroNanos _),
-  //    (InstantGranularity.minutes, zeroSeconds _),
-      (InstantGranularity.hours, zeroMinutes _)//,
-//      (InstantGranularity.days, zeroHours _),
- //     (InstantGranularity.years, firstDay _)
+      (InstantGranularity.seconds, zeroNanos _),
+      (InstantGranularity.minutes, zeroSeconds _),
+      (InstantGranularity.hours, zeroMinutes _),
+      (InstantGranularity.days, zeroHours _),
+      (InstantGranularity.years, firstDay _)
     )
   }
 
