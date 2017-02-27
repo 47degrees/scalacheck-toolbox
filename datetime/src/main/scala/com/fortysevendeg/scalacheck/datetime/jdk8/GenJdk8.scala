@@ -90,5 +90,6 @@ object ArbitraryJdk8 extends GenJdk8 {
 
   implicit def arbInstant(implicit granularity: Granularity[Instant]): Arbitrary[Instant] = Arbitrary(genInstant)
 
+  implicit def arbDuration(implicit granularity: Granularity[Duration]): Arbitrary[Duration] = Arbitrary(genDuration)
 
 }
