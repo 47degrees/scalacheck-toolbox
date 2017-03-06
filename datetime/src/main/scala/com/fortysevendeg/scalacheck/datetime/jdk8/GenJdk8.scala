@@ -79,8 +79,6 @@ object GenJdk8 extends GenJdk8
 
 object ArbitraryJdk8 extends GenJdk8 {
   implicit def arbJdk8ZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] = Arbitrary(genZonedDateTime)
-  // kept for  backward compatibility
-  def arbJdk8(implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] = arbJdk8ZonedDateTime
 
   implicit def arbJdk8LocalDateTime(implicit granularity: Granularity[LocalDateTime]): Arbitrary[LocalDateTime] = Arbitrary(genLocalDateTime)
 

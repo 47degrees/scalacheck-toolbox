@@ -47,7 +47,6 @@ object GenDateTime {
     } yield ok
   }
 
-
   def genTimeBetween[D](from: D, to: D)(implicit scTime: ScalaCheckTimeInfra[D], granularity: Granularity[D]): Gen[D] = {
     val (early, late) = if (scTime.isBefore(from, to)) (from, to) else (to, from)
     val diffMillis= scTime.diffMillis(early, late)

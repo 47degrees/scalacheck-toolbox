@@ -6,7 +6,6 @@ import com.fortysevendeg.scalacheck.datetime.Granularity
 
 /**
   * Created by timpigden on 15/02/17.
-  * Copyright (c) Optrak Distribution Software Ltd, Ware 2016
   */
 object LocalTimeGranularity {
   implicit val seconds: Granularity[LocalTime] = new Granularity[LocalTime] {

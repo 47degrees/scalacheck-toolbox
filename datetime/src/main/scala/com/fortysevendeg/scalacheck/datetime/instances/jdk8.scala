@@ -19,9 +19,6 @@ trait Jdk8Instances {
     override def isBefore(dt1: ZonedDateTime, dt2: ZonedDateTime): Boolean = dt1.isBefore(dt2)
   }
 
-  // retained for compatibility
-  val jdk8ForDuration = jdkForDurationZonedDateTime
-
   implicit val jdkForDurationLocalDateTime: ScalaCheckDateTimeInfra[LocalDateTime, Duration] = new ScalaCheckDateTimeInfra[LocalDateTime, Duration] {
     def addRange(localDateTime: LocalDateTime, duration: Duration): LocalDateTime = localDateTime.plus(duration)
     def addMillis(localDateTime: LocalDateTime, millis: Long): LocalDateTime = localDateTime.plus(millis, MILLIS)
@@ -31,19 +28,14 @@ trait Jdk8Instances {
 
   implicit val jdkForDurationLocalDate: ScalaCheckDateInfra[LocalDate, Period] = new ScalaCheckDateInfra[LocalDate, Period] {
     override def addRange(date: LocalDate, range: Period): LocalDate = date.plus(range)
-
     override def getDiffDays(from: LocalDate, to: LocalDate): Int = Period.between(from, to).getDays
-
     override def addDays(dateTime: LocalDate, days: Int): LocalDate = dateTime.plusDays(days)
-
     override def isBefore(d1: LocalDate, d2: LocalDate): Boolean = d1.isBefore(d2)
   }
 
   implicit val jdkForDurationTime: ScalaCheckTimeInfra[LocalTime] = new ScalaCheckTimeInfra[LocalTime] {
     override def isBefore(t1: LocalTime, t2: LocalTime): Boolean = t1.isBefore(t2)
-
     override def diffMillis(lower: LocalTime, higher: LocalTime): Long = Duration.between(lower, higher).toMillis
-
     override def addMillis(d: LocalTime, millis: Long): LocalTime = d.plus(Duration.ofMillis(millis))
   }
 
@@ -53,7 +45,4 @@ trait Jdk8Instances {
     def getMillis(Instant: Instant): Long = Instant.toEpochMilli
     override def isBefore(dt1: Instant, dt2: Instant): Boolean = dt1.isBefore(dt2)
   }
-
-
-
 }
