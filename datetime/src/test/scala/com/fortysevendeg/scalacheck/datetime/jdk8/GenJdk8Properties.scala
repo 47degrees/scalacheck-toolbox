@@ -37,15 +37,13 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
 
   trait GranularitiesAndPredicates[T <: TemporalAccessor] {
-
-
     def zeroNanos(dt: T) = dt.get(NANO_OF_SECOND) == 0
     def zeroSeconds(dt: T) = zeroNanos(dt) && dt.get(SECOND_OF_MINUTE) == 0
     def zeroMinutes(dt: T): Boolean
     def zeroHours(dt: T): Boolean
   }
 
-  class ZDTGranularitiesAndPredicates extends GranularitiesAndPredicates[ZonedDateTime] {
+  class ZdtGranularitiesAndPredicates extends GranularitiesAndPredicates[ZonedDateTime] {
     override def zeroMinutes(dt: ZonedDateTime): Boolean = zeroSeconds(dt) && {
       // The previous second should be in the previous hour.
       // There are cases where half an hour has been taken out of a day,
@@ -73,9 +71,9 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
 
-  val granularitiesAndPredicatesZDT: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] = {
+  val granularitiesAndPredicatesZdt: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] = {
 
-    val gp = new ZDTGranularitiesAndPredicates
+    val gp = new ZdtGranularitiesAndPredicates
     import gp._
 
     def firstDay(dt: ZonedDateTime)    = zeroHours(dt)   && dt.get(DAY_OF_YEAR) == 1
@@ -89,11 +87,11 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     )
   }
 
-  val granularitiesAndPredicatesWithDefaultZDT: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] =
-    (Granularity.identity[ZonedDateTime], (_: ZonedDateTime) => true) :: granularitiesAndPredicatesZDT
+  val granularitiesAndPredicatesWithDefaultZdt: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] =
+    (Granularity.identity[ZonedDateTime], (_: ZonedDateTime) => true) :: granularitiesAndPredicatesZdt
 
   property("genZonedDateTime with a granularity generates appropriate ZonedDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesZDT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesZdt)) { case (granularity, predicate) =>
 
     implicit val generatedGranularity = granularity
 
@@ -103,7 +101,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   property("arbitrary generation with a granularity generates appropriate ZonedDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesZDT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesZdt)) { case (granularity, predicate) =>
     import ArbitraryJdk8._
 
     implicit val generatedGranularity = granularity
@@ -114,20 +112,20 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
-  private[this] def tooLargeForAddingRangesZDT(dateTime: ZonedDateTime, d: Duration): Boolean = {
+  private[this] def tooLargeForAddingRangesZdt(dateTime: ZonedDateTime, d: Duration): Boolean = {
     Try(dateTime.plus(d).toInstant().toEpochMilli()).isFailure
   }
 
   property("genDuration can be added to any date") = forAll(genZonedDateTime, genDuration) { (dt, dur) =>
-    !tooLargeForAddingRangesZDT(dt, dur) ==> {
+    !tooLargeForAddingRangesZdt(dt, dur) ==> {
       val attempted = Try(dt.plus(dur).toInstant().toEpochMilli())
       attempted.isSuccess :|  attempted.toString
     }
   }
 
   property("genDateTimeWithinRange for Java 8 should generate ZonedDateTimes between the given date and the end of the specified Duration") =
-    forAll(genZonedDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefaultZDT)) { case (now, d, (granularity, predicate)) =>
-    !tooLargeForAddingRangesZDT(now, d) ==> {
+    forAll(genZonedDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefaultZdt)) { case (now, d, (granularity, predicate)) =>
+    !tooLargeForAddingRangesZdt(now, d) ==> {
 
       implicit val generatedGranularity = granularity
 
@@ -155,7 +153,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
   }
 
-  class LDTGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalDateTime] {
+  class LdtGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalDateTime] {
     override def zeroMinutes(dt: LocalDateTime): Boolean = zeroSeconds(dt) && {
       // The previous second should be in the previous hour.
       // There are cases where half an hour has been taken out of a day,
@@ -182,10 +180,9 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
   }
 
+  val granularitiesAndPredicatesLdt: List[(Granularity[LocalDateTime], LocalDateTime => Boolean)] = {
 
-  val granularitiesAndPredicatesLDT: List[(Granularity[LocalDateTime], LocalDateTime => Boolean)] = {
-
-    val gp = new LDTGranularitiesAndPredicates
+    val gp = new LdtGranularitiesAndPredicates
     import gp._
 
     def firstDay(dt: LocalDateTime)    = zeroHours(dt)   && dt.get(DAY_OF_YEAR) == 1
@@ -199,11 +196,11 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     )
   }
 
-  val granularitiesAndPredicatesWithDefaultLDT: List[(Granularity[LocalDateTime], LocalDateTime => Boolean)] =
-    (Granularity.identity[LocalDateTime], (_: LocalDateTime) => true) :: granularitiesAndPredicatesLDT
+  val granularitiesAndPredicatesWithDefaultLdt: List[(Granularity[LocalDateTime], LocalDateTime => Boolean)] =
+    (Granularity.identity[LocalDateTime], (_: LocalDateTime) => true) :: granularitiesAndPredicatesLdt
 
   property("genLocalDateTime with a granularity generates appropriate LocalDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLDT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLdt)) { case (granularity, predicate) =>
 
     implicit val generatedGranularity = granularity
 
@@ -213,7 +210,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   property("arbitrary generation with a granularity generates appropriate LocalDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLDT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLdt)) { case (granularity, predicate) =>
     import ArbitraryJdk8._
 
     implicit val generatedGranularity = granularity
@@ -224,20 +221,20 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
-  private[this] def tooLargeForAddingRangesLDT(dt: LocalDateTime, dur: Duration): Boolean = {
+  private[this] def tooLargeForAddingRangesLdt(dt: LocalDateTime, dur: Duration): Boolean = {
     Try(dt.plus(dur).toInstant(ZoneOffset.UTC).toEpochMilli()).isFailure
   }
 
   property("genDuration can be added to any LocalDateTime") = forAll(genLocalDateTime, genDuration) { (dt, dur) =>
-    !tooLargeForAddingRangesLDT(dt, dur) ==> {
+    !tooLargeForAddingRangesLdt(dt, dur) ==> {
       val attempted = Try(dt.plus(dur).toInstant(ZoneOffset.UTC).toEpochMilli)
       attempted.isSuccess :|  attempted.toString
     }
   }
 
   property("genDateTimeWithinRange for Java 8 should generate LocalDateTimes between the given date and the end of the specified Duration") =
-    forAll(genLocalDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefaultLDT)) { case (now, d, (granularity, predicate)) =>
-    !tooLargeForAddingRangesLDT(now, d) ==> {
+    forAll(genLocalDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefaultLdt)) { case (now, d, (granularity, predicate)) =>
+    !tooLargeForAddingRangesLdt(now, d) ==> {
 
       implicit val generatedGranularity = granularity
 
@@ -265,16 +262,15 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
   }
 
-  class LDGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalDate] {
+  class LdGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalDate] {
     override def zeroMinutes(dt: LocalDate): Boolean = true
 
     override def zeroHours(dt: LocalDate) = true
   }
 
+  val granularitiesAndPredicatesLd: List[(Granularity[LocalDate], LocalDate => Boolean)] = {
 
-  val granularitiesAndPredicatesLD: List[(Granularity[LocalDate], LocalDate => Boolean)] = {
-
-    val gp = new LDGranularitiesAndPredicates
+    val gp = new LdGranularitiesAndPredicates
     import gp._
 
     def firstDay(dt: LocalDate) = dt.get(DAY_OF_YEAR) == 1
@@ -284,11 +280,11 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     )
   }
 
-  val granularitiesAndPredicatesWithDefaultLD: List[(Granularity[LocalDate], LocalDate => Boolean)] =
-    (Granularity.identity[LocalDate], (_: LocalDate) => true) :: granularitiesAndPredicatesLD
+  val granularitiesAndPredicatesWithDefaultLd: List[(Granularity[LocalDate], LocalDate => Boolean)] =
+    (Granularity.identity[LocalDate], (_: LocalDate) => true) :: granularitiesAndPredicatesLd
 
   property("genLocalDate with a granularity generates appropriate LocalDates") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLD)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLd)) { case (granularity, predicate) =>
 
       implicit val generatedGranularity = granularity
 
@@ -298,7 +294,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalDates") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLD)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLd)) { case (granularity, predicate) =>
       import ArbitraryJdk8._
 
       implicit val generatedGranularity = granularity
@@ -309,7 +305,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
 
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
-  private[this] def tooLargeForAddingRangesLD(dt: LocalDate, period: Period): Boolean = {
+  private[this] def tooLargeForAddingRangesLd(dt: LocalDate, period: Period): Boolean = {
     Try {
       val x = dt.plus(period).atTime(LocalTime.MIN).atZone(ZoneOffset.UTC).toInstant.toEpochMilli()
       val y = dt.plus(period).atTime(LocalTime.MAX).atZone(ZoneOffset.UTC).toInstant.toEpochMilli()
@@ -317,15 +313,15 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   property("genPeriod can be added to any LocalDate") = forAll(genLocalDate, genPeriod) { (dt, period) =>
-    !tooLargeForAddingRangesLD(dt, period) ==> {
+    !tooLargeForAddingRangesLd(dt, period) ==> {
       val attempted = Try(dt.plus(period).atStartOfDay(ZoneOffset.UTC).toInstant.toEpochMilli)
       attempted.isSuccess :|  attempted.toString
     }
   }
 
   property("genLocalDateWithinRange for Java 8 should generate LocalDates between the given date and the end of the specified Duration") =
-    forAll(genLocalDate, genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefaultLD)) { case (now, period, (granularity, predicate)) =>
-      !tooLargeForAddingRangesLD(now, period) ==> {
+    forAll(genLocalDate, genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefaultLd)) { case (now, period, (granularity, predicate)) =>
+      !tooLargeForAddingRangesLd(now, period) ==> {
 
         implicit val generatedGranularity = granularity
 
@@ -352,8 +348,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       }
     }
 
-
-  class LTGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalTime] {
+  class LtGranularitiesAndPredicates extends GranularitiesAndPredicates[LocalTime] {
     override def zeroMinutes(dt: LocalTime): Boolean = zeroSeconds(dt) && {
       // The previous second should be in the previous hour.
       // There are cases where half an hour has been taken out of a day,
@@ -368,9 +363,9 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     override def zeroHours(dt: LocalTime)   = zeroMinutes(dt) && dt.get(HOUR_OF_DAY) == 0
   }
 
-  val granularitiesAndPredicatesLT: List[(Granularity[LocalTime], LocalTime => Boolean)] = {
+  val granularitiesAndPredicatesLt: List[(Granularity[LocalTime], LocalTime => Boolean)] = {
 
-    val gp = new LTGranularitiesAndPredicates
+    val gp = new LtGranularitiesAndPredicates
     import gp._
 
     List(
@@ -381,11 +376,11 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     )
   }
 
-  val granularitiesAndPredicatesWithDefaultLT: List[(Granularity[LocalTime], LocalTime => Boolean)] =
-    (Granularity.identity[LocalTime], (_: LocalTime) => true) :: granularitiesAndPredicatesLT
+  val granularitiesAndPredicatesWithDefaultLt: List[(Granularity[LocalTime], LocalTime => Boolean)] =
+    (Granularity.identity[LocalTime], (_: LocalTime) => true) :: granularitiesAndPredicatesLt
 
   property("genLocalTime with a granularity generates appropriate LocalTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLt)) { case (granularity, predicate) =>
 
       implicit val generatedGranularity = granularity
 
@@ -395,7 +390,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicatesLT)) { case (granularity, predicate) =>
+    forAll(Gen.oneOf(granularitiesAndPredicatesLt)) { case (granularity, predicate) =>
       import ArbitraryJdk8._
 
       implicit val generatedGranularity = granularity
@@ -406,31 +401,31 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     }
 
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
-  private[this] def tooLargeForAddingRangesLT(dt: LocalTime, dur: Duration): Boolean = {
+  private[this] def tooLargeForAddingRangesLt(dt: LocalTime, dur: Duration): Boolean = {
     Try(dt.plusNanos(dur.getNano)).isFailure
   }
 
   property("genDuration can be added to any LocalTime") = forAll(genLocalTime, genDuration) { (dt, dur) =>
-    !tooLargeForAddingRangesLT(dt, dur) ==> {
+    !tooLargeForAddingRangesLt(dt, dur) ==> {
       val attempted = Try(dt.plusNanos(dur.getNano))
       attempted.isSuccess :|  attempted.toString
     }
   }
 
   property("genDateTimeWithinRange for Java 8 should generate LocalTimes between the given date and the end of the specified Duration") =
-    forAll(genLocalTime, genLocalTime, Gen.oneOf(granularitiesAndPredicatesWithDefaultLT)) { case (t1, t2, (granularity, predicate)) =>
+    forAll(genLocalTime, genLocalTime, Gen.oneOf(granularitiesAndPredicatesWithDefaultLt)) { case (earliest, latest, (granularity, predicate)) =>
 
       implicit val generatedGranularity = granularity
 
-      forAll(genTimeBetween(t1, t2)) { generated =>
+      forAll(genTimeBetween(earliest, latest)) { generated =>
 
         val resultText =
-          s"""t1:        $t1
-             |t2: $t2
-             |Generated:       $generated
-             |Granularity:     ${granularity.description}""".stripMargin
+          s"""Earliest:     $earliest
+             |Latest:       $latest
+             |Generated:    $generated
+             |Granularity:  ${granularity.description}""".stripMargin
 
-          val (lowerBound, upperBound) = if(t1.isAfter(t2)) (t2, t1) else (t1, t2)
+          val (lowerBound, upperBound) = if(earliest.isAfter(latest)) (latest, earliest) else (earliest, latest)
           val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.equals(generated)) &&
             (upperBound.isAfter(generated)  || upperBound.
               equals(generated))
@@ -451,7 +446,6 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       res
     }
 
-
     override def zeroHours(dt: Instant)   = zeroMinutes(dt) && {
       // Very very rarely, some days start at 1am, rather than 12am
       // In this case, check that the minute before is in the day before.
@@ -467,7 +461,6 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       }
     }
   }
-
 
   val granularitiesAndPredicatesInstant: List[(Granularity[Instant], Instant => Boolean)] = {
 
@@ -551,6 +544,4 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
         }
       }
     }
-
-
 }

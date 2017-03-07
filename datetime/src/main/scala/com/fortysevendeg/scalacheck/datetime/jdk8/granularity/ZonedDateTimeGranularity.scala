@@ -9,34 +9,20 @@ import com.fortysevendeg.scalacheck.datetime.Granularity
   * Copyright (c) Optrak Distribution Software Ltd, Ware 2016
   */
 object ZonedDateTimeGranularity {
-  implicit val seconds: Granularity[ZonedDateTime] = new Granularity[ZonedDateTime] {
-    val normalize = (dt: ZonedDateTime) => dt.withNano(0)
-    val description = "Seconds"
-  }
+  
+  case class ZonedDateTimeGranularity(description: String, normalize: (ZonedDateTime) => ZonedDateTime) extends Granularity[ZonedDateTime]
 
-  implicit val minutes: Granularity[ZonedDateTime] = new Granularity[ZonedDateTime] {
-    val normalize = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0)
-    val description = "Minutes"
-  }
+  val seconds = ZonedDateTimeGranularity("Seconds", _.withNano(0))
+  val minutes = ZonedDateTimeGranularity("Minutes", _.withNano(0).withSecond(0))
+  val hours = ZonedDateTimeGranularity("Hours", _.withNano(0).withSecond(0).withMinute(0))
+  val days = ZonedDateTimeGranularity("Days", _.withNano(0).withSecond(0).withMinute(0).withHour(0))
 
-  implicit val hours: Granularity[ZonedDateTime] = new Granularity[ZonedDateTime] {
-    val normalize = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0).withMinute(0)
-    val description = "Hours"
-  }
 
-  implicit val days: Granularity[ZonedDateTime] = new Granularity[ZonedDateTime] {
-    val normalize = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0).withMinute(0).withHour(0)
-    val description = "Days"
-  }
-
-  implicit val years: Granularity[ZonedDateTime] = new Granularity[ZonedDateTime] {
-    // Set the day of year before the hour as some days (very very rarely) start at 1am.
-    // It is therefore possible to set the hour of day to zero on a day where it starts at 1am.
-    // So Java 8 sets the hour to 1am.
-    // If you then set the day of year to Jan 1, and that day starts at 12am,
-    // then the granularity has been set wrong in that case. Insane.
-    val normalize = (dt: ZonedDateTime) => dt.withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).withHour(0)
-    val description = "Years"
-  }
-
+  // Set the day of year before the hour as some days (very very rarely) start at 1am.
+  // It is therefore possible to set the hour of day to zero on a day where it starts at 1am.
+  // So Java 8 sets the hour to 1am.
+  // If you then set the day of year to Jan 1, and that day starts at 12am,
+  // then the granularity has been set wrong in that case. Insane.
+  val years = ZonedDateTimeGranularity("Years", _.withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).withHour(0))
+  
 }

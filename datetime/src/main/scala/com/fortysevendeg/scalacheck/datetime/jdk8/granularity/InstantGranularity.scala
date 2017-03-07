@@ -13,40 +13,24 @@ import java.time.temporal.ChronoField._
   * but granular instants are really useful
   */
 object InstantGranularity {
-  
-  implicit val seconds: Granularity[Instant] = new Granularity[Instant] {
-    val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withNano(0).toInstant
-    val description = "Seconds"
-  }
 
-  implicit val minutes: Granularity[Instant] = new Granularity[Instant] {
-    val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).toInstant
-    val description = "Minutes"
-  }
+  case class InstantGranularity(description: String, normalize: (Instant) => Instant) extends Granularity[Instant]
 
-  implicit val hours: Granularity[Instant] = new Granularity[Instant] {
-    val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).withMinute(0).toInstant
-    val description = "Hours"
-  }
+  implicit val seconds: Granularity[Instant] = InstantGranularity("Seconds",
+    _.atOffset(ZoneOffset.UTC).withNano(0).toInstant)
+  implicit val minutes: Granularity[Instant] = InstantGranularity("Minutes",
+    _.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).toInstant)
+  implicit val hours: Granularity[Instant] = InstantGranularity("Hours",
+    _.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).withMinute(0).toInstant)
+  implicit val days: Granularity[Instant] = InstantGranularity("Days",
+    _.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).withMinute(0).withHour(0).toInstant)
 
-  implicit val days: Granularity[Instant] = new Granularity[Instant] {
-    val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withNano(0).withSecond(0).withMinute(0).withHour(0).toInstant
-    val description = "Days"
-  }
-
-  implicit val years: Granularity[Instant] = new Granularity[Instant] {
-    // Set the day of year before the hour as some days (very very rarely) start at 1am.
-    // It is therefore possible to set the hour of day to zero on a day where it starts at 1am.
-    // So Java 8 sets the hour to 1am.
-    // If you then set the day of year to Jan 1, and that day starts at 12am,
-    // then the granularity has been set wrong in that case. Insane.
-    val normalize = (dt: Instant) =>
-      dt.atOffset(ZoneOffset.UTC).withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).withHour(0).toInstant
-    val description = "Years"
-  }
+  // Set the day of year before the hour as some days (very very rarely) start at 1am.
+  // It is therefore possible to set the hour of day to zero on a day where it starts at 1am.
+  // So Java 8 sets the hour to 1am.
+  // If you then set the day of year to Jan 1, and that day starts at 12am,
+  // then the granularity has been set wrong in that case. Insane.
+  implicit val years: Granularity[Instant] = InstantGranularity("Years",
+      _.atOffset(ZoneOffset.UTC).withDayOfYear(1).withNano(0).withSecond(0).withMinute(0).withHour(0).toInstant)
 
 }
