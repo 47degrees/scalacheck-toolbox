@@ -8,3 +8,5 @@ docs/target/*
 combinators/target/*
 magic/target/*
 datetime/target/*
+.idea/
+secring.gpg
