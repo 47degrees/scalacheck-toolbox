@@ -1,0 +1,11 @@
+name: scalacheck-toolbox
+baseurl: /scalacheck-toolbox
+description: A helping hand for generating sensible data with ScalaCheck
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.2.3-SNAPSHOT
+org: 47 Degrees
+markdown: kramdown
