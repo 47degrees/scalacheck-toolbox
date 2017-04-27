@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/47deg/scalacheck-toolbox.svg?branch=master)](https://travis-ci.org/47deg/scalacheck-toolbox) [![codecov.io](http://codecov.io/github/47deg/scalacheck-toolbox/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-toolbox?branch=master) [![Maven Central](https://img.shields.io/badge/maven%20central-0.2.2-green.svg)](https://maven-badges.herokuapp.com/maven-central/com.47deg/scalacheck-toolbox_2.12) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/scalacheck-toolbox/master/LICENSE) [![Latest version](https://index.scala-lang.org/47deg/scalacheck-toolbox/scalacheck-toolbox_2.12/latest.svg)](https://index.scala-lang.org/47deg/scalacheck-toolbox/scalacheck-toolbox_2.12) [![GitHub Issues](https://img.shields.io/github/issues/47deg/scalacheck-toolbox.svg)](https://github.com/47deg/scalacheck-toolbox/issues)
 
 [comment]: # (End Badges)
+
 scalacheck-toolbox
 ====
 
