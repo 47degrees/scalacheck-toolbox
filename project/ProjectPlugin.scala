@@ -1,4 +1,5 @@
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
+import com.typesafe.sbt.site.SitePlugin.autoImport._
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
 import sbt._
@@ -7,10 +8,11 @@ import scoverage.ScoverageKeys._
 import sbtorgpolicies.OrgPoliciesKeys.orgBadgeListSetting
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
-import sbtorgpolicies.model.{Dev, scalac}
+import sbtorgpolicies.model.scalac
 import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
+import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import tut.Plugin._
 
 object ProjectPlugin extends AutoPlugin {
@@ -21,6 +23,9 @@ object ProjectPlugin extends AutoPlugin {
 
   object autoImport {
 
+    lazy val docsMappingsAPIDir: SettingKey[String] = settingKey[String](
+      "Name of subdirectory in site target directory for api docs")
+
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
       micrositeDescription := "A helping hand for generating sensible data with ScalaCheck",
@@ -28,7 +33,9 @@ object ProjectPlugin extends AutoPlugin {
       micrositeBaseUrl := "/scalacheck-toolbox",
       micrositeGithubRepo := "scalacheck-toolbox",
       micrositeGithubOwner := "47deg",
-      includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+      includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
+      docsMappingsAPIDir in ScalaUnidoc := "api",
+      addMappingsToSiteDir(mappings in(ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
     )
 
     lazy val testSettings = Seq(
@@ -62,7 +69,8 @@ object ProjectPlugin extends AutoPlugin {
         (compile in Compile).asRunnableItemFull,
         "test-only * -- -minSuccessfulTests 100000".asRunnableItemFull,
         (ScoverageKeys.coverageReport in Test).asRunnableItemFull,
-        (tut in ProjectRef(file("."), "docs")).asRunnableItem
+        (tut in ProjectRef(file("."), "docs")).asRunnableItem,
+        "docs/unidoc".asRunnableItemFull
       )
     )
 }
