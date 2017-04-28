@@ -1,23 +1,49 @@
 language: scala
+
+dist: precise
+sudo: required
+
 scala:
   - 2.10.6
   - 2.11.11
   - 2.12.2
+
 jdk:
   - oraclejdk8
+
 before_install:
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
     openssl aes-256-cbc -K $encrypted_1e3c8fda68a9_key -iv $encrypted_1e3c8fda68a9_iv
     -in secring.gpg.enc -out secring.gpg -d;
   fi
 - export PATH=${PATH}:./vendor/bundle
+
 install:
-  - rvm use 2.2.3 --install --fuzzy
-  - gem update --system
-  - gem install sass
-  - gem install jekyll -v 3.2.1
+- rvm use 2.2.3 --install --fuzzy
+- gem update --system
+- gem install sass
+- gem install jekyll -v 3.2.1
+
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION orgScriptCI
+- sbt ++$TRAVIS_SCALA_VERSION orgScriptCI
+
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t d8c6d7cf-f05c-4953-9f6e-ff046716a0f0
-  - sbt ++$TRAVIS_SCALA_VERSION orgAfterCISuccess
+- bash <(curl -s https://codecov.io/bash)
+- sbt ++$TRAVIS_SCALA_VERSION orgAfterCISuccess
+
+cache:
+  directories:
+  - $HOME/.sbt/0.13
+  - $HOME/.sbt/boot/scala*
+  - $HOME/.sbt/cache
+  - $HOME/.sbt/launchers
+  - $HOME/.ivy2
+  - $HOME/.coursier
+
+before_cache:
+- du -h -d 1 $HOME/.ivy2/
+- du -h -d 2 $HOME/.sbt/
+- du -h -d 4 $HOME/.coursier/
+- find $HOME/.sbt -name "*.lock" -type f -delete
+- find $HOME/.ivy2/cache -name "ivydata-*.properties" -type f -delete
+- find $HOME/.coursier/cache -name "*.lock" -type f -delete
