@@ -11,5 +11,6 @@ The maintainers of the project are:
 These are the people that have contributed to the scalacheck-toolbox project:
 
 * Fede Fernández <[fedefernandez](https://github.com/fedefernandez)>
+* Juan Pedro Moreno <[juanpedromoreno](https://github.com/juanpedromoreno)>
 * Noel Markham <[noelmarkham](https://github.com/noelmarkham)>
 * Raúl Raja Martínez <[raulraja](https://github.com/raulraja)>
