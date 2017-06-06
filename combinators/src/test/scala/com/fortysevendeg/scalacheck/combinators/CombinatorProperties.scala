@@ -20,4 +20,10 @@ object CombinatorProperties extends Properties("Combinator Generators") {
 
   property("genPickFromMapWithSuccess should return a list of elements in the map, and a list of elements not in the map") =
     forAll(genPickFromMapWithSuccess[String, String]) { case (map, succs) => succs.forall(s => map.get(s).isDefined) }
+
+  property("genOrderedPair should return a pair with the first element less than the second") =
+    forAll(genOrderedPair[Int]) { case (lower, upper) => lower <= upper }
+
+  property("genDistinctTuple should return a pair where the values are never equal") =
+    forAll(genDistinctPair[Int]) { case (fst, snd) => fst != snd }
 }

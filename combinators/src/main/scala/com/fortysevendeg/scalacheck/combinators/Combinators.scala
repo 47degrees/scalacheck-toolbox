@@ -22,4 +22,14 @@ object Combinators {
   def genPickFromMapWithSuccess[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B]): Gen[(Map[A, B], List[A])] =
     genPickFromMapWithSuccessAndFailure[A, B].map { case (m, s, _) => (m, s) }
 
+  def genOrderedPair[A](implicit ord: Ordering[A], arb: Arbitrary[A]): Gen[(A, A)] = for {
+    one <- arbitrary[A]
+    two <- arbitrary[A]
+  } yield (ord.min(one, two), ord.max(one, two))
+
+  def genDistinctPair[A](implicit ord: Ordering[A], arb: Arbitrary[A]): Gen[(A, A)] = for {
+    one <- arbitrary[A]
+    maybeTwo <- arbitrary[A]
+    two <- if (!ord.equiv(one, maybeTwo)) Gen.const(maybeTwo) else Gen.fail
+  } yield (one, two)
 }
