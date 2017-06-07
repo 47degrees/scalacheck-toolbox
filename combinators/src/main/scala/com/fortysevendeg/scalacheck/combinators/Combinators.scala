@@ -35,9 +35,8 @@ object Combinators {
 
   def genOrderedList[A](implicit ord: Ordering[A], arb: Arbitrary[A]): Gen[List[A]] = {
     /*
-     * This function adds an element to the list head that is greater than its previous head.
-     * So it is, in effect a list of elements in descending order. The method that calls this
-     * will reverse the list to put it in ascending order.
+     * This function adds an element to the list head that is less than its previous head.
+     * So it is, in effect a list of elements in ascending order.
      * 
      * By passing toAdd as a parameter, rather than already on the list, you effectively
      * treat the two parameters as a poor-man's non-empty list.
@@ -49,7 +48,7 @@ object Combinators {
      */
     def nextForList(toAdd: A, list: List[A]): Gen[List[A]] = for {
       next <- arbitrary[A]
-      validNext <- if (ord.gteq(toAdd, next)) Gen.fail else Gen.const(next)
+      validNext <- if (ord.lteq(toAdd, next)) Gen.fail else Gen.const(next)
       more <- arbitrary[Boolean]
       newList = toAdd :: list
       full <- if (more) nextForList(validNext, newList) else Gen.const(newList)
@@ -59,6 +58,6 @@ object Combinators {
       empty <- arbitrary[Boolean]
       head <- arbitrary[A]
       toReturn <- if(empty) Gen.const(Nil) else nextForList(head, Nil)
-    } yield toReturn.reverse
+    } yield toReturn
   }
 }
