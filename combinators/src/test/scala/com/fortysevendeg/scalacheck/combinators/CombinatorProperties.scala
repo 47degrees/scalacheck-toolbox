@@ -26,4 +26,19 @@ object CombinatorProperties extends Properties("Combinator Generators") {
 
   property("genDistinctTuple should return a pair where the values are never equal") =
     forAll(genDistinctPair[Int]) { case (fst, snd) => fst != snd }
+
+  property("genOrderedList should return a list in ascending order") =
+    forAll(genOrderedList[Int]) { list: List[Int] =>
+      list.sliding(2, 1).forall {
+        case h :: t :: Nil => h <= t
+        case _ :: Nil => true
+        case _ => false
+      }
+    }
+
+  property("genOrderedList produces empty lists") = exists(genOrderedList[Int]) { _.isEmpty }
+
+  property("genOrderedList produces single-element lists") = exists(genOrderedList[Int]) { _.length == 1 }
+
+  property("genOrderedList produces lists with more than one element") = exists(genOrderedList[Int]) { _.length > 1 }
 }
