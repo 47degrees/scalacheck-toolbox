@@ -35,4 +35,9 @@ object MagicProperties extends Properties("Magic Generators") {
     s: String =>
       !strings.contains(s)
   }
+
+  /*  property("should be able to call the test method on the code-generated object") = exists {
+    _: Unit =>
+      TestObject.test == "Test"
+  }*/
 }

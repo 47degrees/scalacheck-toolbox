@@ -31,3 +31,19 @@ object Magic {
     oneOf(arbitrary[List[Char]] map (_.mkString), magicStrings)
   }
 }
+
+object MagicTemplate {
+
+  import io.circe.parser._
+
+  val testData = scala.io.Source.fromResource("data.json").mkString
+
+  val parseResult = decode[List[String]](testData).right.get // todo when this moves to SBT, make this a real SBT failure. Ok like this for now.
+
+  val initBlock = parseResult.map(s => s"""\"\"\"$s\"\"\"""").mkString("List(", ",\n", ")")
+
+  val template = s"""object TestObject {
+                    |  def test = $initBlock
+                    |}""".stripMargin
+
+}

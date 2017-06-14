@@ -45,3 +45,12 @@ lazy val docs: Project = (project in file("docs"))
   .dependsOn(datetime)
   .dependsOn(magic)
   .dependsOn(combinators)
+
+sourceGenerators in Compile += Def.task {
+  val file = (sourceManaged in Compile).value / "demo" / "Test.scala"
+
+  val template = """object Test extends App { println("Hi") }"""
+
+  IO.write(file, template)
+  Seq(file)
+}.taskValue
