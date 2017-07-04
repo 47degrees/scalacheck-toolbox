@@ -1,19 +1,49 @@
 language: scala
-scala:
-   - 2.12.1
 
-script:
-  - sbt ++$TRAVIS_SCALA_VERSION +clean +coverage "+test-only * -- -minSuccessfulTests 100000" docs/tut
+dist: precise
+sudo: required
+
+scala:
+  - 2.10.6
+  - 2.11.11
+  - 2.12.2
 
 jdk:
   - oraclejdk8
 
-after_success:
-  - sbt coverageReport
-  - bash <(curl -s https://codecov.io/bash) -t d8c6d7cf-f05c-4953-9f6e-ff046716a0f0
-  - test $TRAVIS_BRANCH = "master" && cut -c 32-39 version.sbt = "SNAPSHOT" && sbt ++$TRAVIS_SCALA_VERSION +publish
+before_install:
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
+    openssl aes-256-cbc -K $encrypted_1e3c8fda68a9_key -iv $encrypted_1e3c8fda68a9_iv
+    -in secring.gpg.enc -out secring.gpg -d;
+  fi
+- export PATH=${PATH}:./vendor/bundle
 
-env:
-  global:
-  - secure: "alNd7DgX734/6zFcU+87hKtofaHnJx6lpducrXbjw9T6bdE8Kw0l7jLMLutjAEebOc/rTJ6nkfGRBcU7f8yRSNmqJ844laWYD1mbGUDQsMa9BHp9uy3vLlpAsnl5NGVhT2qGdL89/gkI3jGCD2SXp7k/v8Dh7bJoD4fhfVI1I2tQ4nYdE9IIo0DtcF7+yNOw4lARtCQCHZQ5tSrX3QJbKYnSYCmen6fUYVCDvhvfxRTQbUyozkVspjZB2rIHUYB7783YjBCrxdznp5VYhoeZl6hRHnhhHTK5iS9cisdtngW7RfKHcBc6PWTdvYg2CCSus+jWLLFbfaabjjJ5kbwRootcvtBR0OG0IyQnCmELPkeqO3B758JDJ7ps9KEkAOqCJVsanFgDNWdENhrvKDj6ahwYtxgK5lm+yud3LI4ET3PoBSkeFSDtfL1+vqsF50N/scCMxLLKeTzyZNwWWG0YTiiw88lkPY/1Lwaxy1sTtHwRjslmr/dI7E7wTAYbhD0LIbgh1HTkTS3cyGOFiIV3ITZ1vHhtr1QnjXA2EeTQZWuGkZjo/nIUaquFfeiNWByQfk702raCIHvpLO5nEC3I61knIvKofDXAdN7IFHT9g9/Q52AaO/ktMN9yVOqwHyXbfGJohkOegUw6S5A6Bsb1B6VVXh/wgP/2rdtPCcpsH7A="
-  - secure: "nAJAjWrn3rhuQcPzKXJfqOn6/IYlQvMXCzT67hJg5QZ3Om/WvlgaidswImRs+2v+BEYM3RACLI8I62dOPrOds6yJOLPM4qUvYBPQFlM0irf+iyhlkNxAjKWVbcLKv44MrVee+NduyKtGazbszKLeVI5ZU2unAC2DGaNzvtky5rSg69jpUq2w5xFTPY2tSupQf5PhOdwwsZwVEBJn1QyUP539fMRZ5CqsJmr0tJJZTIBMCyz+J5/clPGzhE0UOHfLMfy4PRVNJZ0sI05z61c67Ab6wtIHOp/BHxPaXZUcAvxYjuBSeTQ1907cIAKD/9+qV61+cDG4yh+GxbGMtDCmbH54ngZ5pEgNzihv8PwQk5MdKGUQmRK5Pk2NBpdBoWORsZeRRI7TkwhQMTkbEbVT6xve1SwHbFFFA2PZI5Ma4ycPQKwKNA6yILCOZ7yFdYh5r/jniiVj1eTVlcIiQbMiAm2Di5+KsE6OvPnSR8lkJSQ5BKmH7XTGqCB0A77xe6U/AE4hwVHDHIzB6ioP43eGmZcGqJOhFOpnj85RJF76ecbFuwI8XiHcbBfWMZXl7rV3UG2tj98Poi0xYjdSmwmMdPVTucV/14tf5s4UciFgupHlax9C+NCgJvgl3xKsCQruyUrlOuwDT9aczfUeHQgwS0++78T8rTrU+J+GcEaunh4="
+install:
+- rvm use 2.2.3 --install --fuzzy
+- gem update --system
+- gem install sass
+- gem install jekyll -v 3.2.1
+
+script:
+- sbt ++$TRAVIS_SCALA_VERSION orgScriptCI
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+- sbt ++$TRAVIS_SCALA_VERSION orgAfterCISuccess
+
+cache:
+  directories:
+  - $HOME/.sbt/0.13
+  - $HOME/.sbt/boot/scala*
+  - $HOME/.sbt/cache
+  - $HOME/.sbt/launchers
+  - $HOME/.ivy2
+  - $HOME/.coursier
+
+before_cache:
+- du -h -d 1 $HOME/.ivy2/
+- du -h -d 2 $HOME/.sbt/
+- du -h -d 4 $HOME/.coursier/
+- find $HOME/.sbt -name "*.lock" -type f -delete
+- find $HOME/.ivy2/cache -name "ivydata-*.properties" -type f -delete
+- find $HOME/.coursier/cache -name "*.lock" -type f -delete
