@@ -22,8 +22,10 @@ import org.scalacheck.Arbitrary.arbitrary
 
 object Magic {
 
+  val stream = getClass.getResourceAsStream("/blns.txt")
+
   private[magic] val strings = scala.io.Source
-    .fromResource("blns.txt")
+    .fromInputStream(stream)
     .getLines
     .filterNot { s =>
       val trimmed = s.trim
