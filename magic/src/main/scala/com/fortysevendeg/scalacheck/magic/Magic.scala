@@ -22,8 +22,16 @@ import org.scalacheck.Arbitrary.arbitrary
 
 object Magic {
 
-  private[magic] val strings =
-    List("This", "is", "a", "temporary", "list", "of", "strings")
+  val stream = getClass.getResourceAsStream("/blns.txt")
+
+  private[magic] val strings = scala.io.Source
+    .fromInputStream(stream)
+    .getLines
+    .filterNot { s =>
+      val trimmed = s.trim
+      trimmed.startsWith("#") || trimmed.isEmpty
+    }
+    .toList
 
   val magicStrings: Gen[String] = oneOf(strings)
 
