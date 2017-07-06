@@ -84,25 +84,23 @@ trait GenJoda {
   /** A <code>DateTime</code> generator. */
   def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] =
     for {
-      year  <- Gen.choose(-292275054, 292278993)
-      month <- Gen.choose(1, 12)
-      yearAndMonthDt <- Try(Gen.const(new DateTime(year, month, 1, 0, 0)))
-        .getOrElse(Gen.fail)
+      year           <- Gen.choose(-292275054, 292278993)
+      month          <- Gen.choose(1, 12)
+      yearAndMonthDt <- Gen.const(new DateTime(year, month, 1, 0, 0))
       dayOfMonth     <- Gen.choose(1, yearAndMonthDt.dayOfMonth.getMaximumValue)
       hourOfDay      <- Gen.choose(0, 23)
       minuteOfHour   <- Gen.choose(0, 59)
       secondOfMinute <- Gen.choose(0, 59)
       millisOfSecond <- Gen.choose(0, 999)
-      attempt <- Try(
-        Gen.const(
-          new DateTime(
-            year,
-            month,
-            dayOfMonth,
-            hourOfDay,
-            minuteOfHour,
-            secondOfMinute,
-            millisOfSecond))).getOrElse(Gen.fail)
+      attempt <- Gen.const(
+        new DateTime(
+          year,
+          month,
+          dayOfMonth,
+          hourOfDay,
+          minuteOfHour,
+          secondOfMinute,
+          millisOfSecond))
     } yield granularity.normalize(attempt)
 }
 

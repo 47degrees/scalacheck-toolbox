@@ -37,8 +37,7 @@ object GenDateTime {
       implicit scDateTime: ScalaCheckDateTimeInfra[D, R],
       granularity: Granularity[D]): Gen[D] = {
     for {
-      addedRange <- Try(Gen.const(scDateTime.addRange(dateTime, range)))
-        .getOrElse(Gen.fail)
+      addedRange <- Gen.const(scDateTime.addRange(dateTime, range))
       diffMillis = scDateTime.getMillis(addedRange) - scDateTime.getMillis(dateTime)
       millis <- Gen.choose(0L min diffMillis, 0L max diffMillis)
     } yield granularity.normalize(scDateTime.addMillis(dateTime, millis))
