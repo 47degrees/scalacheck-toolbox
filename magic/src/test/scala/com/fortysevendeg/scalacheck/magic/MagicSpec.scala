@@ -16,27 +16,19 @@
 
 package com.fortysevendeg.scalacheck.magic
 
-import org.scalacheck._
-import org.scalacheck.Gen._
-import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.FunSuite
+import java.io.File
 
-object Magic {
+class MagicSpec extends FunSuite {
 
-  private[magic] val stringsFileName = "/blns.txt"
-  private[magic] val stream          = getClass.getResourceAsStream(stringsFileName)
+  test("Naughty strings data file should exist in the project") {
+    val fullStringsFileName = getClass.getResource(Magic.stringsFileName).getFile
 
-  private[magic] val strings = scala.io.Source
-    .fromInputStream(stream)
-    .getLines
-    .filterNot { s =>
-      val trimmed = s.trim
-      trimmed.startsWith("#") || trimmed.isEmpty
-    }
-    .toList
+    val asFile = new File(fullStringsFileName)
 
-  val magicStrings: Gen[String] = oneOf(strings)
-
-  implicit val enhancedStringArbitrary: Arbitrary[String] = Arbitrary {
-    oneOf(arbitrary[List[Char]] map (_.mkString), magicStrings)
+    assert(
+      asFile.exists,
+      """Magic Strings file is not present as "resources/blns.txt". Make sure the git submodule has been pulled using <git submodule update --recursive> from the command line"""
+    )
   }
 }
