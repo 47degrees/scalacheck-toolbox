@@ -16,6 +16,7 @@
 
 package com.fortysevendeg.scalacheck.magic
 
+import java.io.File
 import org.scalacheck._
 import org.scalacheck.Prop._
 
@@ -34,5 +35,12 @@ object MagicProperties extends Properties("Magic Generators") {
   property("regular arbitrary strings are included in full arbitrary generation") = exists {
     s: String =>
       !strings.contains(s)
+  }
+
+  property("Naughty strings data file should exist in the project") = exists { _: Unit =>
+    val fullStringsFileName = getClass.getResource(Magic.stringsFileName).getFile
+    val asFile              = new File(fullStringsFileName)
+
+    asFile.exists :| """Magic Strings file is not present as "resources/blns.txt". Make sure the git submodule has been pulled using <git submodule update --recursive> from the command line"""
   }
 }

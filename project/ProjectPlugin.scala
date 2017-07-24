@@ -42,7 +42,7 @@ object ProjectPlugin extends AutoPlugin {
       fork in Test := false
     )
 
-    lazy val commonDeps = Seq(libraryDependencies ++= Seq(%%("scalacheck"), %("joda-time"), %%("scalatest")))
+    lazy val commonDeps = Seq(libraryDependencies ++= Seq(%%("scalacheck"), %("joda-time")))
   }
 
   override def projectSettings: Seq[Def.Setting[_]] =
