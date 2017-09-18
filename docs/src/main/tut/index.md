@@ -23,3 +23,7 @@ The ScalaCheck Toolbox is intended to be a set of libraries that can help rein i
 
 
 View the [documentation](/scalacheck-toolbox/docs) for more tips on how to get the best from these tools.
+
+## Commercial Support
+
+47 Degrees offers commercial support for the scalacheck-toolbox library and associated technologies. To find out more, visit [47 Degrees' Open Source Support](https://www.47deg.com/services/open-source-support/).
