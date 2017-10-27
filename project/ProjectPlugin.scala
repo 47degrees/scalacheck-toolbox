@@ -13,7 +13,6 @@ import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
-import tut.Plugin._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -69,7 +68,7 @@ object ProjectPlugin extends AutoPlugin {
         (compile in Compile).asRunnableItemFull,
         "test-only * -- -minSuccessfulTests 100000".asRunnableItemFull,
         (ScoverageKeys.coverageReport in Test).asRunnableItemFull,
-        (tut in ProjectRef(file("."), "docs")).asRunnableItem,
+        "docs/tut".asRunnableItem,
         "docs/unidoc".asRunnableItemFull
       )
     )
