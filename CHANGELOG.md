@@ -1,5 +1,18 @@
 # Changelog
 
+## 10/27/2017 - Version 0.2.3
+
+Release changes:
+
+* Tries to make Travis Builds faster ([#49](https://github.com/47deg/scalacheck-toolbox/pull/49))
+* Generates the ScalaDoc and adds the api to the microsite ([#50](https://github.com/47deg/scalacheck-toolbox/pull/50))
+* Useful combinators ([#51](https://github.com/47deg/scalacheck-toolbox/pull/51))
+* Pulling in the magic strings from an online source ([#54](https://github.com/47deg/scalacheck-toolbox/pull/54))
+* adds comm support statement ([#56](https://github.com/47deg/scalacheck-toolbox/pull/56))
+* give ArbitraryJoda.arbJoda a time zone ([#58](https://github.com/47deg/scalacheck-toolbox/pull/58))
+* Releases scalacheck-toolbox 0.2.3 ([#59](https://github.com/47deg/scalacheck-toolbox/pull/59))
+
+
 ## 04/27/2017 - Version 0.2.2
 
 Release changes:
