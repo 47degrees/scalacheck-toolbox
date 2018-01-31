@@ -67,7 +67,7 @@ object ProjectPlugin extends AutoPlugin {
         (clean in Global).asRunnableItemFull,
         SetSetting(coverageEnabled in Global, true).asRunnableItem,
         (compile in Compile).asRunnableItemFull,
-        "test-only * -- -minSuccessfulTests 100000".asRunnableItemFull,
+        "testOnly * -- -minSuccessfulTests 100000".asRunnableItemFull,
         (ScoverageKeys.coverageReport in Test).asRunnableItemFull,
         (tut in ProjectRef(file("."), "docs")).asRunnableItem,
         "docs/unidoc".asRunnableItemFull

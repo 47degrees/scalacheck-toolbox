@@ -1,8 +1,5 @@
 language: scala
 
-dist: precise
-sudo: required
-
 scala:
   - 2.10.7
   - 2.11.12
