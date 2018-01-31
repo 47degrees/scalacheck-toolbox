@@ -52,7 +52,6 @@ trait GenJdk8 {
 object GenJdk8 extends GenJdk8
 
 object ArbitraryJdk8 extends GenJdk8 {
-  implicit def arbJdk8(
-      implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] =
+  implicit def arbJdk8(implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] =
     Arbitrary(genZonedDateTime)
 }

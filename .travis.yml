@@ -1,29 +1,59 @@
 language: scala
 
+jdk:
+  - oraclejdk8
+
 scala:
   - 2.10.7
   - 2.11.12
   - 2.12.4
 
-jdk:
-  - oraclejdk8
-
 before_install:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-    openssl aes-256-cbc -K $encrypted_1e3c8fda68a9_key -iv $encrypted_1e3c8fda68a9_iv
-    -in secring.gpg.enc -out secring.gpg -d;
-  fi
-- export PATH=${PATH}:./vendor/bundle
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
+      openssl aes-256-cbc -K $encrypted_1e3c8fda68a9_key -iv $encrypted_1e3c8fda68a9_iv
+      -in secring.gpg.enc -out secring.gpg -d;
+    fi
+  - export PATH=${PATH}:./vendor/bundle
 
 install:
-- rvm use 2.2.5 --install --fuzzy
-- gem update --system
-- gem install sass
-- gem install ruby_dep -v 1.3.1
-- gem install jekyll -v 3.4.3
+  - rvm use 2.2.5 --install --fuzzy
+  - gem update --system
+  - gem install sass
+  - gem install ruby_dep -v 1.3.1
+  - gem install jekyll -v 3.4.3
 
 script:
-- sbt ++$TRAVIS_SCALA_VERSION orgScriptCI
+  - sbt ++$TRAVIS_SCALA_VERSION clean coverage "testOnly * -- -minSuccessfulTests 100000" coverageAggregate coverageReport
+
+stages:
+  - test
+  - validation
+  - deploy
+
+jobs:
+  include:
+    - stage: validation
+      script:
+        - sbt ++$TRAVIS_SCALA_VERSION orgValidateFiles
+        - sbt ++$TRAVIS_SCALA_VERSION orgCheckSettings
+        - sbt ++$TRAVIS_SCALA_VERSION docs/tut
+      scala: 2.12.4
+    - stage: deploy
+      script:
+        - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
+            if grep -q "SNAPSHOT" version.sbt; then
+              sbt ++$TRAVIS_SCALA_VERSION publish;
+            else
+              sbt orgUpdateDocFiles;
+              git reset --hard HEAD;
+              git clean -f;
+              git checkout master;
+              git pull origin master;
+              sbt release;
+              sbt docs/publishMicrosite;
+            fi
+          fi
+      scala: 2.12.4
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)

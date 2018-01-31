@@ -60,17 +60,6 @@ object ProjectPlugin extends AutoPlugin {
         LicenseBadge.apply(_),
         ScalaLangBadge.apply(_),
         GitHubIssuesBadge.apply(_)
-      ),
-      orgScriptTaskListSetting := List(
-        orgValidateFiles.asRunnableItem,
-        orgCheckSettings.asRunnableItem,
-        (clean in Global).asRunnableItemFull,
-        SetSetting(coverageEnabled in Global, true).asRunnableItem,
-        (compile in Compile).asRunnableItemFull,
-        "testOnly * -- -minSuccessfulTests 100000".asRunnableItemFull,
-        (ScoverageKeys.coverageReport in Test).asRunnableItemFull,
-        (tut in ProjectRef(file("."), "docs")).asRunnableItem,
-        "docs/unidoc".asRunnableItemFull
       )
     )
 }

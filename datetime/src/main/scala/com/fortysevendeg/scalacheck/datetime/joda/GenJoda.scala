@@ -109,7 +109,6 @@ trait GenJoda {
 object GenJoda extends GenJoda
 
 object ArbitraryJoda extends GenJoda {
-  implicit def arbJoda(
-      implicit zone: DateTimeZone = DateTimeZone.getDefault): Arbitrary[DateTime] =
+  implicit def arbJoda(implicit zone: DateTimeZone = DateTimeZone.getDefault): Arbitrary[DateTime] =
     Arbitrary(genDateTime.map(_.withZone(zone)))
 }
