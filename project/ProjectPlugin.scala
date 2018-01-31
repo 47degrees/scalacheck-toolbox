@@ -13,7 +13,7 @@ import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
-import tut.Plugin._
+import tut.TutPlugin.autoImport._
 
 object ProjectPlugin extends AutoPlugin {
 
