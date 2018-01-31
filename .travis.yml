@@ -37,6 +37,7 @@ jobs:
         - sbt ++$TRAVIS_SCALA_VERSION orgValidateFiles
         - sbt ++$TRAVIS_SCALA_VERSION orgCheckSettings
         - sbt ++$TRAVIS_SCALA_VERSION docs/tut
+        - bash <(curl -s https://codecov.io/bash)
       scala: 2.12.4
     - stage: deploy
       script:
@@ -54,10 +55,6 @@ jobs:
             fi
           fi
       scala: 2.12.4
-
-after_success:
-- bash <(curl -s https://codecov.io/bash)
-- sbt ++$TRAVIS_SCALA_VERSION orgAfterCISuccess
 
 cache:
   directories:
