@@ -35,6 +35,8 @@ object ProjectPlugin extends AutoPlugin {
       micrositeBaseUrl := "/scalacheck-toolbox",
       micrositeGithubRepo := "scalacheck-toolbox",
       micrositeGithubOwner := "47deg",
+      micrositePushSiteWith := GitHub4s,
+      micrositeGithubToken := getEnvVar(orgGithubTokenSetting.value),
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
       addMappingsToSiteDir(mappings in(ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
