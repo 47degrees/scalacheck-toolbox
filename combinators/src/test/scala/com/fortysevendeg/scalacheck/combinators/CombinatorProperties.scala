@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,14 +43,14 @@ object CombinatorProperties extends Properties("Combinator Generators") {
   property("genDistinctTuple should return a pair where the values are never equal") =
     forAll(genDistinctPair[Int]) { case (fst, snd) => fst != snd }
 
-  property("genOrderedList should return a list in ascending order") =
-    forAll(genOrderedList[Int]) { list: List[Int] =>
+  property("genOrderedList should return a list in ascending order") = forAll(genOrderedList[Int]) {
+    list: List[Int] =>
       list.sliding(2, 1).forall {
         case h :: t :: Nil => h <= t
         case _ :: Nil      => true
         case _             => false
       }
-    }
+  }
 
   property("genOrderedList produces empty lists") = exists(genOrderedList[Int]) { _.isEmpty }
 

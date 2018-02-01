@@ -12,8 +12,10 @@ import sbtorgpolicies.model.scalac
 import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
+import sbtorgpolicies.templates._
+import sbtorgpolicies.templates.badges._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
-import tut.Plugin._
+import tut.TutPlugin.autoImport._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -61,16 +63,38 @@ object ProjectPlugin extends AutoPlugin {
         ScalaLangBadge.apply(_),
         GitHubIssuesBadge.apply(_)
       ),
-      orgScriptTaskListSetting := List(
-        orgValidateFiles.asRunnableItem,
-        orgCheckSettings.asRunnableItem,
-        (clean in Global).asRunnableItemFull,
-        SetSetting(coverageEnabled in Global, true).asRunnableItem,
-        (compile in Compile).asRunnableItemFull,
-        "test-only * -- -minSuccessfulTests 100000".asRunnableItemFull,
-        (ScoverageKeys.coverageReport in Test).asRunnableItemFull,
-        (tut in ProjectRef(file("."), "docs")).asRunnableItem,
-        "docs/unidoc".asRunnableItemFull
+      orgEnforcedFilesSetting := List(
+        LicenseFileType(orgGithubSetting.value, orgLicenseSetting.value, startYear.value),
+        ContributingFileType(
+          orgProjectName.value,
+          // Organization field can be configured with default value if we migrate it to the frees-io organization
+          orgGithubSetting.value.copy(project = "freestyle")),
+        AuthorsFileType(
+          name.value,
+          orgGithubSetting.value,
+          orgMaintainersSetting.value,
+          orgContributorsSetting.value),
+        NoticeFileType(
+          orgProjectName.value,
+          orgGithubSetting.value,
+          orgLicenseSetting.value,
+          startYear.value),
+        VersionSbtFileType,
+        ChangelogFileType,
+        ReadmeFileType(
+          orgProjectName.value,
+          orgGithubSetting.value,
+          startYear.value,
+          orgLicenseSetting.value,
+          orgCommitBranchSetting.value,
+          sbtPlugin.value,
+          name.value,
+          version.value,
+          scalaBinaryVersion.value,
+          sbtBinaryVersion.value,
+          orgSupportedScalaJSVersion.value,
+          orgBadgeListSetting.value
+        )
       )
     )
 }

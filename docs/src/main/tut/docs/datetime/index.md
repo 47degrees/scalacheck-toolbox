@@ -15,7 +15,7 @@ There is an expectation of including more date/time and range classes before 1.0
 
 To arbitrarily generate dates and times, you need to have the `Arbitrary` in scope for your date/time class. Assuming Joda Time:
 
-```tut:invisible
+```tut:silent
 // this is here to remove noisy warnings
 import org.scalacheck.Prop.passed
 import org.scalacheck.Prop.forAll
@@ -33,7 +33,7 @@ val range = Period.years(1)
 
 ```
 
-```tut
+```tut:silent
 import org.scalacheck.Prop.forAll
 import org.joda.time.DateTime
 import com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._
@@ -44,6 +44,7 @@ val prop = forAll { dt: DateTime =>
 }
 
 prop.check
+// + OK, passed 100 tests.
 ```
 
 ## A note on imports
