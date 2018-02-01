@@ -1,5 +1,12 @@
 # Changelog
 
+## 02/01/2018 - Version 0.2.4
+
+Release changes:
+
+* Bumps sbt org policies version ([#60](https://github.com/47deg/scalacheck-toolbox/pull/60))
+
+
 ## 10/27/2017 - Version 0.2.3
 
 Release changes:
