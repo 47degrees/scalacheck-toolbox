@@ -1,5 +1,13 @@
 # Changelog
 
+## 06/13/2018 - Version 0.2.5
+
+Release changes:
+
+* Fixes the microsite publication ([#61](https://github.com/47deg/scalacheck-toolbox/pull/61))
+* Updated sbt-org-policies version to 0.9.1 ([#62](https://github.com/47deg/scalacheck-toolbox/pull/62))
+
+
 ## 02/01/2018 - Version 0.2.4
 
 Release changes:
