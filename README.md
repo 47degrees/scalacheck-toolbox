@@ -1,8 +1,12 @@
+
+[comment]: # (Start Badges)
+
+[![Build Status](https://travis-ci.org/47deg/scalacheck-toolbox.svg?branch=master)](https://travis-ci.org/47deg/scalacheck-toolbox) [![codecov.io](http://codecov.io/github/47deg/scalacheck-toolbox/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-toolbox?branch=master) [![Maven Central](https://img.shields.io/badge/maven%20central-0.2.5-green.svg)](https://oss.sonatype.org/#nexus-search;gav~com.47deg~scalacheck-toolbox*) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/scalacheck-toolbox/master/LICENSE) [![Latest version](https://img.shields.io/badge/scalacheck--toolbox-0.2.5-green.svg)](https://index.scala-lang.org/47deg/scalacheck-toolbox) [![GitHub Issues](https://img.shields.io/github/issues/47deg/scalacheck-toolbox.svg)](https://github.com/47deg/scalacheck-toolbox/issues)
+
+[comment]: # (End Badges)
+
 scalacheck-toolbox
 ====
-
-[![Build Status](https://travis-ci.org/47deg/scalacheck-toolbox.svg?branch=master)](https://travis-ci.org/47deg/scalacheck-toolbox)
-[![codecov.io](http://codecov.io/github/47deg/scalacheck-toolbox/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-toolbox?branch=master)
 
 # A helping hand for generating sensible data with ScalaCheck
 The ScalaCheck Toolbox is intended to be a set of libraries that can help rein in the power of ScalaCheck in a sensible way, while not impeding your tests. There are three libraries to help you:
@@ -14,6 +18,15 @@ The ScalaCheck Toolbox is intended to be a set of libraries that can help rein i
 
 View the [documentation](https://47deg.github.io/scalacheck-toolbox/docs) for more tips on how to get the best from these tools.
 
----
+## scalacheck-toolbox in the wild not found
 
-This project is licenced under the terms of the [Apache Licence, Version 2.0](LICENCE.txt)
+If you wish to add your library here please consider a PR to include it in the list below.
+
+[comment]: # (Start Copyright)
+# Copyright
+
+scalacheck-toolbox is designed and developed by 47 Degrees
+
+Copyright (C) 2016-2018 47 Degrees. <http://47deg.com>
+
+[comment]: # (End Copyright)

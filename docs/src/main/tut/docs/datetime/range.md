@@ -4,7 +4,7 @@ layout: docs
 
 # Creating Ranges
 
-```tut:invisible
+```tut:silent
 // this is here to remove noisy warnings
 import org.scalacheck.Prop.passed
 import org.scalacheck.Prop.forAll
@@ -16,7 +16,7 @@ You can generate date/time instances only within a certain range, using the `gen
 
 Showing this usage with Joda Time:
 
-```tut
+```tut:silent
 import org.joda.time._
 import com.fortysevendeg.scalacheck.datetime.instances.joda._
 import com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange
@@ -29,14 +29,14 @@ val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
 }
 
 prop.check
-
+// + OK, passed 100 tests.
 ```
 
 # Using Granularity and Ranges Together
 
 As you would expect, it is possible to use the granularity and range concepts together. This example should not show anything surprising by now:
 
-```tut
+```tut:silent
 import com.fortysevendeg.scalacheck.datetime.instances.joda._
 import com.fortysevendeg.scalacheck.datetime.GenDateTime.genDateTimeWithinRange
 import com.fortysevendeg.scalacheck.datetime.joda.granularity.days
@@ -53,7 +53,7 @@ val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
 }
 
 prop.check
-
+// + OK, passed 100 tests.
 ```
 
 # Constraining LocalTime and LocalDate

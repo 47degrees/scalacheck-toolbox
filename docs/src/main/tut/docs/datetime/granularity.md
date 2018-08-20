@@ -3,7 +3,7 @@ layout: docs
 ---
 # Granularity
 
-```tut:invisible
+```tut:silent
 // this is here to remove noisy warnings
 import org.scalacheck.Prop.passed
 import org.scalacheck.Prop.forAll
@@ -25,7 +25,7 @@ When a value is constrained, the time fields are set to zero, and the rest to th
 
 To constrain a generated type, you simply need to provide an import for the typeclass for your date/time and range, and also an import for the granularity. As an example, this time using Java SE 8's `java.time` package:
 
-```tut
+```tut:silent
 import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
 import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
@@ -41,6 +41,7 @@ val prop = forAll { zdt: ZonedDateTime =>
 }
 
 prop.check
+// + OK, passed 100 tests.
 ```
 
 Note that the granularity of Instant not strictly valid as Instant does not really support the notion. However for convenience a Instants can be constrained as for the other types but is performed by transforming the Instant to the ZonedDateTime for UTC, constraining that and converting back again afternwards.  

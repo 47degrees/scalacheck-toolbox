@@ -1,6 +1,17 @@
 /*
- * scalacheck-toolbox
- * Copyright (C) 2016-2017 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.fortysevendeg.scalacheck.datetime
@@ -8,54 +19,62 @@ package com.fortysevendeg.scalacheck.datetime
 import scala.util.Try
 
 import org.scalacheck.Gen
-import org.scalacheck.Arbitrary.arbitrary
 
 import com.fortysevendeg.scalacheck.datetime.typeclasses._
 
 /**
-  * Some generators for working with dates and times.
-  */
+ * Some generators for working with dates and times.
+ */
 object GenDateTime {
 
   /**
-    * Generates a <code>DateTime</code> between the given <code>dateTime</code>x and the end of the <code>range</code>
-    * @param dateTime A <code>DateTime</code> to calculate the period offsets from.
-    * @param period An offset from <code>dateTime</code>, serving as an upper bound for generated <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided <code>DateTime</code>.
-    * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
-    */
-  def genDateTimeWithinRange[D, R](dateTime: D, range: R)(implicit scDateTime: ScalaCheckDateTimeInfra[D, R], granularity: Granularity[D]): Gen[D] = {
+   * Generates a <code>DateTime</code> between the given <code>dateTime</code> and the end of the <code>range</code>
+   * @param dateTime A <code>DateTime</code> to calculate the period offsets from.
+   * @param range An offset from <code>dateTime</code>, serving as an upper bound for generated <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided <code>DateTime</code>.
+   * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
+   */
+  def genDateTimeWithinRange[D, R](dateTime: D, range: R)(
+      implicit scDateTime: ScalaCheckDateTimeInfra[D, R],
+      granularity: Granularity[D]): Gen[D] = {
     for {
-      addedRange <- Try(Gen.const(scDateTime.addRange(dateTime, range))).getOrElse(Gen.fail)
+      addedRange <- Try(Gen.const(scDateTime.addRange(dateTime, range)))
+        .getOrElse(Gen.fail)
       diffMillis = scDateTime.getMillis(addedRange) - scDateTime.getMillis(dateTime)
       millis <- Gen.choose(0L min diffMillis, 0L max diffMillis)
       normalized = granularity.normalize(scDateTime.addMillis(dateTime, millis))
-      (early, late) = if(scDateTime.isBefore(dateTime, addedRange)) (dateTime, addedRange) else (addedRange, dateTime)
+      (early, late) = if (scDateTime.isBefore(dateTime, addedRange)) (dateTime, addedRange)
+      else (addedRange, dateTime)
       inRange = !(scDateTime.isBefore(normalized, early) || scDateTime.isBefore(late, normalized))
       ok <- if (inRange) Gen.const(normalized) else Gen.fail
     } yield ok
   }
 
-  def genDateWithinRange[D, R](date: D, range: R)(implicit scDate: ScalaCheckDateInfra[D, R], granularity: Granularity[D]): Gen[D] = {
+  def genDateWithinRange[D, R](date: D, range: R)(
+      implicit scDate: ScalaCheckDateInfra[D, R],
+      granularity: Granularity[D]): Gen[D] = {
     for {
       addedRange <- Try(Gen.const(scDate.addRange(date, range))).getOrElse(Gen.fail)
       diffDays = scDate.getDiffDays(date, addedRange)
       days <- Gen.choose(0 min diffDays, 0 max diffDays)
       normalized = granularity.normalize(scDate.addDays(date, days))
-      (early, late) = if(scDate.isBefore(date, addedRange)) (date, addedRange) else (addedRange, date)
+      (early, late) = if (scDate.isBefore(date, addedRange)) (date, addedRange)
+      else (addedRange, date)
       inRange = !(scDate.isBefore(normalized, early) || scDate.isBefore(late, normalized))
       ok <- if (inRange) Gen.const(normalized) else Gen.fail
     } yield ok
   }
 
-  def genTimeBetween[D](from: D, to: D)(implicit scTime: ScalaCheckTimeInfra[D], granularity: Granularity[D]): Gen[D] = {
+  def genTimeBetween[D](from: D, to: D)(
+      implicit scTime: ScalaCheckTimeInfra[D],
+      granularity: Granularity[D]): Gen[D] = {
     val (early, late) = if (scTime.isBefore(from, to)) (from, to) else (to, from)
-    val diffMillis= scTime.diffMillis(early, late)
+    val diffMillis    = scTime.diffMillis(early, late)
     for {
       millis <- Gen.choose(0L, diffMillis)
       normalized = granularity.normalize(scTime.addMillis(early, millis))
-      ok <- if(scTime.isBefore(normalized, early) || scTime.isBefore(late, normalized)) Gen.fail else Gen.const(normalized)
+      ok <- if (scTime.isBefore(normalized, early) || scTime.isBefore(late, normalized)) Gen.fail
+      else Gen.const(normalized)
     } yield ok
   }
-
 
 }
