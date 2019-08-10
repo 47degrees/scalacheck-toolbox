@@ -17,14 +17,14 @@
 package com.fortysevendeg.scalacheck.datetime.jdk8
 
 import collection.JavaConverters._
-
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary
-
 import java.time._
 import java.time.temporal.ChronoUnit.MILLIS
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
+
+import scala.util.Try
 
 trait GenJdk8 {
 
@@ -54,4 +54,18 @@ object GenJdk8 extends GenJdk8
 object ArbitraryJdk8 extends GenJdk8 {
   implicit def arbJdk8(implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] =
     Arbitrary(genZonedDateTime)
+
+  implicit val arbInstant: Arbitrary[Instant] = {
+    val gen: Gen[Instant] =
+      Gen
+        .choose[Long](Instant.MIN.toEpochMilli, Instant.MAX.toEpochMilli)
+        .flatMap { long =>
+          Try(Instant.ofEpochMilli(long)).toOption match {
+            case Some(time) => Gen.const(time)
+            case None       => Gen.fail
+          }
+        }
+
+    Arbitrary(gen)
+  }
 }
