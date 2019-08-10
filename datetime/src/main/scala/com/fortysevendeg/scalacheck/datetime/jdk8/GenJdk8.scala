@@ -23,8 +23,7 @@ import java.time._
 import java.time.temporal.ChronoUnit.MILLIS
 
 import com.fortysevendeg.scalacheck.datetime.Granularity
-
-import scala.util.Try
+import org.scalacheck.Gen.Choose
 
 trait GenJdk8 {
 
@@ -56,16 +55,12 @@ object ArbitraryJdk8 extends GenJdk8 {
     Arbitrary(genZonedDateTime)
 
   implicit val arbInstant: Arbitrary[Instant] = {
-    val gen: Gen[Instant] =
-      Gen
-        .choose[Long](Instant.MIN.toEpochMilli, Instant.MAX.toEpochMilli)
-        .flatMap { long =>
-          Try(Instant.ofEpochMilli(long)).toOption match {
-            case Some(time) => Gen.const(time)
-            case None       => Gen.fail
-          }
-        }
 
-    Arbitrary(gen)
+    implicit val c: Choose[Instant] =
+      Choose.xmap[Long, Instant](Instant.ofEpochSecond(_), _.getEpochSecond)
+
+    Arbitrary(
+      Gen.choose[Instant](Instant.MIN, Instant.MAX)
+    )
   }
 }
