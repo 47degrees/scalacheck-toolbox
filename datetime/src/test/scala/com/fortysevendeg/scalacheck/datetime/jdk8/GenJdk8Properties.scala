@@ -161,4 +161,8 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
           }
         }
     }
+
+  property("arbInstant creates valid Instant.") = forAll(ArbitraryJdk8.arbInstant) { _ =>
+    true
+  }
 }
