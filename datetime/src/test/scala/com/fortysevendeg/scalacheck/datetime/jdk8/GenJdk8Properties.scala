@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,16 @@
 
 package com.fortysevendeg.scalacheck.datetime.jdk8
 
-import scala.util.Try
-
-import org.scalacheck._
-import org.scalacheck.Prop._
-
 import java.time._
 
 import com.fortysevendeg.scalacheck.datetime.GenDateTime._
-import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
-
-import GenJdk8._
-
 import com.fortysevendeg.scalacheck.datetime.Granularity
+import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
+import com.fortysevendeg.scalacheck.datetime.jdk8.GenJdk8._
+import org.scalacheck._
+import org.scalacheck.Prop._
+
+import scala.util.Try
 
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
@@ -43,7 +40,21 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   property("arbitrary generation creates valid times (with no granularity)") = {
     import ArbitraryJdk8._
-    forAll { dt: ZonedDateTime =>
+    forAll { _: ZonedDateTime =>
+      passed
+    }
+  }
+
+  property("arbitrary generation creates valid times (with no granularity)") = {
+    import ArbitraryJdk8._
+    forAll { _: LocalDateTime =>
+      passed
+    }
+  }
+
+  property("arbitrary generation creates valid times (with no granularity)") = {
+    import ArbitraryJdk8._
+    forAll { _: Instant =>
       passed
     }
   }
@@ -62,7 +73,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       val prevSecond = dt.plusSeconds(-1)
       val prevHour   = dt.plusHours(-1)
 
-      (prevSecond.get(HOUR_OF_DAY) == prevHour.get(HOUR_OF_DAY))
+      prevSecond.get(HOUR_OF_DAY) == prevHour.get(HOUR_OF_DAY)
     }
     def zeroHours(dt: ZonedDateTime) = zeroMinutes(dt) && {
       // Very very rarely, some days start at 1am, rather than 12am
@@ -81,11 +92,11 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     def firstDay(dt: ZonedDateTime) = zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1
 
     List(
-      (granularity.seconds, zeroNanos _),
-      (granularity.minutes, zeroSeconds _),
-      (granularity.hours, zeroMinutes _),
-      (granularity.days, zeroHours _),
-      (granularity.years, firstDay _)
+      (granularity.seconds, zeroNanos),
+      (granularity.minutes, zeroSeconds),
+      (granularity.hours, zeroMinutes),
+      (granularity.days, zeroHours),
+      (granularity.years, firstDay)
     )
   }
 
@@ -97,7 +108,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   property("genZonedDateTime with a granularity generates appropriate ZonedDateTimes") =
     forAll(Gen.oneOf(granularitiesAndPredicates)) {
       case (granularity, predicate) =>
-        implicit val generatedGranularity = granularity
+        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
         forAll(genZonedDateTime) { dt =>
           predicate(dt) :| s"${granularity.description}: $dt"
@@ -109,21 +120,45 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       case (granularity, predicate) =>
         import ArbitraryJdk8._
 
-        implicit val generatedGranularity = granularity
+        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
         forAll { dt: ZonedDateTime =>
           predicate(dt) :| s"${granularity.description}: $dt"
         }
     }
 
+  property("arbitrary generation with a granularity generates appropriate LocalDateTimes") =
+    forAll(Gen.oneOf(granularitiesAndPredicates)) {
+      case (granularity, predicate) =>
+        import ArbitraryJdk8._
+
+        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+
+        forAll { dt: LocalDateTime =>
+          predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
+        }
+    }
+
+  property("arbitrary generation with a granularity generates appropriate Instants") =
+    forAll(Gen.oneOf(granularitiesAndPredicates)) {
+      case (granularity, predicate) =>
+        import ArbitraryJdk8._
+
+        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+
+        forAll { instant: Instant =>
+          predicate(instant.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $instant"
+        }
+    }
+
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
   private[this] def tooLargeForAddingRanges(dateTime: ZonedDateTime, d: Duration): Boolean =
-    Try(dateTime.plus(d).toInstant().toEpochMilli()).isFailure
+    Try(dateTime.plus(d).toInstant.toEpochMilli).isFailure
 
   property("genDuration can be added to any date") = forAll(genZonedDateTime, genDuration) {
     (dt, dur) =>
       !tooLargeForAddingRanges(dt, dur) ==> {
-        val attempted = Try(dt.plus(dur).toInstant().toEpochMilli())
+        val attempted = Try(dt.plus(dur).toInstant.toEpochMilli)
         attempted.isSuccess :| attempted.toString
       }
   }
@@ -134,7 +169,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       case (now, d, (granularity, predicate)) =>
         !tooLargeForAddingRanges(now, d) ==> {
 
-          implicit val generatedGranularity = granularity
+          implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
           forAll(genDateTimeWithinRange(now, d)) { generated =>
             val durationBoundary = now.plus(d)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,7 @@
 package com.fortysevendeg.scalacheck.datetime
 
 import scala.util.Try
-
 import org.scalacheck.Gen
-
 import com.fortysevendeg.scalacheck.datetime.typeclasses._
 
 /**
