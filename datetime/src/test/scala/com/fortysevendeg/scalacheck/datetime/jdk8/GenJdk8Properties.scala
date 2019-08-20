@@ -38,21 +38,28 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       passed
     }
 
-  property("arbitrary generation creates valid times (with no granularity)") = {
+  property("arbitrary generation creates valid ZonedDateTimes (with no granularity)") = {
     import ArbitraryJdk8._
     forAll { _: ZonedDateTime =>
       passed
     }
   }
 
-  property("arbitrary generation creates valid times (with no granularity)") = {
+  property("arbitrary generation creates valid LocalDateTimes (with no granularity)") = {
     import ArbitraryJdk8._
     forAll { _: LocalDateTime =>
       passed
     }
   }
 
-  property("arbitrary generation creates valid times (with no granularity)") = {
+  property("arbitrary generation creates valid LocalDates (with no granularity)") = {
+    import ArbitraryJdk8._
+    forAll { _: LocalDate =>
+      passed
+    }
+  }
+
+  property("arbitrary generation creates valid Instants (with no granularity)") = {
     import ArbitraryJdk8._
     forAll { _: Instant =>
       passed
@@ -136,6 +143,18 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
         forAll { dt: LocalDateTime =>
           predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
+        }
+    }
+
+  property("arbitrary generation with a granularity generates appropriate LocalDates") =
+    forAll(Gen.oneOf(granularitiesAndPredicates)) {
+      case (granularity, predicate) =>
+        import ArbitraryJdk8._
+
+        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+
+        forAll { dt: LocalDate =>
+          predicate(dt.atStartOfDay(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
         }
     }
 
