@@ -1,7 +1,7 @@
 
 [comment]: # (Start Badges)
 
-[![Build Status](https://travis-ci.org/47deg/scalacheck-toolbox.svg?branch=master)](https://travis-ci.org/47deg/scalacheck-toolbox) [![codecov.io](http://codecov.io/github/47deg/scalacheck-toolbox/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-toolbox?branch=master) [![Maven Central](https://img.shields.io/badge/maven%20central-0.2.5-green.svg)](https://oss.sonatype.org/#nexus-search;gav~com.47deg~scalacheck-toolbox*) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/scalacheck-toolbox/master/LICENSE) [![Latest version](https://img.shields.io/badge/scalacheck--toolbox-0.2.5-green.svg)](https://index.scala-lang.org/47deg/scalacheck-toolbox) [![GitHub Issues](https://img.shields.io/github/issues/47deg/scalacheck-toolbox.svg)](https://github.com/47deg/scalacheck-toolbox/issues)
+[![Build Status](https://travis-ci.org/47deg/scalacheck-toolbox.svg?branch=master)](https://travis-ci.org/47deg/scalacheck-toolbox) [![codecov.io](http://codecov.io/github/47deg/scalacheck-toolbox/coverage.svg?branch=master)](http://codecov.io/github/47deg/scalacheck-toolbox?branch=master) [![Maven Central](https://img.shields.io/badge/maven%20central-0.2.6-green.svg)](https://oss.sonatype.org/#nexus-search;gav~com.47deg~scalacheck-toolbox*) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/scalacheck-toolbox/master/LICENSE) [![Latest version](https://img.shields.io/badge/scalacheck--toolbox-0.2.6-green.svg)](https://index.scala-lang.org/47deg/scalacheck-toolbox) [![GitHub Issues](https://img.shields.io/github/issues/47deg/scalacheck-toolbox.svg)](https://github.com/47deg/scalacheck-toolbox/issues)
 
 [comment]: # (End Badges)
 
@@ -27,6 +27,6 @@ If you wish to add your library here please consider a PR to include it in the l
 
 scalacheck-toolbox is designed and developed by 47 Degrees
 
-Copyright (C) 2016-2018 47 Degrees. <http://47deg.com>
+Copyright (C) 2016-2019 47 Degrees. <http://47deg.com>
 
 [comment]: # (End Copyright)
