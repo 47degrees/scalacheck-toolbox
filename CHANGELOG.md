@@ -1,5 +1,16 @@
 # Changelog
 
+## 08/21/2019 - Version 0.2.6
+
+Release changes:
+
+* Fixes the microsite publication ([#61](https://github.com/47deg/scalacheck-toolbox/pull/61))
+* Updated sbt-org-policies version to 0.9.1 ([#62](https://github.com/47deg/scalacheck-toolbox/pull/62))
+* Change to OpenJDK ([#65](https://github.com/47deg/scalacheck-toolbox/pull/65))
+* Adds some jdk instances ([#66](https://github.com/47deg/scalacheck-toolbox/pull/66))
+* Release 0.2.6 ([#67](https://github.com/47deg/scalacheck-toolbox/pull/67))
+
+
 ## 06/13/2018 - Version 0.2.5
 
 Release changes:
