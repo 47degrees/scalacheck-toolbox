@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,4 +32,21 @@ trait Jdk8Instances {
         zonedDateTime.toInstant.toEpochMilli
     }
 
+  implicit val jdk8LocalDateTime: ScalaCheckDateTimeInfra[LocalDateTime, Duration] =
+    jdk8ForDurationFrom[LocalDateTime](_.toLocalDateTime, _.atZone(ZoneOffset.UTC))
+
+  implicit val jdk8Instant: ScalaCheckDateTimeInfra[Instant, Duration] =
+    jdk8ForDurationFrom[Instant](_.toInstant, _.atZone(ZoneOffset.UTC))
+
+  private[this] def jdk8ForDurationFrom[A](
+      fromZDT: ZonedDateTime => A,
+      toZDT: A => ZonedDateTime): ScalaCheckDateTimeInfra[A, Duration] =
+    new ScalaCheckDateTimeInfra[A, Duration] {
+      def addRange(dateTime: A, range: Duration): A =
+        fromZDT(jdk8ForDuration.addRange(toZDT(dateTime), range))
+      def addMillis(dateTime: A, millis: Long): A =
+        fromZDT(jdk8ForDuration.addMillis(toZDT(dateTime), millis))
+      override def getMillis(dateTime: A): Long =
+        jdk8ForDuration.getMillis(toZDT(dateTime))
+    }
 }
