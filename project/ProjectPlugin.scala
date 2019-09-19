@@ -30,7 +30,7 @@ object ProjectPlugin extends AutoPlugin {
       val scalacheck: String = "1.14.1"
       val scala211: String = "2.11.12"
       val scala212: String = "2.12.10"
-      val scala213: String = "2.13.1"
+      val scala213: String = "2.13.0"
     }
 
     lazy val docsMappingsAPIDir: SettingKey[String] = settingKey[String](
@@ -67,6 +67,13 @@ object ProjectPlugin extends AutoPlugin {
       description := "A helping hand for generating sensible data with ScalaCheck",
       startYear := Option(2016),
       crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
+      scalacOptions := {
+        val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
+        CrossVersion.partialVersion(scalaBinaryVersion.value) match {
+          case Some((2, 13))  => scalacOptions213
+          case _              => scalacOptions.value
+        }
+      },
       orgBadgeListSetting := List(
         TravisBadge.apply(_),
         CodecovBadge.apply(_),
