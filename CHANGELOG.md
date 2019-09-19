@@ -1,5 +1,13 @@
 # Changelog
 
+## 09/19/2019 - Version 0.3.0
+
+Release changes:
+
+* Cross Scala version 2.13 ([#68](https://github.com/47deg/scalacheck-toolbox/pull/68))
+* Releases 0.3.0 ([#69](https://github.com/47deg/scalacheck-toolbox/pull/69))
+
+
 ## 08/21/2019 - Version 0.2.6
 
 Release changes:
