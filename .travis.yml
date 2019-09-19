@@ -39,7 +39,6 @@ jobs:
     - stage: validation
       script:
         - sbt ++$TRAVIS_SCALA_VERSION orgValidateFiles
-        - sbt ++$TRAVIS_SCALA_VERSION orgCheckSettings
         - sbt ++$TRAVIS_SCALA_VERSION docs/tut
         - bash <(curl -s https://codecov.io/bash)
       scala: 2.12.10
