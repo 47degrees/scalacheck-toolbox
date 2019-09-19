@@ -29,7 +29,6 @@ val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
 }
 
 prop.check
-// + OK, passed 100 tests.
 ```
 
 # Using Granularity and Ranges Together
@@ -53,5 +52,4 @@ val prop = forAll(genDateTimeWithinRange(from, range)) { dt =>
 }
 
 prop.check
-// + OK, passed 100 tests.
 ```

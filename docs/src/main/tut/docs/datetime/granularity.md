@@ -41,6 +41,5 @@ val prop = forAll { zdt: ZonedDateTime =>
 }
 
 prop.check
-// + OK, passed 100 tests.
 ```
 
