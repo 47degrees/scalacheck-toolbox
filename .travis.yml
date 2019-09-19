@@ -4,9 +4,9 @@ jdk:
   - openjdk8
 
 scala:
-  - 2.10.7
   - 2.11.12
-  - 2.12.6
+  - 2.12.10
+  - 2.13.1
 
 before_install:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
@@ -42,7 +42,7 @@ jobs:
         - sbt ++$TRAVIS_SCALA_VERSION orgCheckSettings
         - sbt ++$TRAVIS_SCALA_VERSION docs/tut
         - bash <(curl -s https://codecov.io/bash)
-      scala: 2.12.6
+      scala: 2.13.1
     - stage: deploy
       script:
         - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
@@ -58,7 +58,7 @@ jobs:
               sbt docs/publishMicrosite;
             fi
           fi
-      scala: 2.12.6
+      scala: 2.13.1
 
 cache:
   directories:
