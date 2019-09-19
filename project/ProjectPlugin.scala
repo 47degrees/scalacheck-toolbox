@@ -25,6 +25,14 @@ object ProjectPlugin extends AutoPlugin {
 
   object autoImport {
 
+    lazy val V = new {
+      val jodaTime: String = "2.10.3"
+      val scalacheck: String = "1.14.1"
+      val scala211: String = "2.11.12"
+      val scala212: String = "2.12.10"
+      val scala213: String = "2.13.0"
+    }
+
     lazy val docsMappingsAPIDir: SettingKey[String] = settingKey[String](
       "Name of subdirectory in site target directory for api docs")
 
@@ -46,8 +54,10 @@ object ProjectPlugin extends AutoPlugin {
       fork in Test := false
     )
 
-    lazy val commonDeps = Seq(libraryDependencies ++= Seq(%%("scalacheck"), %("joda-time")))
+    lazy val commonDeps = Seq(libraryDependencies ++= Seq(%%("scalacheck", V.scalacheck), %("joda-time", V.jodaTime)))
   }
+
+  import autoImport._
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
@@ -56,7 +66,14 @@ object ProjectPlugin extends AutoPlugin {
       homepage := Option(url("https://47deg.github.io/scalacheck-toolbox/")),
       description := "A helping hand for generating sensible data with ScalaCheck",
       startYear := Option(2016),
-      crossScalaVersions := Seq(scalac.`2.10`, scalac.`2.11`, scalac.`2.12`),
+      crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
+      scalacOptions := {
+        val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
+        CrossVersion.partialVersion(scalaBinaryVersion.value) match {
+          case Some((2, 13))  => scalacOptions213
+          case _              => scalacOptions.value
+        }
+      },
       orgBadgeListSetting := List(
         TravisBadge.apply(_),
         CodecovBadge.apply(_),
@@ -69,8 +86,7 @@ object ProjectPlugin extends AutoPlugin {
         LicenseFileType(orgGithubSetting.value, orgLicenseSetting.value, startYear.value),
         ContributingFileType(
           orgProjectName.value,
-          // Organization field can be configured with default value if we migrate it to the frees-io organization
-          orgGithubSetting.value.copy(project = "freestyle")),
+          orgGithubSetting.value),
         AuthorsFileType(
           name.value,
           orgGithubSetting.value,

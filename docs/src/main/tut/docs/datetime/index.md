@@ -44,7 +44,6 @@ val prop = forAll { dt: DateTime =>
 }
 
 prop.check
-// + OK, passed 100 tests.
 ```
 
 ## A note on imports
