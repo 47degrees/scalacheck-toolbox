@@ -26,7 +26,7 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val jodaTime: String = "2.10.4"
+      val jodaTime: String = "2.10.5"
       val scalacheck: String = "1.14.2"
       val scala211: String = "2.11.12"
       val scala212: String = "2.12.10"
