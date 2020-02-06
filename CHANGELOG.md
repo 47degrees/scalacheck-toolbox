@@ -1,5 +1,26 @@
 # Changelog
 
+## 02/06/2020 - Version 0.3.2
+
+Release changes:
+
+* Update sbt to 1.3.2 ([#72](https://github.com/47deg/scalacheck-toolbox/pull/72))
+* Update joda-time to 2.10.4 ([#71](https://github.com/47deg/scalacheck-toolbox/pull/71))
+* Update sbt-org-policies to 0.12.0-M3 ([#70](https://github.com/47deg/scalacheck-toolbox/pull/70))
+* Update sbt-microsites to 0.9.6 ([#73](https://github.com/47deg/scalacheck-toolbox/pull/73))
+* Update scalacheck to 1.14.2 ([#74](https://github.com/47deg/scalacheck-toolbox/pull/74))
+* Update sbt-microsites to 0.9.7 ([#75](https://github.com/47deg/scalacheck-toolbox/pull/75))
+* Update sbt to 1.3.3 ([#76](https://github.com/47deg/scalacheck-toolbox/pull/76))
+* Update joda-time to 2.10.5 ([#77](https://github.com/47deg/scalacheck-toolbox/pull/77))
+* Update sbt to 1.3.4 ([#78](https://github.com/47deg/scalacheck-toolbox/pull/78))
+* Update scalacheck to 1.14.3 ([#83](https://github.com/47deg/scalacheck-toolbox/pull/83))
+* Update sbt to 1.3.5 ([#82](https://github.com/47deg/scalacheck-toolbox/pull/82))
+* Update sbt to 1.3.6 ([#84](https://github.com/47deg/scalacheck-toolbox/pull/84))
+* Update sbt to 1.3.7 ([#86](https://github.com/47deg/scalacheck-toolbox/pull/86))
+* Update sbt to 1.3.8 ([#88](https://github.com/47deg/scalacheck-toolbox/pull/88))
+* Release 0.3.2 ([#89](https://github.com/47deg/scalacheck-toolbox/pull/89))
+
+
 ## 09/19/2019 - Version 0.3.1
 
 Release changes:
