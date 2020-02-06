@@ -12,11 +12,11 @@ For SBT, you can add the relevant dependency to your project's build file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-"com.47deg" %% "scalacheck-toolbox-datetime" % "0.3.1" % "test"
+"com.47deg" %% "scalacheck-toolbox-datetime" % "0.3.2" % "test"
 
-"com.47deg" %% "scalacheck-toolbox-magic" % "0.3.1" % "test"
+"com.47deg" %% "scalacheck-toolbox-magic" % "0.3.2" % "test"
 
-"com.47deg" %% "scalacheck-toolbox-combinators" % "0.3.1" % "test"
+"com.47deg" %% "scalacheck-toolbox-combinators" % "0.3.2" % "test"
 ```
 
 [comment]: # (End Replace)
