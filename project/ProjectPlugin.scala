@@ -42,7 +42,7 @@ object ProjectPlugin extends AutoPlugin {
       micrositeDocumentationUrl := "/scalacheck-toolbox/docs/",
       micrositeBaseUrl := "/scalacheck-toolbox",
       micrositeGithubRepo := "scalacheck-toolbox",
-      micrositeGithubOwner := "47deg",
+      micrositeGithubOwner := "47degrees",
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := getEnvVar(orgGithubTokenSetting.value),
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
@@ -63,7 +63,7 @@ object ProjectPlugin extends AutoPlugin {
     Seq(
       name := "scalacheck-toolbox",
       orgProjectName := "scalacheck-toolbox",
-      homepage := Option(url("https://47deg.github.io/scalacheck-toolbox/")),
+      homepage := Option(url("https://47degrees.github.io/scalacheck-toolbox/")),
       description := "A helping hand for generating sensible data with ScalaCheck",
       startYear := Option(2016),
       crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
