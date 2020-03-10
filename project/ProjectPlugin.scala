@@ -38,6 +38,7 @@ object ProjectPlugin extends AutoPlugin {
 
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
+      micrositeCompilingDocsTool := WithTut,
       micrositeDescription := "A helping hand for generating sensible data with ScalaCheck",
       micrositeDocumentationUrl := "/scalacheck-toolbox/docs/",
       micrositeBaseUrl := "/scalacheck-toolbox",
