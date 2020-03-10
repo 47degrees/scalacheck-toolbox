@@ -1,6 +1,6 @@
 # Contributing
 
-Discussion around scalacheck-toolbox happens in the [Gitter channel](https://gitter.im/47deg/scalacheck-toolbox) as well as on
+Discussion around scalacheck-toolbox happens in the [Gitter channel](https://gitter.im/47degrees/scalacheck-toolbox) as well as on
 [GitHub issues](https://github.com/47degrees/scalacheck-toolbox/issues) and [pull requests](https://github.com/47degrees/scalacheck-toolbox/pulls).
 
 Feel free to open an issue if you notice a bug, have an idea for a feature, or have a question about
