@@ -8,7 +8,7 @@ import scoverage.ScoverageKeys._
 import sbtorgpolicies.OrgPoliciesKeys.orgBadgeListSetting
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
-import sbtorgpolicies.model.scalac
+import sbtorgpolicies.model.{GitHubSettings, scalac}
 import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
@@ -62,6 +62,14 @@ object ProjectPlugin extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       name := "scalacheck-toolbox",
+      orgGithubSetting := GitHubSettings(
+        organization = "47degrees",
+        project = (name in LocalRootProject).value,
+        organizationName = "47 Degrees",
+        groupId = "com.47deg",
+        organizationHomePage = url("http://47deg.com"),
+        organizationEmail = "hello@47deg.com"
+      ),
       orgProjectName := "scalacheck-toolbox",
       homepage := Option(url("https://47degrees.github.io/scalacheck-toolbox/")),
       description := "A helping hand for generating sensible data with ScalaCheck",
