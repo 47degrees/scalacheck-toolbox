@@ -1,5 +1,16 @@
 # Changelog
 
+## 03/10/2020 - Version 0.3.3
+
+Release changes:
+
+* Migrates from 47deg to 47degrees GH organization ([#92](https://github.com/47degrees/scalacheck-toolbox/pull/92))
+* Update sbt-microsites to 1.1.2 ([#91](https://github.com/47degrees/scalacheck-toolbox/pull/91))
+* Release 0.3.3 ([#93](https://github.com/47degrees/scalacheck-toolbox/pull/93))
+* Setting Tut as compilation tool for documentation ([#94](https://github.com/47degrees/scalacheck-toolbox/pull/94))
+* Adding GitHub org info ([#95](https://github.com/47degrees/scalacheck-toolbox/pull/95))
+
+
 ## 02/06/2020 - Version 0.3.2
 
 Release changes:
