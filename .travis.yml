@@ -6,7 +6,7 @@ jdk:
 scala:
   - 2.11.12
   - 2.12.10
-  - 2.13.0
+  - 2.13.1
 
 before_install:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
