@@ -9,4 +9,4 @@ combinators/target/*
 magic/target/*
 datetime/target/*
 .idea/
-secring.gpg
+secret_key.asc

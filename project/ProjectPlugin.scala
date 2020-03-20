@@ -30,7 +30,7 @@ object ProjectPlugin extends AutoPlugin {
       val scalacheck: String = "1.14.3"
       val scala211: String = "2.11.12"
       val scala212: String = "2.12.10"
-      val scala213: String = "2.13.0"
+      val scala213: String = "2.13.1"
     }
 
     lazy val docsMappingsAPIDir: SettingKey[String] = settingKey[String](
