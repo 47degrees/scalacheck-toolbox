@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,10 @@ object GenDateTime {
    * @param range An offset from <code>dateTime</code>, serving as an upper bound for generated <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided <code>DateTime</code>.
    * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
    */
-  def genDateTimeWithinRange[D, R](dateTime: D, range: R)(
-      implicit scDateTime: ScalaCheckDateTimeInfra[D, R],
-      granularity: Granularity[D]): Gen[D] = {
+  def genDateTimeWithinRange[D, R](
+      dateTime: D,
+      range: R
+  )(implicit scDateTime: ScalaCheckDateTimeInfra[D, R], granularity: Granularity[D]): Gen[D] = {
     for {
       addedRange <- Try(Gen.const(scDateTime.addRange(dateTime, range)))
         .getOrElse(Gen.fail)
