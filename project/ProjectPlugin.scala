@@ -8,7 +8,7 @@ import scoverage.ScoverageKeys._
 import sbtorgpolicies.OrgPoliciesKeys.orgBadgeListSetting
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
-import sbtorgpolicies.model.{GitHubSettings, scalac}
+import sbtorgpolicies.model.{scalac, GitHubSettings}
 import sbtorgpolicies.templates.badges._
 import sbtorgpolicies.runnable.syntax._
 import sbtorgpolicies.runnable._
@@ -26,15 +26,15 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val jodaTime: String = "2.10.5"
+      val jodaTime: String   = "2.10.5"
       val scalacheck: String = "1.14.3"
-      val scala211: String = "2.11.12"
-      val scala212: String = "2.12.10"
-      val scala213: String = "2.13.1"
+      val scala211: String   = "2.11.12"
+      val scala212: String   = "2.12.10"
+      val scala213: String   = "2.13.1"
     }
 
-    lazy val docsMappingsAPIDir: SettingKey[String] = settingKey[String](
-      "Name of subdirectory in site target directory for api docs")
+    lazy val docsMappingsAPIDir: SettingKey[String] =
+      settingKey[String]("Name of subdirectory in site target directory for api docs")
 
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
@@ -47,16 +47,19 @@ object ProjectPlugin extends AutoPlugin {
       micrositePushSiteWith := GitHub4s,
       micrositeTheme := "pattern",
       micrositeGithubToken := getEnvVar(orgGithubTokenSetting.value),
+      micrositeCompilingDocsTool := WithTut,
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
-      addMappingsToSiteDir(mappings in(ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
+      addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
     )
 
     lazy val testSettings = Seq(
       fork in Test := false
     )
 
-    lazy val commonDeps = Seq(libraryDependencies ++= Seq(%%("scalacheck", V.scalacheck), %("joda-time", V.jodaTime)))
+    lazy val commonDeps = Seq(
+      libraryDependencies ++= Seq(%%("scalacheck", V.scalacheck), %("joda-time", V.jodaTime))
+    )
   }
 
   import autoImport._
@@ -80,8 +83,8 @@ object ProjectPlugin extends AutoPlugin {
       scalacOptions := {
         val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
         CrossVersion.partialVersion(scalaBinaryVersion.value) match {
-          case Some((2, 13))  => scalacOptions213
-          case _              => scalacOptions.value
+          case Some((2, 13)) => scalacOptions213
+          case _             => scalacOptions.value
         }
       },
       orgBadgeListSetting := List(
@@ -94,19 +97,19 @@ object ProjectPlugin extends AutoPlugin {
       ),
       orgEnforcedFilesSetting := List(
         LicenseFileType(orgGithubSetting.value, orgLicenseSetting.value, startYear.value),
-        ContributingFileType(
-          orgProjectName.value,
-          orgGithubSetting.value),
+        ContributingFileType(orgProjectName.value, orgGithubSetting.value),
         AuthorsFileType(
           name.value,
           orgGithubSetting.value,
           orgMaintainersSetting.value,
-          orgContributorsSetting.value),
+          orgContributorsSetting.value
+        ),
         NoticeFileType(
           orgProjectName.value,
           orgGithubSetting.value,
           orgLicenseSetting.value,
-          startYear.value),
+          startYear.value
+        ),
         VersionSbtFileType,
         ChangelogFileType,
         ReadmeFileType(

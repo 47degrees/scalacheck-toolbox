@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,8 @@ trait GenJdk8 {
       zoneId <- maybeZone
         .map(Gen.const)
         .getOrElse(Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.toList).map(ZoneId.of))
-    } yield
-      ZonedDateTime
-        .of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, zoneId)
+    } yield ZonedDateTime
+      .of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, zoneId)
 
   def genZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Gen[ZonedDateTime] =
     genZonedDateTimeWithZone(None).map(granularity.normalize)
@@ -60,20 +59,26 @@ object ArbitraryJdk8 extends GenJdk8 {
   private[this] val utcZoneId: ZoneId = ZoneId.of("UTC")
 
   implicit def arbZonedDateTimeJdk8(
-      implicit granularity: Granularity[ZonedDateTime]): Arbitrary[ZonedDateTime] =
+      implicit granularity: Granularity[ZonedDateTime]
+  ): Arbitrary[ZonedDateTime] =
     Arbitrary(genZonedDateTime)
 
   implicit def arbLocalDateTimeJdk8(
-      implicit granularity: Granularity[ZonedDateTime]): Arbitrary[LocalDateTime] =
+      implicit granularity: Granularity[ZonedDateTime]
+  ): Arbitrary[LocalDateTime] =
     Arbitrary(
-      genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDateTime))
+      genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDateTime)
+    )
 
   implicit def arbLocalDateJdk8(
-      implicit granularity: Granularity[ZonedDateTime]): Arbitrary[LocalDate] =
+      implicit granularity: Granularity[ZonedDateTime]
+  ): Arbitrary[LocalDate] =
     Arbitrary(
-      genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDate))
+      genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDate)
+    )
 
   implicit def arbInstantJdk8(
-      implicit granularity: Granularity[ZonedDateTime]): Arbitrary[Instant] =
+      implicit granularity: Granularity[ZonedDateTime]
+  ): Arbitrary[Instant] =
     Arbitrary(genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toInstant))
 }

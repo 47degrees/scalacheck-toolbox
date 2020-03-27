@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,14 +72,13 @@ trait GenJoda {
     minutes <- Gen.choose(0, 59)
     seconds <- Gen.choose(0, 59)
     millis  <- Gen.choose(0, 999)
-  } yield
-    Period
-      .years(years.getYears)
-      .withDays(days)
-      .withHours(hours)
-      .withMinutes(minutes)
-      .withSeconds(seconds)
-      .withMillis(millis)
+  } yield Period
+    .years(years.getYears)
+    .withDays(days)
+    .withHours(hours)
+    .withMinutes(minutes)
+    .withSeconds(seconds)
+    .withMillis(millis)
 
   /** A <code>DateTime</code> generator. */
   def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] =
@@ -102,7 +101,10 @@ trait GenJoda {
             hourOfDay,
             minuteOfHour,
             secondOfMinute,
-            millisOfSecond))).getOrElse(Gen.fail)
+            millisOfSecond
+          )
+        )
+      ).getOrElse(Gen.fail)
     } yield granularity.normalize(attempt)
 }
 
