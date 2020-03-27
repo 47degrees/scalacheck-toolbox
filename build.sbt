@@ -50,6 +50,6 @@ lazy val docs: Project = (project in file("docs"))
 
 addCommandAlias(
   "ci-test",
-  "scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
+  "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
 )
 addCommandAlias("ci-docs", "docs/tut")
