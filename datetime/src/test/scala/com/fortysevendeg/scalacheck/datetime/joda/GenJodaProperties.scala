@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,25 +35,15 @@ object GenJodaProperties extends Properties("Joda Generators") {
    * These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
    */
 
-  property("genYearsPeriod creates valid year periods") = forAll(genYearsPeriod) { _ =>
-    passed
-  }
+  property("genYearsPeriod creates valid year periods") = forAll(genYearsPeriod)(_ => passed)
 
-  property("genMonthsPeriod creates valid month periods") = forAll(genMonthsPeriod) { _ =>
-    passed
-  }
+  property("genMonthsPeriod creates valid month periods") = forAll(genMonthsPeriod)(_ => passed)
 
-  property("genWeeksPeriod creates valid week periods") = forAll(genWeeksPeriod) { _ =>
-    passed
-  }
+  property("genWeeksPeriod creates valid week periods") = forAll(genWeeksPeriod)(_ => passed)
 
-  property("genDaysPeriod creates valid day periods") = forAll(genDaysPeriod) { _ =>
-    passed
-  }
+  property("genDaysPeriod creates valid day periods") = forAll(genDaysPeriod)(_ => passed)
 
-  property("genHoursPeriod creates valid hour periods") = forAll(genHoursPeriod) { _ =>
-    passed
-  }
+  property("genHoursPeriod creates valid hour periods") = forAll(genHoursPeriod)(_ => passed)
 
   property("genMinutesPeriod creates valid minute periods") = forAll(genMinutesPeriod) { _ =>
     passed
@@ -64,28 +54,20 @@ object GenJodaProperties extends Properties("Joda Generators") {
   }
 
   property("genPeriod creates valid periods containing a selection of other periods") =
-    forAll(genPeriod) { _ =>
-      passed
-    }
+    forAll(genPeriod)(_ => passed)
 
   property("genDateTime creates valid DateTime instances (with no granularity)") =
-    forAll(genDateTime) { _ =>
-      passed
-    }
+    forAll(genDateTime)(_ => passed)
 
   property("arbitrary generation creates valid DateTime instances (with no granularity)") = {
     import ArbitraryJoda._
-    forAll { dt: DateTime =>
-      dt.getZone == DateTimeZone.getDefault
-    }
+    forAll { dt: DateTime => dt.getZone == DateTimeZone.getDefault }
   }
 
   property("arbitrary generation creates DateTime instances with right time zone") = {
     implicit val zone = DateTimeZone.UTC
     import ArbitraryJoda._
-    forAll { dt: DateTime =>
-      dt.getZone == zone
-    }
+    forAll { dt: DateTime => dt.getZone == zone }
   }
 
   val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
@@ -105,48 +87,45 @@ object GenJodaProperties extends Properties("Joda Generators") {
     )
   }
 
-  val granularitiesAndPredicatesWithDefault: List[(Granularity[DateTime], DateTime => Boolean)] = (
-    Granularity.identity[DateTime],
-    (_: DateTime) => true) :: granularitiesAndPredicates
+  val granularitiesAndPredicatesWithDefault: List[(Granularity[DateTime], DateTime => Boolean)] =
+    (Granularity.identity[DateTime], (_: DateTime) => true) :: granularitiesAndPredicates
 
   property("genDateTime with a granularity generates appropriate DateTimes") =
     forAll(Gen.oneOf(granularitiesAndPredicates)) {
       case (granularity, predicate) =>
         implicit val generatedGranularity = granularity
 
-        forAll(genDateTime) { dt =>
-          predicate(dt) :| s"${granularity.description}: $dt"
-        }
+        forAll(genDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property(
-    "genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period, with the relevant granularity") =
-    forAll(genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefault)) {
-      case (period, (granularity, predicate)) =>
-        implicit val generatedGranularity = granularity
+    "genDateTimeWithinRange for Joda should generate DateTimes between the given date and the end of the specified Period, with the relevant granularity"
+  ) = forAll(genPeriod, Gen.oneOf(granularitiesAndPredicatesWithDefault)) {
+    case (period, (granularity, predicate)) =>
+      implicit val generatedGranularity = granularity
 
-        val now = new DateTime()
-        forAll(genDateTimeWithinRange(now, period)) { generated =>
-          // if period is negative, then periodBoundary will be before now
-          val periodBoundary = now.plus(period)
+      val now = new DateTime()
+      forAll(genDateTimeWithinRange(now, period)) { generated =>
+        // if period is negative, then periodBoundary will be before now
+        val periodBoundary = now.plus(period)
 
-          val resultText = s"""Period:          ${PeriodFormat.getDefault().print(period)}
+        val resultText = s"""Period:          ${PeriodFormat.getDefault().print(period)}
                           |Now:             $now
                           |Generated:       $generated
                           |Period Boundary: $periodBoundary
                           |Granularity:     ${granularity.description}""".stripMargin
 
-          val (lowerBound, upperBound) =
-            if (periodBoundary.isAfter(now)) (now, periodBoundary) else (periodBoundary, now)
+        val (lowerBound, upperBound) =
+          if (periodBoundary.isAfter(now)) (now, periodBoundary) else (periodBoundary, now)
 
-          val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
-            (upperBound.isAfter(generated) || upperBound.isEqual(generated))
+        val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
+          (upperBound.isAfter(generated) || upperBound.isEqual(generated))
 
-          val granularityCheck = predicate(generated)
+        val granularityCheck = predicate(generated)
 
-          val prop = rangeCheck && granularityCheck
+        val prop = rangeCheck && granularityCheck
 
-          prop :| resultText
-        }
-    }
+        prop :| resultText
+      }
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ object MagicProperties extends Properties("Magic Generators") {
   }
 
   property("regular arbitrary strings are included in full arbitrary generation") = exists {
-    s: String =>
-      !strings.contains(s)
+    s: String => !strings.contains(s)
   }
 }

@@ -1,6 +1,4 @@
 pgpPassphrase := Some(getEnvVar("PGP_PASSPHRASE").getOrElse("").toCharArray)
-pgpPublicRing := file(s"$gpgFolder/pubring.gpg")
-pgpSecretRing := file(s"$gpgFolder/secring.gpg")
 
 lazy val root = (project in file("."))
   .dependsOn(datetime, magic, combinators)
@@ -12,7 +10,8 @@ lazy val datetime = (project in file("datetime"))
     Seq(
       moduleName := "scalacheck-toolbox-datetime",
       description := "A library for helping use date and time libraries with ScalaCheck"
-    ))
+    )
+  )
   .settings(testSettings)
   .settings(commonDeps)
 
@@ -21,7 +20,8 @@ lazy val magic = (project in file("magic"))
     Seq(
       moduleName := "scalacheck-toolbox-magic",
       description := "ScalaCheck Generators for magic values"
-    ))
+    )
+  )
   .settings(testSettings)
   .settings(commonDeps)
 
@@ -30,7 +30,8 @@ lazy val combinators = (project in file("combinators"))
     Seq(
       moduleName := "scalacheck-toolbox-combinators",
       description := "Useful generic combinators for ScalaCheck"
-    ))
+    )
+  )
   .settings(testSettings)
   .settings(commonDeps)
 
@@ -41,7 +42,14 @@ lazy val docs: Project = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .settings(
-    unidocProjectFilter in(ScalaUnidoc, unidoc) := inProjects(datetime, magic, combinators, docs))
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(datetime, magic, combinators, docs)
+  )
   .dependsOn(datetime)
   .dependsOn(magic)
   .dependsOn(combinators)
+
+addCommandAlias(
+  "ci-test",
+  "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
+)
+addCommandAlias("ci-docs", "docs/tut")
