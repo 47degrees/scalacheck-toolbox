@@ -52,6 +52,7 @@
 - Update sbt-microsites to 0.9.6 [\#73](https://github.com/47degrees/scalacheck-toolbox/pull/73) ([scala-steward](https://github.com/scala-steward))
 - Update sbt to 1.3.2 [\#72](https://github.com/47degrees/scalacheck-toolbox/pull/72) ([scala-steward](https://github.com/scala-steward))
 - Update joda-time to 2.10.4 [\#71](https://github.com/47degrees/scalacheck-toolbox/pull/71) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.3.1](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.1) (2019-09-19)
 
@@ -67,7 +68,6 @@
 
 **Merged pull requests:**
 
-- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 - Releases 0.3.0 [\#69](https://github.com/47degrees/scalacheck-toolbox/pull/69) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Cross Scala version 2.13 [\#68](https://github.com/47degrees/scalacheck-toolbox/pull/68) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
@@ -123,6 +123,7 @@
 - Useful combinators [\#51](https://github.com/47degrees/scalacheck-toolbox/pull/51) ([noelmarkham](https://github.com/noelmarkham))
 - Generates the ScalaDoc and adds the api to the microsite [\#50](https://github.com/47degrees/scalacheck-toolbox/pull/50) ([fedefernandez](https://github.com/fedefernandez))
 - Tries to make Travis Builds faster [\#49](https://github.com/47degrees/scalacheck-toolbox/pull/49) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- Publish snapshots on merge [\#37](https://github.com/47degrees/scalacheck-toolbox/pull/37) ([noelmarkham](https://github.com/noelmarkham))
 
 ## [v0.2.2](https://github.com/47degrees/scalacheck-toolbox/tree/v0.2.2) (2017-04-27)
 
@@ -150,7 +151,6 @@
 - Fixes the badges, the publishing and the groupId in the docs [\#48](https://github.com/47degrees/scalacheck-toolbox/pull/48) ([fedefernandez](https://github.com/fedefernandez))
 - Integrates sbt-org-policies [\#46](https://github.com/47degrees/scalacheck-toolbox/pull/46) ([fedefernandez](https://github.com/fedefernandez))
 - Publish snapshots on merge [\#40](https://github.com/47degrees/scalacheck-toolbox/pull/40) ([noelmarkham](https://github.com/noelmarkham))
-- Publish snapshots on merge [\#37](https://github.com/47degrees/scalacheck-toolbox/pull/37) ([noelmarkham](https://github.com/noelmarkham))
 - Updates for publishing new jars [\#34](https://github.com/47degrees/scalacheck-toolbox/pull/34) ([noelmarkham](https://github.com/noelmarkham))
 - Rename to toolbox [\#33](https://github.com/47degrees/scalacheck-toolbox/pull/33) ([noelmarkham](https://github.com/noelmarkham))
 - First steps to make a utils library [\#30](https://github.com/47degrees/scalacheck-toolbox/pull/30) ([noelmarkham](https://github.com/noelmarkham))
