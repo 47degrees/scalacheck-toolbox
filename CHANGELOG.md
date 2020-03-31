@@ -13,7 +13,6 @@
 - Update sbt-microsites to 1.1.5 [\#100](https://github.com/47degrees/scalacheck-toolbox/pull/100) ([scala-steward](https://github.com/scala-steward))
 - Mergify: configuration update [\#99](https://github.com/47degrees/scalacheck-toolbox/pull/99) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.3 [\#98](https://github.com/47degrees/scalacheck-toolbox/pull/98) ([scala-steward](https://github.com/scala-steward))
-- Adds microsite theme to keep website style [\#97](https://github.com/47degrees/scalacheck-toolbox/pull/97) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 
 ## [v0.3.3](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.3) (2020-03-10)
 
@@ -21,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Adds microsite theme to keep website style [\#97](https://github.com/47degrees/scalacheck-toolbox/pull/97) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Adding GitHub org info [\#95](https://github.com/47degrees/scalacheck-toolbox/pull/95) ([franciscodr](https://github.com/franciscodr))
 - Setting Tut as compilation tool for documentation [\#94](https://github.com/47degrees/scalacheck-toolbox/pull/94) ([franciscodr](https://github.com/franciscodr))
 - Release 0.3.3 [\#93](https://github.com/47degrees/scalacheck-toolbox/pull/93) ([franciscodr](https://github.com/franciscodr))
@@ -52,6 +52,7 @@
 - Update sbt-microsites to 0.9.6 [\#73](https://github.com/47degrees/scalacheck-toolbox/pull/73) ([scala-steward](https://github.com/scala-steward))
 - Update sbt to 1.3.2 [\#72](https://github.com/47degrees/scalacheck-toolbox/pull/72) ([scala-steward](https://github.com/scala-steward))
 - Update joda-time to 2.10.4 [\#71](https://github.com/47degrees/scalacheck-toolbox/pull/71) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.3.1](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.1) (2019-09-19)
 
@@ -67,7 +68,6 @@
 
 **Merged pull requests:**
 
-- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 - Releases 0.3.0 [\#69](https://github.com/47degrees/scalacheck-toolbox/pull/69) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Cross Scala version 2.13 [\#68](https://github.com/47degrees/scalacheck-toolbox/pull/68) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
@@ -78,7 +78,6 @@
 **Merged pull requests:**
 
 - Release 0.2.6 [\#67](https://github.com/47degrees/scalacheck-toolbox/pull/67) ([fedefernandez](https://github.com/fedefernandez))
-- Adds some jdk instances [\#66](https://github.com/47degrees/scalacheck-toolbox/pull/66) ([fedefernandez](https://github.com/fedefernandez))
 - Change to OpenJDK [\#65](https://github.com/47degrees/scalacheck-toolbox/pull/65) ([fedefernandez](https://github.com/fedefernandez))
 
 ## [v0.2.5](https://github.com/47degrees/scalacheck-toolbox/tree/v0.2.5) (2018-06-13)
@@ -116,6 +115,7 @@
 
 **Merged pull requests:**
 
+- Adds some jdk instances [\#66](https://github.com/47degrees/scalacheck-toolbox/pull/66) ([fedefernandez](https://github.com/fedefernandez))
 - Releases scalacheck-toolbox 0.2.3 [\#59](https://github.com/47degrees/scalacheck-toolbox/pull/59) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - give ArbitraryJoda.arbJoda a time zone [\#58](https://github.com/47degrees/scalacheck-toolbox/pull/58) ([sullivan-](https://github.com/sullivan-))
 - adds comm support statement [\#56](https://github.com/47degrees/scalacheck-toolbox/pull/56) ([MaureenElsberry](https://github.com/MaureenElsberry))
