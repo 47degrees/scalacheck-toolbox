@@ -122,6 +122,7 @@
 - Pulling in the magic strings from an online source [\#54](https://github.com/47degrees/scalacheck-toolbox/pull/54) ([noelmarkham](https://github.com/noelmarkham))
 - Useful combinators [\#51](https://github.com/47degrees/scalacheck-toolbox/pull/51) ([noelmarkham](https://github.com/noelmarkham))
 - Generates the ScalaDoc and adds the api to the microsite [\#50](https://github.com/47degrees/scalacheck-toolbox/pull/50) ([fedefernandez](https://github.com/fedefernandez))
+- Tries to make Travis Builds faster [\#49](https://github.com/47degrees/scalacheck-toolbox/pull/49) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.2.2](https://github.com/47degrees/scalacheck-toolbox/tree/v0.2.2) (2017-04-27)
 
@@ -146,7 +147,6 @@
 
 **Merged pull requests:**
 
-- Tries to make Travis Builds faster [\#49](https://github.com/47degrees/scalacheck-toolbox/pull/49) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Fixes the badges, the publishing and the groupId in the docs [\#48](https://github.com/47degrees/scalacheck-toolbox/pull/48) ([fedefernandez](https://github.com/fedefernandez))
 - Integrates sbt-org-policies [\#46](https://github.com/47degrees/scalacheck-toolbox/pull/46) ([fedefernandez](https://github.com/fedefernandez))
 - Publish snapshots on merge [\#40](https://github.com/47degrees/scalacheck-toolbox/pull/40) ([noelmarkham](https://github.com/noelmarkham))
