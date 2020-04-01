@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/47degrees/scalacheck-toolbox/tree/HEAD)
+## [v0.3.4](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.4) (2020-04-01)
 
-[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.3...HEAD)
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.3...v0.3.4)
 
 **Closed issues:**
 
