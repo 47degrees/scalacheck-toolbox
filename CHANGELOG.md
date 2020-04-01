@@ -52,6 +52,7 @@
 - Update sbt-microsites to 0.9.6 [\#73](https://github.com/47degrees/scalacheck-toolbox/pull/73) ([scala-steward](https://github.com/scala-steward))
 - Update sbt to 1.3.2 [\#72](https://github.com/47degrees/scalacheck-toolbox/pull/72) ([scala-steward](https://github.com/scala-steward))
 - Update joda-time to 2.10.4 [\#71](https://github.com/47degrees/scalacheck-toolbox/pull/71) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.3.1](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.1) (2019-09-19)
 
@@ -67,7 +68,6 @@
 
 **Merged pull requests:**
 
-- Update sbt-org-policies to 0.12.0-M3 [\#70](https://github.com/47degrees/scalacheck-toolbox/pull/70) ([scala-steward](https://github.com/scala-steward))
 - Releases 0.3.0 [\#69](https://github.com/47degrees/scalacheck-toolbox/pull/69) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Cross Scala version 2.13 [\#68](https://github.com/47degrees/scalacheck-toolbox/pull/68) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
