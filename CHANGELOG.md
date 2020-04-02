@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.3.4](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.4) (2020-04-01)
+## [v0.3.4](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.4) (2020-04-02)
 
 [Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.3...v0.3.4)
 
@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- Delete version.sbt [\#118](https://github.com/47degrees/scalacheck-toolbox/pull/118) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.5 [\#100](https://github.com/47degrees/scalacheck-toolbox/pull/100) ([scala-steward](https://github.com/scala-steward))
 - Mergify: configuration update [\#99](https://github.com/47degrees/scalacheck-toolbox/pull/99) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.3 [\#98](https://github.com/47degrees/scalacheck-toolbox/pull/98) ([scala-steward](https://github.com/scala-steward))
