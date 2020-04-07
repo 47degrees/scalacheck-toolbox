@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/47degrees/scalacheck-toolbox/tree/HEAD)
+
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.4...HEAD)
+
+**Merged pull requests:**
+
+- Removes sbt-org-policies [\#123](https://github.com/47degrees/scalacheck-toolbox/pull/123) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
 ## [v0.3.4](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.4) (2020-04-02)
 
 [Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.3...v0.3.4)
