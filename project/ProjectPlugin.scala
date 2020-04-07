@@ -5,15 +5,7 @@ import sbt.Keys._
 import sbt._
 import scoverage.ScoverageKeys
 import scoverage.ScoverageKeys._
-import sbtorgpolicies.OrgPoliciesKeys.orgBadgeListSetting
-import sbtorgpolicies.OrgPoliciesPlugin
-import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
-import sbtorgpolicies.model.{scalac, GitHubSettings}
-import sbtorgpolicies.templates.badges._
-import sbtorgpolicies.runnable.syntax._
-import sbtorgpolicies.runnable._
-import sbtorgpolicies.templates._
-import sbtorgpolicies.templates.badges._
+import com.alejandrohdezma.sbt.github.SbtGithubPlugin
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import tut.TutPlugin.autoImport._
 
@@ -21,7 +13,7 @@ object ProjectPlugin extends AutoPlugin {
 
   override def trigger: PluginTrigger = allRequirements
 
-  override def requires: Plugins = OrgPoliciesPlugin
+  override def requires: Plugins = SbtGithubPlugin
 
   object autoImport {
 
@@ -36,6 +28,13 @@ object ProjectPlugin extends AutoPlugin {
     lazy val docsMappingsAPIDir: SettingKey[String] =
       settingKey[String]("Name of subdirectory in site target directory for api docs")
 
+    lazy val noPublishSettings = Seq(
+      publish := ((): Unit),
+      publishLocal := ((): Unit),
+      publishArtifact := false,
+      publishMavenStyle := false // suppress warnings about intransitive deps (not published anyway)
+    )
+
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
       micrositeCompilingDocsTool := WithTut,
@@ -46,7 +45,7 @@ object ProjectPlugin extends AutoPlugin {
       micrositeGithubOwner := "47degrees",
       micrositePushSiteWith := GitHub4s,
       micrositeTheme := "pattern",
-      micrositeGithubToken := getEnvVar(orgGithubTokenSetting.value),
+      micrositeGithubToken := Option(System.getenv().get("ORG_GITHUB_TOKEN")),
       micrositeCompilingDocsTool := WithTut,
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
@@ -58,7 +57,10 @@ object ProjectPlugin extends AutoPlugin {
     )
 
     lazy val commonDeps = Seq(
-      libraryDependencies ++= Seq(%%("scalacheck", V.scalacheck), %("joda-time", V.jodaTime))
+      libraryDependencies ++= Seq(
+        "org.scalacheck" %% "scalacheck" % V.scalacheck,
+        "joda-time"      % "joda-time"   % V.jodaTime
+      )
     )
   }
 
@@ -67,65 +69,19 @@ object ProjectPlugin extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       name := "scalacheck-toolbox",
-      orgGithubSetting := GitHubSettings(
-        organization = "47degrees",
-        project = (name in LocalRootProject).value,
-        organizationName = "47 Degrees",
-        groupId = "com.47deg",
-        organizationHomePage = url("http://47deg.com"),
-        organizationEmail = "hello@47deg.com"
-      ),
-      orgProjectName := "scalacheck-toolbox",
+      startYear := Option(2016),
+      organization := "com.47deg",
+      organizationName := "47 Degrees",
+      organizationHomepage := Some(url("http://47deg.com")),
+      crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
       homepage := Option(url("https://47degrees.github.io/scalacheck-toolbox/")),
       description := "A helping hand for generating sensible data with ScalaCheck",
-      startYear := Option(2016),
-      crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
       scalacOptions := {
         val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
         CrossVersion.partialVersion(scalaBinaryVersion.value) match {
           case Some((2, 13)) => scalacOptions213
           case _             => scalacOptions.value
         }
-      },
-      orgBadgeListSetting := List(
-        TravisBadge.apply(_),
-        CodecovBadge.apply(_),
-        MavenCentralBadge.apply(_),
-        LicenseBadge.apply(_),
-        ScalaLangBadge.apply(_),
-        GitHubIssuesBadge.apply(_)
-      ),
-      orgEnforcedFilesSetting := List(
-        LicenseFileType(orgGithubSetting.value, orgLicenseSetting.value, startYear.value),
-        ContributingFileType(orgProjectName.value, orgGithubSetting.value),
-        AuthorsFileType(
-          name.value,
-          orgGithubSetting.value,
-          orgMaintainersSetting.value,
-          orgContributorsSetting.value
-        ),
-        NoticeFileType(
-          orgProjectName.value,
-          orgGithubSetting.value,
-          orgLicenseSetting.value,
-          startYear.value
-        ),
-        VersionSbtFileType,
-        ChangelogFileType,
-        ReadmeFileType(
-          orgProjectName.value,
-          orgGithubSetting.value,
-          startYear.value,
-          orgLicenseSetting.value,
-          orgCommitBranchSetting.value,
-          sbtPlugin.value,
-          name.value,
-          version.value,
-          scalaBinaryVersion.value,
-          sbtBinaryVersion.value,
-          orgSupportedScalaJSVersion.value,
-          orgBadgeListSetting.value
-        )
-      )
+      }
     )
 }
