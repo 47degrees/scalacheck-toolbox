@@ -1,5 +1,3 @@
-pgpPassphrase := Some(getEnvVar("PGP_PASSPHRASE").getOrElse("").toCharArray)
-
 lazy val root = (project in file("."))
   .dependsOn(datetime, magic, combinators)
   .aggregate(datetime, magic, combinators)
@@ -52,4 +50,4 @@ addCommandAlias(
   "ci-test",
   "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
 )
-addCommandAlias("ci-docs", "docs/tut")
+addCommandAlias("ci-docs", "docs/tut; headerCreateAll")
