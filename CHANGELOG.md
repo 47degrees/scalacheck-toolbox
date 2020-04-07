@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Changes 47D website URL [\#126](https://github.com/47degrees/scalacheck-toolbox/pull/126) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Removes sbt-org-policies [\#123](https://github.com/47degrees/scalacheck-toolbox/pull/123) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.3.4](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.4) (2020-04-02)
