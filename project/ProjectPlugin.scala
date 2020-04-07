@@ -72,7 +72,7 @@ object ProjectPlugin extends AutoPlugin {
       startYear := Option(2016),
       organization := "com.47deg",
       organizationName := "47 Degrees",
-      organizationHomepage := Some(url("http://47deg.com")),
+      organizationHomepage := Some(url("https://www.47deg.com/")),
       crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
       homepage := Option(url("https://47degrees.github.io/scalacheck-toolbox/")),
       description := "A helping hand for generating sensible data with ScalaCheck",
