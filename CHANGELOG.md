@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.4...HEAD)
 
+📈 **Dependency updates**
+
+- Update sbt-scalafmt to 2.3.3 [\#132](https://github.com/47degrees/scalacheck-toolbox/pull/132) ([scala-steward](https://github.com/scala-steward))
+
 **Merged pull requests:**
 
 - Changes 47D website URL [\#126](https://github.com/47degrees/scalacheck-toolbox/pull/126) ([juanpedromoreno](https://github.com/juanpedromoreno))
@@ -24,7 +28,6 @@
 - Mergify: configuration update [\#99](https://github.com/47degrees/scalacheck-toolbox/pull/99) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.3 [\#98](https://github.com/47degrees/scalacheck-toolbox/pull/98) ([scala-steward](https://github.com/scala-steward))
 - Adds microsite theme to keep website style [\#97](https://github.com/47degrees/scalacheck-toolbox/pull/97) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
-- Setting Tut as compilation tool for documentation [\#94](https://github.com/47degrees/scalacheck-toolbox/pull/94) ([franciscodr](https://github.com/franciscodr))
 
 ## [v0.3.3](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.3) (2020-03-10)
 
@@ -33,6 +36,7 @@
 **Merged pull requests:**
 
 - Adding GitHub org info [\#95](https://github.com/47degrees/scalacheck-toolbox/pull/95) ([franciscodr](https://github.com/franciscodr))
+- Setting Tut as compilation tool for documentation [\#94](https://github.com/47degrees/scalacheck-toolbox/pull/94) ([franciscodr](https://github.com/franciscodr))
 - Release 0.3.3 [\#93](https://github.com/47degrees/scalacheck-toolbox/pull/93) ([franciscodr](https://github.com/franciscodr))
 - Migrates from 47deg to 47degrees GH organization [\#92](https://github.com/47degrees/scalacheck-toolbox/pull/92) ([franciscodr](https://github.com/franciscodr))
 - Update sbt-microsites to 1.1.2 [\#91](https://github.com/47degrees/scalacheck-toolbox/pull/91) ([scala-steward](https://github.com/scala-steward))
