@@ -6,6 +6,7 @@
 
 📈 **Dependency updates**
 
+- Update sbt to 1.3.10 [\#133](https://github.com/47degrees/scalacheck-toolbox/pull/133) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-scalafmt to 2.3.3 [\#132](https://github.com/47degrees/scalacheck-toolbox/pull/132) ([scala-steward](https://github.com/scala-steward))
 
 **Merged pull requests:**
