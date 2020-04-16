@@ -28,13 +28,6 @@ object ProjectPlugin extends AutoPlugin {
     lazy val docsMappingsAPIDir: SettingKey[String] =
       settingKey[String]("Name of subdirectory in site target directory for api docs")
 
-    lazy val noPublishSettings = Seq(
-      publish := ((): Unit),
-      publishLocal := ((): Unit),
-      publishArtifact := false,
-      publishMavenStyle := false // suppress warnings about intransitive deps (not published anyway)
-    )
-
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
       micrositeCompilingDocsTool := WithTut,
@@ -45,7 +38,7 @@ object ProjectPlugin extends AutoPlugin {
       micrositeGithubOwner := "47degrees",
       micrositePushSiteWith := GitHub4s,
       micrositeTheme := "pattern",
-      micrositeGithubToken := Option(System.getenv().get("ORG_GITHUB_TOKEN")),
+      micrositeGithubToken := Option(System.getenv().get("GITHUB_TOKEN")),
       micrositeCompilingDocsTool := WithTut,
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
@@ -68,14 +61,8 @@ object ProjectPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
-      name := "scalacheck-toolbox",
-      startYear := Option(2016),
       organization := "com.47deg",
-      organizationName := "47 Degrees",
-      organizationHomepage := Some(url("https://www.47deg.com/")),
       crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
-      homepage := Option(url("https://47degrees.github.io/scalacheck-toolbox/")),
-      description := "A helping hand for generating sensible data with ScalaCheck",
       scalacOptions := {
         val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
         CrossVersion.partialVersion(scalaBinaryVersion.value) match {

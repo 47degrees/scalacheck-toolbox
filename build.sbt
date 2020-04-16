@@ -1,7 +1,14 @@
+addCommandAlias(
+  "ci-test",
+  "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
+)
+addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
+addCommandAlias("ci-microsite", "docs/publishMicrosite")
+
 lazy val root = (project in file("."))
   .dependsOn(datetime, magic, combinators)
   .aggregate(datetime, magic, combinators)
-  .settings(noPublishSettings: _*)
+  .settings(skip in publish := true)
 
 lazy val datetime = (project in file("datetime"))
   .settings(
@@ -46,8 +53,11 @@ lazy val docs: Project = (project in file("docs"))
   .dependsOn(magic)
   .dependsOn(combinators)
 
-addCommandAlias(
-  "ci-test",
-  "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
-)
-addCommandAlias("ci-docs", "docs/tut; headerCreateAll")
+lazy val `project-docs` = (project in file(".docs"))
+  .dependsOn(datetime, magic, combinators)
+  .aggregate(datetime, magic, combinators)
+  .settings(moduleName := "scalacheck-toolbox-project-docs")
+  .settings(mdocIn := file(".docs"))
+  .settings(mdocOut := file("."))
+  .settings(skip in publish := true)
+  .enablePlugins(MdocPlugin)
