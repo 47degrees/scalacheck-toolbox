@@ -1,16 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/47degrees/scalacheck-toolbox/tree/HEAD)
+## [v0.3.5](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.5) (2020-04-16)
 
-[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.4...HEAD)
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.4...v0.3.5)
 
 📈 **Dependency updates**
 
 - Update sbt to 1.3.10 [\#133](https://github.com/47degrees/scalacheck-toolbox/pull/133) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-scalafmt to 2.3.3 [\#132](https://github.com/47degrees/scalacheck-toolbox/pull/132) ([scala-steward](https://github.com/scala-steward))
 
+**Closed issues:**
+
+- Create a build/contribute doc [\#23](https://github.com/47degrees/scalacheck-toolbox/issues/23)
+
 **Merged pull requests:**
 
+- Adds docs improvements [\#137](https://github.com/47degrees/scalacheck-toolbox/pull/137) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Changes 47D website URL [\#126](https://github.com/47degrees/scalacheck-toolbox/pull/126) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Removes sbt-org-policies [\#123](https://github.com/47degrees/scalacheck-toolbox/pull/123) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
