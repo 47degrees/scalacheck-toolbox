@@ -39,7 +39,7 @@ object ProjectPlugin extends AutoPlugin {
       micrositePushSiteWith := GitHub4s,
       micrositeTheme := "pattern",
       micrositeGithubToken := Option(System.getenv().get("GITHUB_TOKEN")),
-      micrositeCompilingDocsTool := WithTut,
+      micrositeCompilingDocsTool := WithMdoc,
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
       addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)

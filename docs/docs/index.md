@@ -6,7 +6,7 @@ technologies:
  - fp: ["Functional Programming", "scalacheck-toolbox aims to make functional programming easier to understand and more accessible to all."]
 ---
 
-```tut:invisible
+```scala mdoc:invisible
 // This is here to remove the noisy warnings that appear on first run
 import org.scalacheck.Arbitrary.arbitrary
 import org.joda.time._
