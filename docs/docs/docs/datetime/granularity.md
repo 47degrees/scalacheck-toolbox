@@ -3,7 +3,7 @@ layout: docs
 ---
 # Granularity
 
-```tut:silent
+```scala mdoc:silent
 // this is here to remove noisy warnings
 import org.scalacheck.Prop.passed
 import org.scalacheck.Prop.forAll
@@ -25,7 +25,7 @@ When a value is constrained, the time fields are set to zero, and the rest to th
 
 To constrain a generated type, you simply need to provide an import for the typeclass for your date/time and range, and also an import for the granularity. As an example, this time using Java SE 8's `java.time` package:
 
-```tut:silent
+```scala mdoc:silent
 import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
 import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
