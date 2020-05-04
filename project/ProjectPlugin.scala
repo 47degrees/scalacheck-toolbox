@@ -52,7 +52,7 @@ object ProjectPlugin extends AutoPlugin {
     lazy val commonDeps = Seq(
       libraryDependencies ++= Seq(
         "org.scalacheck" %% "scalacheck" % V.scalacheck,
-        "joda-time"      % "joda-time"   % V.jodaTime
+        "joda-time"       % "joda-time"  % V.jodaTime
       )
     )
   }
