@@ -22,8 +22,9 @@ trait Granularity[A] {
 }
 
 object Granularity {
-  implicit def identity[A]: Granularity[A] = new Granularity[A] {
-    val normalize   = (a: A) => a
-    val description = "None"
-  }
+  implicit def identity[A]: Granularity[A] =
+    new Granularity[A] {
+      val normalize   = (a: A) => a
+      val description = "None"
+    }
 }

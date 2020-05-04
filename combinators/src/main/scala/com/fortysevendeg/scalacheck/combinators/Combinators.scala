@@ -22,8 +22,8 @@ import org.scalacheck.Arbitrary.arbitrary
 
 object Combinators {
 
-  def genPickFromMapWithSuccessAndFailure[A, B](
-      implicit arbA: Arbitrary[A],
+  def genPickFromMapWithSuccessAndFailure[A, B](implicit
+      arbA: Arbitrary[A],
       arbB: Arbitrary[B]
   ): Gen[(Map[A, B], List[A], List[A])] =
     for {
@@ -34,8 +34,8 @@ object Combinators {
       invalidPicks = anotherList.filterNot(i => keys.contains(i))
     } yield (map, validPicks.toList, invalidPicks)
 
-  def genPickFromMapWithSuccess[A, B](
-      implicit arbA: Arbitrary[A],
+  def genPickFromMapWithSuccess[A, B](implicit
+      arbA: Arbitrary[A],
       arbB: Arbitrary[B]
   ): Gen[(Map[A, B], List[A])] =
     genPickFromMapWithSuccessAndFailure[A, B].map { case (m, s, _) => (m, s) }

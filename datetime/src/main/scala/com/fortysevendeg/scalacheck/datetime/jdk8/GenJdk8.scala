@@ -38,9 +38,10 @@ trait GenJdk8 {
       minute       <- Gen.choose(0, 59)
       second       <- Gen.choose(0, 59)
       nanoOfSecond <- Gen.choose(0, 999999999)
-      zoneId <- maybeZone
-        .map(Gen.const)
-        .getOrElse(Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.toList).map(ZoneId.of))
+      zoneId <-
+        maybeZone
+          .map(Gen.const)
+          .getOrElse(Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.toList).map(ZoneId.of))
     } yield ZonedDateTime
       .of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, zoneId)
 
@@ -58,27 +59,27 @@ object ArbitraryJdk8 extends GenJdk8 {
 
   private[this] val utcZoneId: ZoneId = ZoneId.of("UTC")
 
-  implicit def arbZonedDateTimeJdk8(
-      implicit granularity: Granularity[ZonedDateTime]
+  implicit def arbZonedDateTimeJdk8(implicit
+      granularity: Granularity[ZonedDateTime]
   ): Arbitrary[ZonedDateTime] =
     Arbitrary(genZonedDateTime)
 
-  implicit def arbLocalDateTimeJdk8(
-      implicit granularity: Granularity[ZonedDateTime]
+  implicit def arbLocalDateTimeJdk8(implicit
+      granularity: Granularity[ZonedDateTime]
   ): Arbitrary[LocalDateTime] =
     Arbitrary(
       genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDateTime)
     )
 
-  implicit def arbLocalDateJdk8(
-      implicit granularity: Granularity[ZonedDateTime]
+  implicit def arbLocalDateJdk8(implicit
+      granularity: Granularity[ZonedDateTime]
   ): Arbitrary[LocalDate] =
     Arbitrary(
       genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDate)
     )
 
-  implicit def arbInstantJdk8(
-      implicit granularity: Granularity[ZonedDateTime]
+  implicit def arbInstantJdk8(implicit
+      granularity: Granularity[ZonedDateTime]
   ): Arbitrary[Instant] =
     Arbitrary(genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toInstant))
 }

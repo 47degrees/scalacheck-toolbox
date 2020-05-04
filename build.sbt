@@ -1,6 +1,6 @@
 addCommandAlias(
   "ci-test",
-  "git submodule update --init --recursive; scalafmtCheck; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
+  "git submodule update --init --recursive; scalafmtCheckAll; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
 )
 addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "docs/publishMicrosite")
