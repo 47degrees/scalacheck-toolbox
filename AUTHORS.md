@@ -8,6 +8,7 @@
 
 The maintainers of the project are:
 
+- [![BenFradet](https://avatars2.githubusercontent.com/u/1737211?v=4&s=20) **Ben Fradet (BenFradet)**](https://github.com/BenFradet)
 - [![fedefernandez](https://avatars0.githubusercontent.com/u/720923?v=4&s=20) **Fede Fernández (fedefernandez)**](https://github.com/fedefernandez)
 - [![franciscodr](https://avatars1.githubusercontent.com/u/1200151?v=4&s=20) **Francisco Diaz (franciscodr)**](https://github.com/franciscodr)
 - [![juanpedromoreno](https://avatars2.githubusercontent.com/u/4879373?v=4&s=20) **Juan Pedro Moreno (juanpedromoreno)**](https://github.com/juanpedromoreno)
@@ -25,5 +26,6 @@ These are the people that have contributed to the _scalacheck-toolbox_ project:
 - [![AntonioMateoGomez](https://avatars0.githubusercontent.com/u/25897490?v=4&s=20) **AntonioMateoGomez**](https://github.com/AntonioMateoGomez)
 - [![franciscodr](https://avatars1.githubusercontent.com/u/1200151?v=4&s=20) **franciscodr**](https://github.com/franciscodr)
 - [![MaureenElsberry](https://avatars0.githubusercontent.com/u/17556002?v=4&s=20) **MaureenElsberry**](https://github.com/MaureenElsberry)
+- [![BenFradet](https://avatars2.githubusercontent.com/u/1737211?v=4&s=20) **BenFradet**](https://github.com/BenFradet)
 - [![sullivan-](https://avatars2.githubusercontent.com/u/518346?v=4&s=20) **sullivan-**](https://github.com/sullivan-)
 - [![raulraja](https://avatars3.githubusercontent.com/u/456796?v=4&s=20) **raulraja**](https://github.com/raulraja)
