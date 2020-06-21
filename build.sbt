@@ -22,7 +22,6 @@ lazy val `scalacheck-toolbox-combinators` = module
   .settings(libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3")
 
 lazy val docs: Project = (project in file("docs"))
-  .settings(micrositeSettings: _*)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .dependsOn(allModules: _*)
