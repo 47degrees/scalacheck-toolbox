@@ -2,18 +2,12 @@
 layout: docs
 ---
 
-# Get started
+# Installation
 
-Any issues, suggestions or criticisms are more than welcome.
-
-For SBT, you can add the relevant dependency to your project's build file:
+Add the following lines to your `build.sbt` file:
 
 ```scala
-resolvers += Resolver.sonatypeRepo("releases")
-
-"com.47deg" %% "scalacheck-toolbox-datetime" % "@VERSION@" % "test"
-
-"com.47deg" %% "scalacheck-toolbox-magic" % "@VERSION@" % "test"
-
-"com.47deg" %% "scalacheck-toolbox-combinators" % "@VERSION@" % "test"
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-datetime"    % "@VERSION@" % Test
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-magic"       % "@VERSION@" % Test
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-combinators" % "@VERSION@" % Test
 ```
