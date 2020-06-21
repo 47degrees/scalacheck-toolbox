@@ -1,1 +1,0 @@
-../../../big-list-of-naughty-strings/blns.txt
