@@ -29,13 +29,9 @@ object MicrositeSettingsPlugin extends AutoPlugin {
       micrositeDescription := "A helping hand for generating sensible data with ScalaCheck",
       micrositeDocumentationUrl := "/scalacheck-toolbox/docs/",
       micrositeBaseUrl := "/scalacheck-toolbox",
-      micrositeGithubRepo := "scalacheck-toolbox",
-      micrositeGithubOwner := "47degrees",
       micrositePushSiteWith := GitHub4s,
       micrositeTheme := "pattern",
       micrositeGithubToken := Option(System.getenv().get("GITHUB_TOKEN")),
-      micrositeCompilingDocsTool := WithMdoc,
-      includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
       addMappingsToSiteDir(
         mappings in (ScalaUnidoc, packageDoc),
