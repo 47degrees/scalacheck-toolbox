@@ -2,9 +2,9 @@ ThisBuild / organization := "com.47deg"
 ThisBuild / scalaVersion := "2.13.2"
 ThisBuild / crossScalaVersions := Seq("2.11.12", "2.12.11", "2.13.2")
 
-addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; docs/tut; +test")
-addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
-addCommandAlias("ci-microsite", "docs/publishMicrosite")
+addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; tut; +test")
+addCommandAlias("ci-docs", "mdoc; headerCreateAll")
+addCommandAlias("ci-microsite", "publishMicrosite")
 
 lazy val `scalacheck-toolbox-datetime` = module
   .settings(description := "A library for helping use date and time libraries with ScalaCheck")
