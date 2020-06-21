@@ -21,7 +21,7 @@ lazy val `scalacheck-toolbox-combinators` = module
   .settings(description := "Useful generic combinators for ScalaCheck")
   .settings(libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3")
 
-lazy val docs: Project = (project in file("docs"))
+lazy val microsite = project
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .dependsOn(allModules: _*)
