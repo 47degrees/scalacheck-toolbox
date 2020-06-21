@@ -23,6 +23,8 @@ import Combinators._
 
 object CombinatorProperties extends Properties("Combinator Generators") {
 
+  override def overrideParameters(p: Test.Parameters): Test.Parameters = p.withMinSuccessfulTests(100000)
+
   property(
     "genPickFromMapWithSuccessAndFailure should return a list of elements in the map, and a list of elements not in the map"
   ) = forAll(genPickFromMapWithSuccessAndFailure[String, String]) {

@@ -29,6 +29,8 @@ import scala.util.Try
 
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
+  override def overrideParameters(p: Test.Parameters): Test.Parameters = p.withMinSuccessfulTests(100000)
+
   property("genDuration creates valid durations") = forAll(genDuration)(_ => passed)
 
   property("genZonedDateTime creates valid times (with no granularity)") =

@@ -31,6 +31,8 @@ import com.fortysevendeg.scalacheck.datetime.Granularity
 
 object GenJodaProperties extends Properties("Joda Generators") {
 
+  override def overrideParameters(p: Test.Parameters): Test.Parameters = p.withMinSuccessfulTests(100000)
+
   /*
    * These properties check that the construction of the periods does not fail. Some (like years) have a restricted range of values.
    */

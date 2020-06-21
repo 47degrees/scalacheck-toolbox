@@ -23,6 +23,8 @@ import Magic._
 
 object MagicProperties extends Properties("Magic Generators") {
 
+  override def overrideParameters(p: Test.Parameters): Test.Parameters = p.withMinSuccessfulTests(100000)
+
   property("magic strings are generated correctly") = forAll(magicStrings) { s =>
     strings.contains(s)
   }
