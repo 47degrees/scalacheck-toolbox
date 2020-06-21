@@ -42,12 +42,6 @@ object ProjectPlugin extends AutoPlugin {
       addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
     )
 
-    lazy val commonDeps = Seq(
-      libraryDependencies ++= Seq(
-        "org.scalacheck" %% "scalacheck" % V.scalacheck,
-        "joda-time"       % "joda-time"  % V.jodaTime
-      )
-    )
   }
 
   override def projectSettings: Seq[Def.Setting[_]] =
