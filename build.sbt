@@ -23,8 +23,6 @@ lazy val `scalacheck-toolbox-combinators` = module
   .settings(commonDeps)
 
 lazy val docs: Project = (project in file("docs"))
-  .settings(moduleName := "scalacheck-toolbox-docs")
-  .settings(name := "scalacheck-toolbox")
   .settings(micrositeSettings: _*)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
@@ -34,7 +32,6 @@ lazy val docs: Project = (project in file("docs"))
   .dependsOn(allModules: _*)
 
 lazy val `project-docs` = (project in file(".docs"))
-  .settings(moduleName := "scalacheck-toolbox-project-docs")
   .settings(mdocIn := file(".docs"))
   .settings(mdocOut := file("."))
   .enablePlugins(MdocPlugin)
