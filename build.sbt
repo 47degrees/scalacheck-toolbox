@@ -6,39 +6,19 @@ addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; docs/tut; +test"
 addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "docs/publishMicrosite")
 
-lazy val root = (project in file("."))
-  .dependsOn(datetime, magic, combinators)
-  .aggregate(datetime, magic, combinators)
-  .settings(skip in publish := true)
-
-lazy val datetime = (project in file("datetime"))
-  .settings(
-    Seq(
-      moduleName := "scalacheck-toolbox-datetime",
-      description := "A library for helping use date and time libraries with ScalaCheck"
-    )
-  )
+lazy val `scalacheck-toolbox-datetime` = module
+  .settings(description := "A library for helping use date and time libraries with ScalaCheck")
   .settings(testSettings)
   .settings(commonDeps)
 
-lazy val magic = (project in file("magic"))
+lazy val `scalacheck-toolbox-magic` = module
   .enablePlugins(BigListOfNaughtyStringsPlugin)
-  .settings(
-    Seq(
-      moduleName := "scalacheck-toolbox-magic",
-      description := "ScalaCheck Generators for magic values"
-    )
-  )
+  .settings(description := "ScalaCheck Generators for magic values")
   .settings(testSettings)
   .settings(commonDeps)
 
-lazy val combinators = (project in file("combinators"))
-  .settings(
-    Seq(
-      moduleName := "scalacheck-toolbox-combinators",
-      description := "Useful generic combinators for ScalaCheck"
-    )
-  )
+lazy val `scalacheck-toolbox-combinators` = module
+  .settings(description := "Useful generic combinators for ScalaCheck")
   .settings(testSettings)
   .settings(commonDeps)
 
@@ -49,17 +29,12 @@ lazy val docs: Project = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(datetime, magic, combinators, docs)
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(allModules.map(_.project): _*)
   )
-  .dependsOn(datetime)
-  .dependsOn(magic)
-  .dependsOn(combinators)
+  .dependsOn(allModules: _*)
 
 lazy val `project-docs` = (project in file(".docs"))
-  .dependsOn(datetime, magic, combinators)
-  .aggregate(datetime, magic, combinators)
   .settings(moduleName := "scalacheck-toolbox-project-docs")
   .settings(mdocIn := file(".docs"))
   .settings(mdocOut := file("."))
-  .settings(skip in publish := true)
   .enablePlugins(MdocPlugin)
