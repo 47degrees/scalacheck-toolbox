@@ -24,9 +24,6 @@ lazy val docs: Project = (project in file("docs"))
   .settings(micrositeSettings: _*)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
-  .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(allModules.map(_.project): _*)
-  )
   .dependsOn(allModules: _*)
 
 lazy val `project-docs` = (project in file(".docs"))

@@ -1,9 +1,11 @@
+import com.alejandrohdezma.sbt.modules.ModulesPlugin.autoImport.allModules
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
+import sbtunidoc.BaseUnidocPlugin.autoImport._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
 
 object ProjectPlugin extends AutoPlugin {
@@ -30,7 +32,11 @@ object ProjectPlugin extends AutoPlugin {
       micrositeCompilingDocsTool := WithMdoc,
       includeFilter in Jekyll := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md",
       docsMappingsAPIDir in ScalaUnidoc := "api",
-      addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
+      addMappingsToSiteDir(
+        mappings in (ScalaUnidoc, packageDoc),
+        docsMappingsAPIDir in ScalaUnidoc
+      ),
+      unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(allModules.map(_.project): _*)
     )
 
   }
