@@ -17,11 +17,6 @@ object ProjectPlugin extends AutoPlugin {
 
   object autoImport {
 
-    lazy val V = new {
-      val jodaTime: String   = "2.10.6"
-      val scalacheck: String = "1.14.3"
-    }
-
     lazy val docsMappingsAPIDir: SettingKey[String] =
       settingKey[String]("Name of subdirectory in site target directory for api docs")
 
