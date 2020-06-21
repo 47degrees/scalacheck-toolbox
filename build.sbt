@@ -26,7 +26,6 @@ lazy val microsite = project
   .enablePlugins(ScalaUnidocPlugin)
   .dependsOn(allModules: _*)
 
-lazy val `project-docs` = (project in file(".docs"))
-  .settings(mdocIn := file(".docs"))
+lazy val documentation = project
   .settings(mdocOut := file("."))
   .enablePlugins(MdocPlugin)
