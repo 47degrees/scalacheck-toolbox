@@ -7,7 +7,6 @@ import scoverage.ScoverageKeys
 import scoverage.ScoverageKeys._
 import com.alejandrohdezma.sbt.github.SbtGithubPlugin
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
-import tut.TutPlugin.autoImport._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -22,7 +21,6 @@ object ProjectPlugin extends AutoPlugin {
 
     lazy val micrositeSettings = Seq(
       micrositeName := "scalacheck-toolbox",
-      micrositeCompilingDocsTool := WithTut,
       micrositeDescription := "A helping hand for generating sensible data with ScalaCheck",
       micrositeDocumentationUrl := "/scalacheck-toolbox/docs/",
       micrositeBaseUrl := "/scalacheck-toolbox",
