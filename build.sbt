@@ -1,6 +1,10 @@
+ThisBuild / organization := "com.47deg"
+ThisBuild / scalaVersion := "2.13.1"
+ThisBuild / crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.1")
+
 addCommandAlias(
   "ci-test",
-  "git submodule update --init --recursive; scalafmtCheckAll; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
+  "scalafmtCheckAll; scalafmtSbtCheck; docs/tut; +testOnly * -- -minSuccessfulTests 100000"
 )
 addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "docs/publishMicrosite")
@@ -21,6 +25,7 @@ lazy val datetime = (project in file("datetime"))
   .settings(commonDeps)
 
 lazy val magic = (project in file("magic"))
+  .enablePlugins(BigListOfNaughtyStringsPlugin)
   .settings(
     Seq(
       moduleName := "scalacheck-toolbox-magic",

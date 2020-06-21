@@ -20,9 +20,6 @@ object ProjectPlugin extends AutoPlugin {
     lazy val V = new {
       val jodaTime: String   = "2.10.6"
       val scalacheck: String = "1.14.3"
-      val scala211: String   = "2.11.12"
-      val scala212: String   = "2.12.10"
-      val scala213: String   = "2.13.1"
     }
 
     lazy val docsMappingsAPIDir: SettingKey[String] =
@@ -57,12 +54,8 @@ object ProjectPlugin extends AutoPlugin {
     )
   }
 
-  import autoImport._
-
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
-      organization := "com.47deg",
-      crossScalaVersions := Seq(V.scala211, V.scala212, V.scala213),
       scalacOptions := {
         val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
         CrossVersion.partialVersion(scalaBinaryVersion.value) match {
