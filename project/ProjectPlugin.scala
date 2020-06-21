@@ -42,10 +42,6 @@ object ProjectPlugin extends AutoPlugin {
       addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir in ScalaUnidoc)
     )
 
-    lazy val testSettings = Seq(
-      fork in Test := false
-    )
-
     lazy val commonDeps = Seq(
       libraryDependencies ++= Seq(
         "org.scalacheck" %% "scalacheck" % V.scalacheck,

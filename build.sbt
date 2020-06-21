@@ -8,18 +8,15 @@ addCommandAlias("ci-microsite", "docs/publishMicrosite")
 
 lazy val `scalacheck-toolbox-datetime` = module
   .settings(description := "A library for helping use date and time libraries with ScalaCheck")
-  .settings(testSettings)
   .settings(commonDeps)
 
 lazy val `scalacheck-toolbox-magic` = module
   .enablePlugins(BigListOfNaughtyStringsPlugin)
   .settings(description := "ScalaCheck Generators for magic values")
-  .settings(testSettings)
   .settings(commonDeps)
 
 lazy val `scalacheck-toolbox-combinators` = module
   .settings(description := "Useful generic combinators for ScalaCheck")
-  .settings(testSettings)
   .settings(commonDeps)
 
 lazy val docs: Project = (project in file("docs"))
