@@ -16,7 +16,7 @@
 
 package com.fortysevendeg.scalacheck.datetime.jdk8
 
-import collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary

@@ -10,6 +10,7 @@ lazy val `scalacheck-toolbox-datetime` = module
   .settings(description := "A library for helping use date and time libraries with ScalaCheck")
   .settings(libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3")
   .settings(libraryDependencies += "joda-time" % "joda-time" % "2.10.6")
+  .settings(libraryDependencies += "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6")
 
 lazy val `scalacheck-toolbox-magic` = module
   .enablePlugins(BigListOfNaughtyStringsPlugin)
