@@ -23,6 +23,7 @@ import com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._
 
 val prop = forAll { dt: DateTime =>
   // some calculations here using the dt parameter
+  dt.isInstanceOf[DateTime]
   passed
 }
 

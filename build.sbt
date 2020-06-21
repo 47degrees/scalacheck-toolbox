@@ -6,6 +6,15 @@ addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; mdoc; +test")
 addCommandAlias("ci-docs", "mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "publishMicrosite")
 
+lazy val microsite = project
+  .enablePlugins(MicrositesPlugin)
+  .enablePlugins(ScalaUnidocPlugin)
+  .dependsOn(allModules: _*)
+
+lazy val documentation = project
+  .settings(mdocOut := file("."))
+  .enablePlugins(MdocPlugin)
+
 lazy val `scalacheck-toolbox-datetime` = module
   .settings(description := "A library for helping use date and time libraries with ScalaCheck")
   .settings(libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3")
@@ -20,12 +29,3 @@ lazy val `scalacheck-toolbox-magic` = module
 lazy val `scalacheck-toolbox-combinators` = module
   .settings(description := "Useful generic combinators for ScalaCheck")
   .settings(libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3")
-
-lazy val microsite = project
-  .enablePlugins(MicrositesPlugin)
-  .enablePlugins(ScalaUnidocPlugin)
-  .dependsOn(allModules: _*)
-
-lazy val documentation = project
-  .settings(mdocOut := file("."))
-  .enablePlugins(MdocPlugin)

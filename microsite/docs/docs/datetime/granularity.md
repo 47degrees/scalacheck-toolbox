@@ -5,10 +5,7 @@ layout: docs
 
 ```scala mdoc:silent
 // this is here to remove noisy warnings
-import org.scalacheck.Prop.passed
 import org.scalacheck.Prop.forAll
-import org.joda.time.DateTime
-import com.fortysevendeg.scalacheck.datetime.joda.ArbitraryJoda._
 ```
 
 If you wish to restrict the precision of the generated instances, this library refers to that as _granularity_.
@@ -28,7 +25,6 @@ To constrain a generated type, you simply need to provide an import for the type
 ```scala mdoc:silent
 import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
-import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
 import com.fortysevendeg.scalacheck.datetime.jdk8.granularity.years
 
 val prop = forAll { zdt: ZonedDateTime =>
