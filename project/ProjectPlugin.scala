@@ -41,14 +41,4 @@ object ProjectPlugin extends AutoPlugin {
 
   }
 
-  override def projectSettings: Seq[Def.Setting[_]] =
-    Seq(
-      scalacOptions := {
-        val scalacOptions213 = scalacOptions.value filterNot Set("-Xfuture").contains
-        CrossVersion.partialVersion(scalaBinaryVersion.value) match {
-          case Some((2, 13)) => scalacOptions213
-          case _             => scalacOptions.value
-        }
-      }
-    )
 }
