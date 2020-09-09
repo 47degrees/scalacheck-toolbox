@@ -94,11 +94,10 @@ object GenJodaProperties extends Properties("Joda Generators") {
     (Granularity.identity[DateTime], (_: DateTime) => true) :: granularitiesAndPredicates
 
   property("genDateTime with a granularity generates appropriate DateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        implicit val generatedGranularity = granularity
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      implicit val generatedGranularity = granularity
 
-        forAll(genDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
+      forAll(genDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property(

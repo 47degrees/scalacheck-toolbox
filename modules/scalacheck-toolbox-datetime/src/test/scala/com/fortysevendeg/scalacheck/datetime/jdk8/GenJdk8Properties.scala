@@ -106,57 +106,52 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     (Granularity.identity[ZonedDateTime], (_: ZonedDateTime) => true) :: granularitiesAndPredicates
 
   property("genZonedDateTime with a granularity generates appropriate ZonedDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll(genZonedDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
+      forAll(genZonedDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property("arbitrary generation with a granularity generates appropriate ZonedDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        import ArbitraryJdk8._
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      import ArbitraryJdk8._
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll { dt: ZonedDateTime => predicate(dt) :| s"${granularity.description}: $dt" }
+      forAll { dt: ZonedDateTime => predicate(dt) :| s"${granularity.description}: $dt" }
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalDateTimes") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        import ArbitraryJdk8._
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      import ArbitraryJdk8._
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll { dt: LocalDateTime =>
-          predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
-        }
+      forAll { dt: LocalDateTime =>
+        predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
+      }
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalDates") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        import ArbitraryJdk8._
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      import ArbitraryJdk8._
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll { dt: LocalDate =>
-          predicate(dt.atStartOfDay(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
-        }
+      forAll { dt: LocalDate =>
+        predicate(dt.atStartOfDay(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
+      }
     }
 
   property("arbitrary generation with a granularity generates appropriate Instants") =
-    forAll(Gen.oneOf(granularitiesAndPredicates)) {
-      case (granularity, predicate) =>
-        import ArbitraryJdk8._
+    forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
+      import ArbitraryJdk8._
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll { instant: Instant =>
-          predicate(instant.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $instant"
-        }
+      forAll { instant: Instant =>
+        predicate(instant.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $instant"
+      }
     }
 
   // Guards against adding a duration to a datetime which cannot represent millis in a long, causing an exception.
