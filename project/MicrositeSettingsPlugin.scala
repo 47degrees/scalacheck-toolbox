@@ -1,4 +1,3 @@
-import com.alejandrohdezma.sbt.modules.ModulesPlugin.autoImport.allModules
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import microsites.MicrositesPlugin
@@ -36,8 +35,7 @@ object MicrositeSettingsPlugin extends AutoPlugin {
       addMappingsToSiteDir(
         mappings in (ScalaUnidoc, packageDoc),
         docsMappingsAPIDir in ScalaUnidoc
-      ),
-      unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(allModules.map(_.project): _*)
+      )
     )
 
 }
