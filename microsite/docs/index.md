@@ -17,12 +17,12 @@ arbitrary[DateTime].sample
 # A helping hand for generating sensible data with ScalaCheck
 The ScalaCheck Toolbox is intended to be a set of libraries that can help rein in the power of ScalaCheck in a sensible way, while not impeding your tests. There are three libraries to help you:
 
-  * [`datetime`](/scalacheck-toolbox/docs/datetime/): Limit the test data to a certain range of times, and constrain generation to a certain level of precision.
-  * [`magic`](/scalacheck-toolbox/docs/magic/): Enhance the provided generators with some values that are often used to signal danger, or perhaps something more sinister, such as the Strings "_null_", "_False_" or "_Robert'); DROP TABLE Students;--_".
-  * [`combinators`](/scalacheck-toolbox/docs/combinators): Provide some useful combinators of generators, such as the pairing of a map _and a list of values that are present in the map_.
+  * [`datetime`](https://47degrees.github.io/scalacheck-toolbox/docs/datetime/): Limit the test data to a certain range of times, and constrain generation to a certain level of precision.
+  * [`magic`](https://47degrees.github.io/scalacheck-toolbox/docs/magic/): Enhance the provided generators with some values that are often used to signal danger, or perhaps something more sinister, such as the Strings "_null_", "_False_" or "_Robert'); DROP TABLE Students;--_".
+  * [`combinators`](https://47degrees.github.io/scalacheck-toolbox/docs/combinators): Provide some useful combinators of generators, such as the pairing of a map _and a list of values that are present in the map_.
 
 
-View the [documentation](/scalacheck-toolbox/docs) for more tips on how to get the best from these tools.
+View the [documentation](https://47degrees.github.io/scalacheck-toolbox/docs) for more tips on how to get the best from these tools.
 
 ## Commercial Support
 
