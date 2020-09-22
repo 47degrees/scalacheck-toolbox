@@ -27,7 +27,7 @@ val prop = forAll { dt: DateTime =>
   passed
 }
 
-prop.check
+prop.check()
 ```
 
 ## A note on imports

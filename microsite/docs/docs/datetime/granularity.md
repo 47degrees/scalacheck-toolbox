@@ -36,6 +36,6 @@ val prop = forAll { zdt: ZonedDateTime =>
   (zdt.getNano == 0)
 }
 
-prop.check
+prop.check()
 ```
 
