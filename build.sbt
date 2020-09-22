@@ -1,4 +1,5 @@
 import sbt.internal.ProjectMatrix
+import scoverage.ScoverageKeys.coverageEnabled
 
 val scala2_11        = "2.11.12"
 val scala2_12        = "2.12.12"
@@ -39,8 +40,7 @@ lazy val core: ProjectMatrix = (projectMatrix in file("modules/scalacheck-toolbo
   .settings(
     libraryDependencies ++= Seq(
       "org.scalacheck"         %%% "scalacheck"              % "1.14.3",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.2.0",
-      "joda-time"                % "joda-time"               % "2.10.6"
+      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.2.0"
     )
   )
   .jvmPlatform(
@@ -49,7 +49,10 @@ lazy val core: ProjectMatrix = (projectMatrix in file("modules/scalacheck-toolbo
   )
   .jsPlatform(
     scalaVersions = allScalaVersions,
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0" % Test
+    settings = Seq(
+      coverageEnabled := false,
+      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0" % Test
+    )
   )
 
 lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
@@ -64,4 +67,7 @@ lazy val `scalacheck-toolbox-combinators`: ProjectMatrix =
     .settings(description := "Useful generic combinators for ScalaCheck")
     .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.14.3")
     .jvmPlatform(scalaVersions = allScalaVersions)
-    .jsPlatform(scalaVersions = allScalaVersions)
+    .jsPlatform(
+      scalaVersions = allScalaVersions,
+      settings = coverageEnabled := false
+    )
