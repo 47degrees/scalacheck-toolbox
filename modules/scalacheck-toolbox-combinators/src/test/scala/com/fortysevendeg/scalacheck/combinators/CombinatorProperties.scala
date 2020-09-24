@@ -16,15 +16,11 @@
 
 package com.fortysevendeg.scalacheck.combinators
 
-import org.scalacheck._
 import org.scalacheck.Prop._
 
 import Combinators._
 
-object CombinatorProperties extends Properties("Combinator Generators") {
-
-  override def overrideParameters(p: Test.Parameters): Test.Parameters =
-    p.withMinSuccessfulTests(100000)
+object CombinatorProperties extends BaseCombinatorProperties {
 
   property(
     "genPickFromMapWithSuccessAndFailure should return a list of elements in the map, and a list of elements not in the map"

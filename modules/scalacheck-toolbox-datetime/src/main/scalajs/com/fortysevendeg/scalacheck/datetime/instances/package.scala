@@ -14,28 +14,8 @@
  * limitations under the License.
  */
 
-package com.fortysevendeg.scalacheck.magic
+package com.fortysevendeg.scalacheck.datetime
 
-import org.scalacheck._
-import org.scalacheck.Gen._
-import org.scalacheck.Arbitrary.arbitrary
-
-object Magic {
-
-  val stream = getClass.getResourceAsStream("/blns.txt")
-
-  private[magic] val strings = scala.io.Source
-    .fromInputStream(stream)
-    .getLines()
-    .filterNot { s =>
-      val trimmed = s.trim
-      trimmed.startsWith("#") || trimmed.isEmpty
-    }
-    .toList
-
-  val magicStrings: Gen[String] = oneOf(strings)
-
-  implicit val enhancedStringArbitrary: Arbitrary[String] = Arbitrary {
-    oneOf(arbitrary[List[Char]] map (_.mkString), magicStrings)
-  }
+package object instances {
+  object jdk8 extends Jdk8Instances
 }

@@ -14,28 +14,14 @@
  * limitations under the License.
  */
 
-package com.fortysevendeg.scalacheck.magic
+package com.fortysevendeg.scalacheck.combinators
 
 import org.scalacheck._
-import org.scalacheck.Gen._
-import org.scalacheck.Arbitrary.arbitrary
 
-object Magic {
+abstract class BaseCombinatorProperties extends Properties("Combinator Generators") {
 
-  val stream = getClass.getResourceAsStream("/blns.txt")
-
-  private[magic] val strings = scala.io.Source
-    .fromInputStream(stream)
-    .getLines()
-    .filterNot { s =>
-      val trimmed = s.trim
-      trimmed.startsWith("#") || trimmed.isEmpty
-    }
-    .toList
-
-  val magicStrings: Gen[String] = oneOf(strings)
-
-  implicit val enhancedStringArbitrary: Arbitrary[String] = Arbitrary {
-    oneOf(arbitrary[List[Char]] map (_.mkString), magicStrings)
-  }
+  override def overrideParameters(p: Test.Parameters): Test.Parameters =
+    // These tests run much slower on Node.js compared to the JVM so we have to live with smaller number of
+    // minSuccessfulTests here
+    p.withMinSuccessfulTests(10000)
 }

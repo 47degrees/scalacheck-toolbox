@@ -19,7 +19,7 @@ val range = Period.years(1)
 
 forAll(genDateTimeWithinRange(from, range)) { dt =>
   dt.getYear == 2016
-}.check
+}.check()
 ```
 
 # Using Granularity and Ranges Together
@@ -35,5 +35,5 @@ forAll(genDateTimeWithinRange(from, range)) { dt =>
   (dt.getMinuteOfHour == 0) &&
   (dt.getSecondOfMinute == 0) &&
   (dt.getMillisOfSecond == 0)
-}.check
+}.check()
 ```
