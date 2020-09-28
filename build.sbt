@@ -8,6 +8,7 @@ val allScalaVersions = List(scala2_11, scala2_12, scala2_13)
 
 ThisBuild / organization := "com.47deg"
 ThisBuild / scalaVersion := scala2_13
+skip in publish := true
 
 addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; mdoc; testCovered")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll; publishMicrosite")
@@ -17,14 +18,15 @@ lazy val microsite = project
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .dependsOn(
-    core.jvm(scala2_13),
+    `scalacheck-toolbox-datetime`.jvm(scala2_13),
     `scalacheck-toolbox-magic`.jvm(scala2_13),
     `scalacheck-toolbox-combinators`.jvm(scala2_13)
   )
   .settings(
+    skip in publish := true,
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(
       Seq(
-        core.jvm(scala2_13),
+        `scalacheck-toolbox-datetime`.jvm(scala2_13),
         `scalacheck-toolbox-magic`.jvm(scala2_13),
         `scalacheck-toolbox-combinators`.jvm(scala2_13)
       ).map(_.project): _*
@@ -32,28 +34,32 @@ lazy val microsite = project
   )
 
 lazy val documentation = project
-  .settings(mdocOut := file("."))
+  .settings(
+    skip in publish := true,
+    mdocOut := file(".")
+  )
   .enablePlugins(MdocPlugin)
 
-lazy val core: ProjectMatrix = (projectMatrix in file("modules/scalacheck-toolbox-datetime"))
-  .settings(description := "A library for helping use date and time libraries with ScalaCheck")
-  .settings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck"         %%% "scalacheck"              % "1.14.3",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.2.0"
+lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
+  (projectMatrix in file("modules/scalacheck-toolbox-datetime"))
+    .settings(description := "A library for helping use date and time libraries with ScalaCheck")
+    .settings(
+      libraryDependencies ++= Seq(
+        "org.scalacheck"         %%% "scalacheck"              % "1.14.3",
+        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.2.0"
+      )
     )
-  )
-  .jvmPlatform(
-    scalaVersions = allScalaVersions,
-    libraryDependencies += "joda-time" % "joda-time" % "2.10.6"
-  )
-  .jsPlatform(
-    scalaVersions = allScalaVersions,
-    settings = Seq(
-      coverageEnabled := false,
-      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0" % Test
+    .jvmPlatform(
+      scalaVersions = allScalaVersions,
+      libraryDependencies += "joda-time" % "joda-time" % "2.10.6"
     )
-  )
+    .jsPlatform(
+      scalaVersions = allScalaVersions,
+      settings = Seq(
+        coverageEnabled := false,
+        libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0" % Test
+      )
+    )
 
 lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-magic"))
