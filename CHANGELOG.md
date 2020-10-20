@@ -1,5 +1,53 @@
 # Changelog
 
+## [v0.4.0](https://github.com/47degrees/scalacheck-toolbox/tree/v0.4.0) (2020-10-20)
+
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.5...v0.4.0)
+
+📈 **Dependency updates**
+
+- Update scalafmt-core to 2.7.5 [\#181](https://github.com/47degrees/scalacheck-toolbox/pull/181) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.10 [\#180](https://github.com/47degrees/scalacheck-toolbox/pull/180) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalajs, scalajs-compiler to 1.3.0 [\#179](https://github.com/47degrees/scalacheck-toolbox/pull/179) ([47erbot](https://github.com/47erbot))
+- Update sbt-tpolecat to 0.1.14 [\#178](https://github.com/47degrees/scalacheck-toolbox/pull/178) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.4 [\#177](https://github.com/47degrees/scalacheck-toolbox/pull/177) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.0 [\#175](https://github.com/47degrees/scalacheck-toolbox/pull/175) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.3 [\#174](https://github.com/47degrees/scalacheck-toolbox/pull/174) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.2 [\#172](https://github.com/47degrees/scalacheck-toolbox/pull/172) ([BenFradet](https://github.com/BenFradet))
+- Update sbt-mdoc to 2.2.9 [\#169](https://github.com/47degrees/scalacheck-toolbox/pull/169) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.1 [\#168](https://github.com/47degrees/scalacheck-toolbox/pull/168) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.8 [\#165](https://github.com/47degrees/scalacheck-toolbox/pull/165) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.7 [\#164](https://github.com/47degrees/scalacheck-toolbox/pull/164) ([47erbot](https://github.com/47erbot))
+- Update scala-collection-compat to 2.2.0 [\#163](https://github.com/47degrees/scalacheck-toolbox/pull/163) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.0 [\#162](https://github.com/47degrees/scalacheck-toolbox/pull/162) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.6 [\#161](https://github.com/47degrees/scalacheck-toolbox/pull/161) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.5 [\#160](https://github.com/47degrees/scalacheck-toolbox/pull/160) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.4 [\#159](https://github.com/47degrees/scalacheck-toolbox/pull/159) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalafmt to 2.4.2 [\#158](https://github.com/47degrees/scalacheck-toolbox/pull/158) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.6.4 [\#157](https://github.com/47degrees/scalacheck-toolbox/pull/157) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.6.2 [\#155](https://github.com/47degrees/scalacheck-toolbox/pull/155) ([scala-steward](https://github.com/scala-steward))
+- Update sbt to 1.3.13 [\#154](https://github.com/47degrees/scalacheck-toolbox/pull/154) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-tpolecat to 0.1.13 [\#153](https://github.com/47degrees/scalacheck-toolbox/pull/153) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-mdoc to 2.2.3 [\#152](https://github.com/47degrees/scalacheck-toolbox/pull/152) ([scala-steward](https://github.com/scala-steward))
+- Update scalafmt-core to 2.6.1 [\#151](https://github.com/47degrees/scalacheck-toolbox/pull/151) ([scala-steward](https://github.com/scala-steward))
+- Update joda-time to 2.10.6 [\#143](https://github.com/47degrees/scalacheck-toolbox/pull/143) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-ci-release to 1.5.3 [\#142](https://github.com/47degrees/scalacheck-toolbox/pull/142) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-microsites to 1.2.0 [\#141](https://github.com/47degrees/scalacheck-toolbox/pull/141) ([scala-steward](https://github.com/scala-steward))
+
+**Closed issues:**
+
+- Build for Scala JS [\#25](https://github.com/47degrees/scalacheck-toolbox/issues/25)
+
+**Merged pull requests:**
+
+- Fix publishing settings after the removal of sbt-modules [\#173](https://github.com/47degrees/scalacheck-toolbox/pull/173) ([sbrunk](https://github.com/sbrunk))
+- Specify complete links [\#171](https://github.com/47degrees/scalacheck-toolbox/pull/171) ([BenFradet](https://github.com/BenFradet))
+- Add Scala.js support [\#166](https://github.com/47degrees/scalacheck-toolbox/pull/166) ([sbrunk](https://github.com/sbrunk))
+- Update scalafmt-core to 2.5.3 [\#150](https://github.com/47degrees/scalacheck-toolbox/pull/150) ([BenFradet](https://github.com/BenFradet))
+- Prepare repository for next `.github` release and SBT build improvements [\#148](https://github.com/47degrees/scalacheck-toolbox/pull/148) ([alejandrohdezma](https://github.com/alejandrohdezma))
+- Update scalafmt-core to 2.5.1 [\#146](https://github.com/47degrees/scalacheck-toolbox/pull/146) ([BenFradet](https://github.com/BenFradet))
+- Migrates to mdoc [\#144](https://github.com/47degrees/scalacheck-toolbox/pull/144) ([fedefernandez](https://github.com/fedefernandez))
+
 ## [v0.3.5](https://github.com/47degrees/scalacheck-toolbox/tree/v0.3.5) (2020-04-16)
 
 [Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.3.4...v0.3.5)
@@ -31,7 +79,6 @@
 
 - Delete version.sbt [\#118](https://github.com/47degrees/scalacheck-toolbox/pull/118) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.5 [\#100](https://github.com/47degrees/scalacheck-toolbox/pull/100) ([scala-steward](https://github.com/scala-steward))
-- Mergify: configuration update [\#99](https://github.com/47degrees/scalacheck-toolbox/pull/99) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-microsites to 1.1.3 [\#98](https://github.com/47degrees/scalacheck-toolbox/pull/98) ([scala-steward](https://github.com/scala-steward))
 - Adds microsite theme to keep website style [\#97](https://github.com/47degrees/scalacheck-toolbox/pull/97) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 
@@ -41,6 +88,7 @@
 
 **Merged pull requests:**
 
+- Mergify: configuration update [\#99](https://github.com/47degrees/scalacheck-toolbox/pull/99) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Adding GitHub org info [\#95](https://github.com/47degrees/scalacheck-toolbox/pull/95) ([franciscodr](https://github.com/franciscodr))
 - Setting Tut as compilation tool for documentation [\#94](https://github.com/47degrees/scalacheck-toolbox/pull/94) ([franciscodr](https://github.com/franciscodr))
 - Release 0.3.3 [\#93](https://github.com/47degrees/scalacheck-toolbox/pull/93) ([franciscodr](https://github.com/franciscodr))
