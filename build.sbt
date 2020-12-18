@@ -45,7 +45,7 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     .settings(description := "A library for helping use date and time libraries with ScalaCheck")
     .settings(
       libraryDependencies ++= Seq(
-        "org.scalacheck"         %%% "scalacheck"              % "1.15.1",
+        "org.scalacheck"         %%% "scalacheck"              % "1.15.2",
         "org.scala-lang.modules" %%% "scala-collection-compat" % "2.3.1"
       )
     )
@@ -65,13 +65,13 @@ lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-magic"))
     .enablePlugins(BigListOfNaughtyStringsPlugin)
     .settings(description := "ScalaCheck Generators for magic values")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.1")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.2")
     .jvmPlatform(scalaVersions = allScalaVersions)
 
 lazy val `scalacheck-toolbox-combinators`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-combinators"))
     .settings(description := "Useful generic combinators for ScalaCheck")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.1")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.2")
     .jvmPlatform(scalaVersions = allScalaVersions)
     .jsPlatform(
       scalaVersions = allScalaVersions,
