@@ -62,7 +62,7 @@ object ArbitraryJdk8 extends GenJdk8 {
   implicit def arbZonedDateTimeJdk8(implicit
       granularity: Granularity[ZonedDateTime]
   ): Arbitrary[ZonedDateTime] =
-    Arbitrary(genZonedDateTime)
+    Arbitrary(genZonedDateTime.map(granularity.normalize))
 
   implicit def arbLocalDateTimeJdk8(implicit
       granularity: Granularity[ZonedDateTime]
