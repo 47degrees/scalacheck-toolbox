@@ -53,9 +53,10 @@ trait GenJdk8 {
   ): Gen[ZonedDateTime] =
     genZonedDateTimeWithZone(None).map(granularity.normalize)
 
-  val genDuration: Gen[Duration] = Gen
-    .choose(Long.MinValue, Long.MaxValue / 1000)
-    .map(l => Duration.of(l, MILLIS))
+  def genDurationOf(minMillis: Long, maxMillis: Long) =
+    Gen.choose(minMillis, maxMillis).map(Duration.of(_, MILLIS))
+
+  val genDuration: Gen[Duration] = genDurationOf(Long.MinValue, Long.MaxValue / 1000)
 }
 
 object GenJdk8 extends GenJdk8
