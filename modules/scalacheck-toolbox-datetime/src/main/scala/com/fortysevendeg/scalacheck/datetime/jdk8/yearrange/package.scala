@@ -11,7 +11,7 @@ package object yearrange {
   }
 
   /** Defines a year range between your own defined min and max years. */
-  def of(minYear: Int, maxYear: Int) = new YearRange {
+  def between(minYear: Int, maxYear: Int) = new YearRange {
     override val min = minYear
     val max          = maxYear
   }
