@@ -166,6 +166,15 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       }
   }
 
+  property("genDurationOf gives a duration within the specified range") = forAll(Gen.posNum[Long]) {
+    range: Long =>
+      forAll(genDurationOf(-range, range)) { dur =>
+        val millis    = dur.toMillis
+        val predicate = millis >= -range && millis <= range
+        predicate :| s"Duration of millis: $millis, range: -$range to $range"
+      }
+  }
+
   property(
     "genDateTimeWithinRange for Java 8 should generate ZonedDateTimes between the given date and the end of the specified Duration"
   ) = forAll(genZonedDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefault)) {
