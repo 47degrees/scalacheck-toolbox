@@ -182,35 +182,39 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   property(
     "genDateTimeWithinRange for Java 8 should generate ZonedDateTimes between the given date and the end of the specified Duration"
-  ) = forAll(genZonedDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefault)) {
-    case (now, d, (granularity, predicate)) =>
-      !tooLargeForAddingRanges(now, d) ==> {
+  ) = forAll(
+    genZonedDateTime,
+    genDurationOf(-twoThousandYearsMillis, twoThousandYearsMillis),
+    Gen.oneOf(granularitiesAndPredicatesWithDefault)
+  ) { case (now, d, (granularity, predicate)) =>
+    !tooLargeForAddingRanges(now, d) ==> {
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll(genDateTimeWithinRange(now, d)) { generated =>
-          val durationBoundary = now.plus(d)
+      forAll(genDateTimeWithinRange(now, d)) { generated =>
+        val durationBoundary = now.plus(d)
 
-          val resultText = s"""Duration:        $d
+        val resultText = s"""Duration:        $d
                             |Duration millis: ${d.toMillis}
                             |Now:             $now
                             |Generated:       $generated
                             |Period Boundary: $durationBoundary
                             |Granularity:     ${granularity.description}""".stripMargin
 
-          val (lowerBound, upperBound) =
-            if (durationBoundary.isAfter(now)) (now, durationBoundary)
-            else (durationBoundary, now)
+        val (lowerBound, upperBound) =
+          if (durationBoundary.isAfter(now)) (now, durationBoundary)
+          else (durationBoundary, now)
 
-          val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
-            (upperBound.isAfter(generated) || upperBound.isEqual(generated))
+        val rangeCheck = (lowerBound
+          .isBefore(generated) || granularity.normalize(lowerBound).isEqual(generated)) &&
+          (upperBound.isAfter(generated) || upperBound.isEqual(generated))
 
-          val granularityCheck = predicate(generated)
+        val granularityCheck = predicate(generated)
 
-          val prop = rangeCheck && granularityCheck
+        val prop = rangeCheck && granularityCheck
 
-          prop :| resultText
-        }
+        prop :| resultText
       }
+    }
   }
 }
