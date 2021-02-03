@@ -66,10 +66,15 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
     import java.time.temporal.ChronoField._
 
-    def zeroNanos(dt: ZonedDateTime)   = dt.get(NANO_OF_SECOND) == 0
-    def zeroSeconds(dt: ZonedDateTime) = zeroNanos(dt) && dt.get(SECOND_OF_MINUTE) == 0
+    //Defines handling the weird scenario where normalizing is impossible due to an early-morning timezone switch.
+    def timezoneSwitch(dt: ZonedDateTime) =
+      dt.minusNanos(1).get(DAY_OF_YEAR) == dt.minusDays(1).get(DAY_OF_YEAR)
+
+    def zeroNanos(dt: ZonedDateTime) = timezoneSwitch(dt) || dt.get(NANO_OF_SECOND) == 0
+    def zeroSeconds(dt: ZonedDateTime) =
+      (timezoneSwitch(dt) || zeroNanos(dt)) && dt.get(SECOND_OF_MINUTE) == 0
     def zeroMinutes(dt: ZonedDateTime) =
-      zeroSeconds(dt) && {
+      (timezoneSwitch(dt) || zeroSeconds(dt)) && {
         // The previous second should be in the previous hour.
         // There are cases where half an hour has been taken out of a day,
         // such as +58963572-10-01T02:30+11:00[Australia/Lord_Howe]
@@ -80,7 +85,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
         prevSecond.get(HOUR_OF_DAY) == prevHour.get(HOUR_OF_DAY)
       }
     def zeroHours(dt: ZonedDateTime) =
-      zeroMinutes(dt) && {
+      (timezoneSwitch(dt) || zeroMinutes(dt)) && {
         // Very very rarely, some days start at 1am, rather than 12am
         // In this case, check that the minute before is in the day before.
         dt.get(HOUR_OF_DAY) match {
@@ -94,7 +99,8 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
           case _ => false
         }
       }
-    def firstDay(dt: ZonedDateTime) = zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1
+    def firstDay(dt: ZonedDateTime) =
+      (timezoneSwitch(dt) || zeroHours(dt)) && dt.get(DAY_OF_YEAR) == 1
 
     List(
       (granularity.seconds, zeroNanos),
