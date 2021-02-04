@@ -45,19 +45,19 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     .settings(description := "A library for helping use date and time libraries with ScalaCheck")
     .settings(
       libraryDependencies ++= Seq(
-        "org.scalacheck"         %%% "scalacheck"              % "1.15.1",
-        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.3.1"
+        "org.scalacheck"         %%% "scalacheck"              % "1.15.2",
+        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.3.2"
       )
     )
     .jvmPlatform(
       scalaVersions = allScalaVersions,
-      libraryDependencies += "joda-time" % "joda-time" % "2.10.8"
+      libraryDependencies += "joda-time" % "joda-time" % "2.10.9"
     )
     .jsPlatform(
       scalaVersions = allScalaVersions,
       settings = Seq(
         coverageEnabled := false,
-        libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0" % Test
+        libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.1.0" % Test
       )
     )
 
@@ -65,13 +65,13 @@ lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-magic"))
     .enablePlugins(BigListOfNaughtyStringsPlugin)
     .settings(description := "ScalaCheck Generators for magic values")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.1")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.2")
     .jvmPlatform(scalaVersions = allScalaVersions)
 
 lazy val `scalacheck-toolbox-combinators`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-combinators"))
     .settings(description := "Useful generic combinators for ScalaCheck")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.1")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.15.2")
     .jvmPlatform(scalaVersions = allScalaVersions)
     .jsPlatform(
       scalaVersions = allScalaVersions,
