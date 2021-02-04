@@ -24,13 +24,15 @@ import org.scalacheck.Arbitrary
 import java.time._
 import java.time.temporal.ChronoUnit.MILLIS
 
-import com.fortysevendeg.scalacheck.datetime.Granularity
+import com.fortysevendeg.scalacheck.datetime.{Granularity, YearRange}
 
 trait GenJdk8 {
 
-  def genZonedDateTimeWithZone(maybeZone: Option[ZoneId]): Gen[ZonedDateTime] =
+  def genZonedDateTimeWithZone(
+      maybeZone: Option[ZoneId]
+  )(implicit yearRange: YearRange): Gen[ZonedDateTime] =
     for {
-      year  <- Gen.choose(-292278994, 292278994)
+      year  <- Gen.choose(yearRange.min, yearRange.max)
       month <- Gen.choose(1, 12)
       maxDaysInMonth = Month.of(month).length(Year.of(year).isLeap)
       dayOfMonth   <- Gen.choose(1, maxDaysInMonth)
@@ -45,12 +47,16 @@ trait GenJdk8 {
     } yield ZonedDateTime
       .of(year, month, dayOfMonth, hour, minute, second, nanoOfSecond, zoneId)
 
-  def genZonedDateTime(implicit granularity: Granularity[ZonedDateTime]): Gen[ZonedDateTime] =
+  def genZonedDateTime(implicit
+      granularity: Granularity[ZonedDateTime],
+      yearRange: YearRange
+  ): Gen[ZonedDateTime] =
     genZonedDateTimeWithZone(None).map(granularity.normalize)
 
-  val genDuration: Gen[Duration] = Gen
-    .choose(Long.MinValue, Long.MaxValue / 1000)
-    .map(l => Duration.of(l, MILLIS))
+  def genDurationOf(minMillis: Long, maxMillis: Long) =
+    Gen.choose(minMillis, maxMillis).map(Duration.of(_, MILLIS))
+
+  val genDuration: Gen[Duration] = genDurationOf(Long.MinValue, Long.MaxValue / 1000)
 }
 
 object GenJdk8 extends GenJdk8
@@ -60,26 +66,30 @@ object ArbitraryJdk8 extends GenJdk8 {
   private[this] val utcZoneId: ZoneId = ZoneId.of("UTC")
 
   implicit def arbZonedDateTimeJdk8(implicit
-      granularity: Granularity[ZonedDateTime]
+      granularity: Granularity[ZonedDateTime],
+      yearRange: YearRange
   ): Arbitrary[ZonedDateTime] =
     Arbitrary(genZonedDateTime.map(granularity.normalize))
 
   implicit def arbLocalDateTimeJdk8(implicit
-      granularity: Granularity[ZonedDateTime]
+      granularity: Granularity[ZonedDateTime],
+      yearRange: YearRange
   ): Arbitrary[LocalDateTime] =
     Arbitrary(
       genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDateTime)
     )
 
   implicit def arbLocalDateJdk8(implicit
-      granularity: Granularity[ZonedDateTime]
+      granularity: Granularity[ZonedDateTime],
+      yearRange: YearRange
   ): Arbitrary[LocalDate] =
     Arbitrary(
       genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toLocalDate)
     )
 
   implicit def arbInstantJdk8(implicit
-      granularity: Granularity[ZonedDateTime]
+      granularity: Granularity[ZonedDateTime],
+      yearRange: YearRange
   ): Arbitrary[Instant] =
     Arbitrary(genZonedDateTimeWithZone(Some(utcZoneId)).map(granularity.normalize).map(_.toInstant))
 }

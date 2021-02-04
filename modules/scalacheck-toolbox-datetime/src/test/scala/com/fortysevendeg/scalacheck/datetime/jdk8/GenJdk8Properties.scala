@@ -22,12 +22,18 @@ import com.fortysevendeg.scalacheck.datetime.GenDateTime._
 import com.fortysevendeg.scalacheck.datetime.Granularity
 import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
 import com.fortysevendeg.scalacheck.datetime.jdk8.GenJdk8._
+import com.fortysevendeg.scalacheck.datetime.YearRange
 import org.scalacheck._
 import org.scalacheck.Prop._
 
 import scala.util.Try
 
 object GenJdk8Properties extends Properties("Java 8 Generators") {
+
+  // Guards against generating values well outside of expected ranges, as users may run into JDK bugs
+  implicit val yearRange = YearRange.between(0, 10000)
+
+  private val twoThousandYearsMillis = (86400000 * 2000 * 365.25).round
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(100000)
@@ -61,21 +67,21 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
     import java.time.temporal.ChronoField._
 
-    def zeroNanos(dt: ZonedDateTime)   = dt.get(NANO_OF_SECOND) == 0
-    def zeroSeconds(dt: ZonedDateTime) = zeroNanos(dt) && dt.get(SECOND_OF_MINUTE) == 0
-    def zeroMinutes(dt: ZonedDateTime) =
-      zeroSeconds(dt) && {
-        // The previous second should be in the previous hour.
-        // There are cases where half an hour has been taken out of a day,
-        // such as +58963572-10-01T02:30+11:00[Australia/Lord_Howe]
-        // One second before is 01:59:59!
-        val prevSecond = dt.plusSeconds(-1)
-        val prevHour   = dt.plusHours(-1)
+    //Defines handling the weird scenario where normalizing is impossible due to a sudden timezone switch.
+    def timezoneSwitch(dt: ZonedDateTime) = {
+      (dt.withHour(0).getHour > 0) ||
+      (dt.withMinute(0).getMinute > 0) ||
+      (dt.withSecond(0).getSecond > 0) ||
+      (dt.withNano(0).getNano > 0)
+    }
 
-        prevSecond.get(HOUR_OF_DAY) == prevHour.get(HOUR_OF_DAY)
-      }
+    def zeroNanos(dt: ZonedDateTime) = timezoneSwitch(dt) || dt.get(NANO_OF_SECOND) == 0
+    def zeroSeconds(dt: ZonedDateTime) =
+      timezoneSwitch(dt) || (zeroNanos(dt) && dt.get(SECOND_OF_MINUTE) == 0)
+    def zeroMinutes(dt: ZonedDateTime) =
+      timezoneSwitch(dt) || (zeroSeconds(dt) && dt.get(MINUTE_OF_HOUR) == 0)
     def zeroHours(dt: ZonedDateTime) =
-      zeroMinutes(dt) && {
+      timezoneSwitch(dt) || (zeroMinutes(dt) && {
         // Very very rarely, some days start at 1am, rather than 12am
         // In this case, check that the minute before is in the day before.
         dt.get(HOUR_OF_DAY) match {
@@ -88,8 +94,9 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
               .get(YEAR) == prevDay.get(YEAR))
           case _ => false
         }
-      }
-    def firstDay(dt: ZonedDateTime) = zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1
+      })
+    def firstDay(dt: ZonedDateTime) =
+      timezoneSwitch(dt) || (zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1)
 
     List(
       (granularity.seconds, zeroNanos),
@@ -166,37 +173,50 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       }
   }
 
+  property("genDurationOf gives a duration within the specified range") = forAll(Gen.posNum[Long]) {
+    range: Long =>
+      forAll(genDurationOf(-range, range)) { dur =>
+        val millis    = dur.toMillis
+        val predicate = millis >= -range && millis <= range
+        predicate :| s"Duration of millis: $millis, range: -$range to $range"
+      }
+  }
+
   property(
     "genDateTimeWithinRange for Java 8 should generate ZonedDateTimes between the given date and the end of the specified Duration"
-  ) = forAll(genZonedDateTime, genDuration, Gen.oneOf(granularitiesAndPredicatesWithDefault)) {
-    case (now, d, (granularity, predicate)) =>
-      !tooLargeForAddingRanges(now, d) ==> {
+  ) = forAll(
+    genZonedDateTime,
+    genDurationOf(-twoThousandYearsMillis, twoThousandYearsMillis),
+    Gen.oneOf(granularitiesAndPredicatesWithDefault)
+  ) { case (now, d, (granularity, predicate)) =>
+    !tooLargeForAddingRanges(now, d) ==> {
 
-        implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
+      implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-        forAll(genDateTimeWithinRange(now, d)) { generated =>
-          val durationBoundary = now.plus(d)
+      forAll(genDateTimeWithinRange(now, d)) { generated =>
+        val durationBoundary = now.plus(d)
 
-          val resultText = s"""Duration:        $d
+        val resultText = s"""Duration:        $d
                             |Duration millis: ${d.toMillis}
                             |Now:             $now
                             |Generated:       $generated
                             |Period Boundary: $durationBoundary
                             |Granularity:     ${granularity.description}""".stripMargin
 
-          val (lowerBound, upperBound) =
-            if (durationBoundary.isAfter(now)) (now, durationBoundary)
-            else (durationBoundary, now)
+        val (lowerBound, upperBound) =
+          if (durationBoundary.isAfter(now)) (now, durationBoundary)
+          else (durationBoundary, now)
 
-          val rangeCheck = (lowerBound.isBefore(generated) || lowerBound.isEqual(generated)) &&
-            (upperBound.isAfter(generated) || upperBound.isEqual(generated))
+        val rangeCheck = (lowerBound
+          .isBefore(generated) || granularity.normalize(lowerBound).isEqual(generated)) &&
+          (upperBound.isAfter(generated) || upperBound.isEqual(generated))
 
-          val granularityCheck = predicate(generated)
+        val granularityCheck = predicate(generated)
 
-          val prop = rangeCheck && granularityCheck
+        val prop = rangeCheck && granularityCheck
 
-          prop :| resultText
-        }
+        prop :| resultText
       }
+    }
   }
 }
