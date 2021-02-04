@@ -30,7 +30,7 @@ import scala.util.Try
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   // Guards against generating values well outside of expected ranges, as users may run into JDK bugs
-  implicit val yearRange = yearrange.of(0, 10000)
+  implicit val yearRange = yearrange.between(0, 10000)
 
   private val twoThousandYearsMillis = (86400000 * 2000 * 365.25).round
 
