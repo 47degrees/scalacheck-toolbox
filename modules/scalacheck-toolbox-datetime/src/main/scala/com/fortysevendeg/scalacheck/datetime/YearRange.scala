@@ -8,20 +8,20 @@ trait YearRange {
 object YearRange {
 
   /** The default range of years. Set to a safe subset shared by both `java.time` and `org.joda.time`. */
-  implicit def default: YearRange = new YearRange {
+  implicit val default: YearRange = new YearRange {
     val min: Int = -292275054
     val max: Int = 292278993
   }
 
   /** Defines a year range between 1970 and the max year you specify. */
   def epochTo(year: Int) = new YearRange {
-    override val min = 1970
-    val max          = year
+    val min = 1970
+    val max = year
   }
 
   /** Defines a year range between your own defined min and max years. */
   def between(minYear: Int, maxYear: Int) = new YearRange {
-    override val min = minYear
-    val max          = maxYear
+    val min = minYear
+    val max = maxYear
   }
 }
