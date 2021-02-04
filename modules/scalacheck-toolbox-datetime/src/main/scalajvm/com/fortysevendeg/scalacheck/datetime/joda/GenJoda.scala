@@ -23,6 +23,7 @@ import scala.util.Try
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary
 import org.joda.time._
+import com.fortysevendeg.scalacheck.datetime.YearRange
 
 /**
  * Generators specific for Joda time.
@@ -30,8 +31,8 @@ import org.joda.time._
 trait GenJoda {
 
   /** A <code>Years</code> period generator. */
-  val genYearsPeriod: Gen[Years] = Gen
-    .choose(-292275054, 292278993)
+  def genYearsPeriod(implicit yearRange: YearRange): Gen[Years] = Gen
+    .choose(yearRange.min, yearRange.max)
     .map(Years.ZERO.plus(_)) // Years.MIN_VALUE produces exception-throwing results
 
   /** A <code>Months</code> period generator. */
@@ -81,9 +82,12 @@ trait GenJoda {
     .withMillis(millis)
 
   /** A <code>DateTime</code> generator. */
-  def genDateTime(implicit granularity: Granularity[DateTime]): Gen[DateTime] =
+  def genDateTime(implicit
+      granularity: Granularity[DateTime],
+      yearRange: YearRange
+  ): Gen[DateTime] =
     for {
-      year  <- Gen.choose(-292275054, 292278993)
+      year  <- Gen.choose(yearRange.min, yearRange.max)
       month <- Gen.choose(1, 12)
       yearAndMonthDt <- Try(Gen.const(new DateTime(year, month, 1, 0, 0)))
         .getOrElse(Gen.fail)
@@ -111,6 +115,9 @@ trait GenJoda {
 object GenJoda extends GenJoda
 
 object ArbitraryJoda extends GenJoda {
-  implicit def arbJoda(implicit zone: DateTimeZone = DateTimeZone.getDefault): Arbitrary[DateTime] =
+  implicit def arbJoda(implicit
+      zone: DateTimeZone = DateTimeZone.getDefault,
+      yearRange: YearRange
+  ): Arbitrary[DateTime] =
     Arbitrary(genDateTime.map(_.withZone(zone)))
 }
