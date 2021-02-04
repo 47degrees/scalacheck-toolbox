@@ -17,9 +17,9 @@ For example, lets create a property where all generated `ZonedDateTimes` are bet
 ```scala mdoc:silent
 import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
-import com.fortysevendeg.scalacheck.datetime.jdk8.yearrange
+import com.fortysevendeg.scalacheck.datetime.jdk8.YearRange
 
-implicit val range = yearrange.epochTo(2100)
+implicit val range = YearRange.epochTo(2100)
 
 val prop = forAll { zdt: ZonedDateTime =>
   zdt.getYear >= 1970 && zdt.getYear <= 2100
@@ -28,7 +28,7 @@ val prop = forAll { zdt: ZonedDateTime =>
 prop.check()
 ```
 
-You can create your own range with `yearrange.between(min, max)` as well as using `epochTo`, which defaults the min to 1970.
+You can create your own range with `YearRange.between(min, max)` as well as using `epochTo`, which defaults the min to 1970.
 You cannot specify a `YearRange` when using `GenDateTime.genDateTimeWithinRange`, as that already implies you are using a much more granular range.
 This implicit is to be used for generally restricting generated output so that it is "more realistic", not if you need precise control over the ranges, in which case you should use `genDateTimeWithinRange` as mentioned.
 

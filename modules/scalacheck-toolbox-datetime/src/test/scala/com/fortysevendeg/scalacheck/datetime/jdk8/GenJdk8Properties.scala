@@ -22,6 +22,7 @@ import com.fortysevendeg.scalacheck.datetime.GenDateTime._
 import com.fortysevendeg.scalacheck.datetime.Granularity
 import com.fortysevendeg.scalacheck.datetime.instances.jdk8._
 import com.fortysevendeg.scalacheck.datetime.jdk8.GenJdk8._
+import com.fortysevendeg.scalacheck.datetime.YearRange
 import org.scalacheck._
 import org.scalacheck.Prop._
 
@@ -30,7 +31,7 @@ import scala.util.Try
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   // Guards against generating values well outside of expected ranges, as users may run into JDK bugs
-  implicit val yearRange = yearrange.between(0, 10000)
+  implicit val yearRange = YearRange.between(0, 10000)
 
   private val twoThousandYearsMillis = (86400000 * 2000 * 365.25).round
 
