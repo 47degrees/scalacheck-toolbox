@@ -68,8 +68,21 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     import java.time.temporal.ChronoField._
 
     //Defines handling the weird scenario where normalizing is impossible due to an early-morning timezone switch.
-    def timezoneSwitch(dt: ZonedDateTime) =
-      dt.minusNanos(1).get(DAY_OF_YEAR) == dt.minusDays(1).get(DAY_OF_YEAR)
+    def timezoneSwitch(dt: ZonedDateTime) = {
+      val oneNanoAgo             = dt.minusNanos(1)
+      val oneDayAgo              = dt.minusDays(1)
+      val checkTimeJumpedForward = oneNanoAgo.get(DAY_OF_YEAR) == oneDayAgo.get(DAY_OF_YEAR)
+      val checkTimeJumpedBack = LocalTime
+        .of(
+          oneNanoAgo.getHour,
+          oneNanoAgo.getMinute,
+          oneNanoAgo.getSecond,
+          oneNanoAgo.getNano
+        )
+        .isAfter(dt.toLocalTime)
+
+      checkTimeJumpedForward || checkTimeJumpedBack
+    }
 
     def zeroNanos(dt: ZonedDateTime) = timezoneSwitch(dt) || dt.get(NANO_OF_SECOND) == 0
     def zeroSeconds(dt: ZonedDateTime) =
