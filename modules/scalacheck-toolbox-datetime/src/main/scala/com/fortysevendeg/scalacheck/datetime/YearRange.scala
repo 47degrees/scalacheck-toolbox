@@ -7,9 +7,9 @@ trait YearRange {
 
 object YearRange {
 
-  /** The default range of years. One less than the maximum, to prevent occasional long overflow. */
+  /** The default range of years. Set to a safe subset shared by both `java.time` and `org.joda.time`. */
   implicit def default: YearRange = new YearRange {
-    val min: Int = -292278993
+    val min: Int = -292275054
     val max: Int = 292278993
   }
 
