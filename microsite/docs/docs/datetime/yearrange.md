@@ -17,7 +17,7 @@ For example, lets create a property where all generated `ZonedDateTimes` are bet
 ```scala mdoc:silent
 import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
-import com.fortysevendeg.scalacheck.datetime.jdk8.YearRange
+import com.fortysevendeg.scalacheck.datetime.YearRange
 
 implicit val range = YearRange.epochTo(2100)
 
