@@ -67,39 +67,21 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
     import java.time.temporal.ChronoField._
 
-    //Defines handling the weird scenario where normalizing is impossible due to an early-morning timezone switch.
+    //Defines handling the weird scenario where normalizing is impossible due to a sudden timezone switch.
     def timezoneSwitch(dt: ZonedDateTime) = {
-      val oneNanoAgo             = dt.minusNanos(1)
-      val oneDayAgo              = dt.minusDays(1)
-      val checkTimeJumpedForward = oneNanoAgo.get(DAY_OF_YEAR) == oneDayAgo.get(DAY_OF_YEAR)
-      val checkTimeJumpedBack = LocalTime
-        .of(
-          oneNanoAgo.getHour,
-          oneNanoAgo.getMinute,
-          oneNanoAgo.getSecond,
-          oneNanoAgo.getNano
-        )
-        .isAfter(dt.toLocalTime)
-
-      checkTimeJumpedForward || checkTimeJumpedBack
+      (dt.withHour(0).getHour > 0) ||
+      (dt.withMinute(0).getMinute > 0) ||
+      (dt.withSecond(0).getSecond > 0) ||
+      (dt.withNano(0).getNano > 0)
     }
 
     def zeroNanos(dt: ZonedDateTime) = timezoneSwitch(dt) || dt.get(NANO_OF_SECOND) == 0
     def zeroSeconds(dt: ZonedDateTime) =
-      (timezoneSwitch(dt) || zeroNanos(dt)) && dt.get(SECOND_OF_MINUTE) == 0
+      timezoneSwitch(dt) || (zeroNanos(dt) && dt.get(SECOND_OF_MINUTE) == 0)
     def zeroMinutes(dt: ZonedDateTime) =
-      (timezoneSwitch(dt) || zeroSeconds(dt)) && {
-        // The previous second should be in the previous hour.
-        // There are cases where half an hour has been taken out of a day,
-        // such as +58963572-10-01T02:30+11:00[Australia/Lord_Howe]
-        // One second before is 01:59:59!
-        val prevSecond = dt.plusSeconds(-1)
-        val prevHour   = dt.plusHours(-1)
-
-        prevSecond.get(HOUR_OF_DAY) == prevHour.get(HOUR_OF_DAY)
-      }
+      timezoneSwitch(dt) || (zeroSeconds(dt) && dt.get(MINUTE_OF_HOUR) == 0)
     def zeroHours(dt: ZonedDateTime) =
-      (timezoneSwitch(dt) || zeroMinutes(dt)) && {
+      timezoneSwitch(dt) || (zeroMinutes(dt) && {
         // Very very rarely, some days start at 1am, rather than 12am
         // In this case, check that the minute before is in the day before.
         dt.get(HOUR_OF_DAY) match {
@@ -112,9 +94,9 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
               .get(YEAR) == prevDay.get(YEAR))
           case _ => false
         }
-      }
+      })
     def firstDay(dt: ZonedDateTime) =
-      (timezoneSwitch(dt) || zeroHours(dt)) && dt.get(DAY_OF_YEAR) == 1
+      timezoneSwitch(dt) || (zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1)
 
     List(
       (granularity.seconds, zeroNanos),
