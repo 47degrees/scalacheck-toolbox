@@ -57,7 +57,7 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
       scalaVersions = allScalaVersions,
       settings = Seq(
         coverageEnabled := false,
-        libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.0" % Test
+        libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.1" % Test
       )
     )
 
