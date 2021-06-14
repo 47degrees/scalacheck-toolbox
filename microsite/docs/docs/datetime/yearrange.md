@@ -19,9 +19,9 @@ import java.time._
 import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
 import com.fortysevendeg.scalacheck.datetime.YearRange
 
-implicit val range = YearRange.epochTo(2100)
+implicit val range: YearRange = YearRange.epochTo(2100)
 
-val prop = forAll { zdt: ZonedDateTime =>
+val prop = forAll { (zdt: ZonedDateTime) =>
   zdt.getYear >= 1970 && zdt.getYear <= 2100
 }
 

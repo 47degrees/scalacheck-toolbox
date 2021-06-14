@@ -31,7 +31,7 @@ import scala.util.Try
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   // Guards against generating values well outside of expected ranges, as users may run into JDK bugs
-  implicit val yearRange = YearRange.between(0, 10000)
+  implicit val yearRange: YearRange = YearRange.between(0, 10000)
 
   private val twoThousandYearsMillis = (86400000 * 2000 * 365.25).round
 
@@ -45,22 +45,22 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
   property("arbitrary generation creates valid ZonedDateTimes (with no granularity)") = {
     import ArbitraryJdk8._
-    forAll { _: ZonedDateTime => passed }
+    forAll((_: ZonedDateTime) => passed)
   }
 
   property("arbitrary generation creates valid LocalDateTimes (with no granularity)") = {
     import ArbitraryJdk8._
-    forAll { _: LocalDateTime => passed }
+    forAll((_: LocalDateTime) => passed)
   }
 
   property("arbitrary generation creates valid LocalDates (with no granularity)") = {
     import ArbitraryJdk8._
-    forAll { _: LocalDate => passed }
+    forAll((_: LocalDate) => passed)
   }
 
   property("arbitrary generation creates valid Instants (with no granularity)") = {
     import ArbitraryJdk8._
-    forAll { _: Instant => passed }
+    forAll((_: Instant) => passed)
   }
 
   val granularitiesAndPredicates: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] = {
@@ -125,7 +125,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll { dt: ZonedDateTime => predicate(dt) :| s"${granularity.description}: $dt" }
+      forAll((dt: ZonedDateTime) => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalDateTimes") =
@@ -134,7 +134,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll { dt: LocalDateTime =>
+      forAll { (dt: LocalDateTime) =>
         predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
       }
     }
@@ -145,7 +145,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll { dt: LocalDate =>
+      forAll { (dt: LocalDate) =>
         predicate(dt.atStartOfDay(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
       }
     }
@@ -156,7 +156,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll { instant: Instant =>
+      forAll { (instant: Instant) =>
         predicate(instant.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $instant"
       }
     }
@@ -174,7 +174,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
   }
 
   property("genDurationOf gives a duration within the specified range") = forAll(Gen.posNum[Long]) {
-    range: Long =>
+    (range: Long) =>
       forAll(genDurationOf(-range, range)) { dur =>
         val millis    = dur.toMillis
         val predicate = millis >= -range && millis <= range

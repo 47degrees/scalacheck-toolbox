@@ -30,11 +30,11 @@ object MagicProperties extends Properties("Magic Generators") {
     strings.contains(s)
   }
 
-  property("magic strings are included in full arbitrary generation") = exists { s: String =>
+  property("magic strings are included in full arbitrary generation") = exists { (s: String) =>
     strings.contains(s)
   }
 
   property("regular arbitrary strings are included in full arbitrary generation") = exists {
-    s: String => !strings.contains(s)
+    (s: String) => !strings.contains(s)
   }
 }
