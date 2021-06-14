@@ -42,7 +42,7 @@ object CombinatorProperties extends BaseCombinatorProperties {
     forAll(genDistinctPair[Int]) { case (fst, snd) => fst != snd }
 
   property("genOrderedList should return a list in ascending order") = forAll(genOrderedList[Int]) {
-    list: List[Int] =>
+    (list: List[Int]) =>
       list.sliding(2, 1).forall {
         case h :: t :: Nil => h <= t
         case _ :: Nil      => true

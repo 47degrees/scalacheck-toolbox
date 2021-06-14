@@ -64,13 +64,13 @@ object GenJodaProperties extends Properties("Joda Generators") {
 
   property("arbitrary generation creates valid DateTime instances (with no granularity)") = {
     import ArbitraryJoda._
-    forAll { dt: DateTime => dt.getZone == DateTimeZone.getDefault }
+    forAll((dt: DateTime) => dt.getZone == DateTimeZone.getDefault)
   }
 
   property("arbitrary generation creates DateTime instances with right time zone") = {
     implicit val zone = DateTimeZone.UTC
     import ArbitraryJoda._
-    forAll { dt: DateTime => dt.getZone == zone }
+    forAll((dt: DateTime) => dt.getZone == zone)
   }
 
   val granularitiesAndPredicates: List[(Granularity[DateTime], DateTime => Boolean)] = {
