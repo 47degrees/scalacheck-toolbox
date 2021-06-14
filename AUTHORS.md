@@ -23,8 +23,8 @@ The maintainers of the project are:
 
 These are the people that have contributed to the _scalacheck-toolbox_ project:
 
-- [![noelmarkham](https://avatars.githubusercontent.com/u/1492487?v=4&s=20) **noelmarkham**](https://github.com/noelmarkham)
 - [![47erbot](https://avatars.githubusercontent.com/u/24799081?v=4&s=20) **47erbot**](https://github.com/47erbot)
+- [![noelmarkham](https://avatars.githubusercontent.com/u/1492487?v=4&s=20) **noelmarkham**](https://github.com/noelmarkham)
 - [![alejandrohdezma](https://avatars.githubusercontent.com/u/9027541?v=4&s=20) **alejandrohdezma**](https://github.com/alejandrohdezma)
 - [![47degdev](https://avatars.githubusercontent.com/u/5580770?v=4&s=20) **47degdev**](https://github.com/47degdev)
 - [![juanpedromoreno](https://avatars.githubusercontent.com/u/4879373?v=4&s=20) **juanpedromoreno**](https://github.com/juanpedromoreno)

@@ -1,5 +1,62 @@
 # Changelog
 
+## [Unreleased](https://github.com/47degrees/scalacheck-toolbox/tree/HEAD)
+
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.6.0...HEAD)
+
+**Closed issues:**
+
+- Release for Scala3 [\#257](https://github.com/47degrees/scalacheck-toolbox/issues/257)
+
+## [v0.6.0](https://github.com/47degrees/scalacheck-toolbox/tree/v0.6.0) (2021-06-14)
+
+[Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.5.0...v0.6.0)
+
+⚠️ **Breaking changes**
+
+- Cross-build Scala 3 [\#259](https://github.com/47degrees/scalacheck-toolbox/pull/259) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
+📈 **Dependency updates**
+
+- Update sbt to 1.5.4 [\#258](https://github.com/47degrees/scalacheck-toolbox/pull/258) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalajs, scalajs-compiler, ... to 1.6.0 [\#256](https://github.com/47degrees/scalacheck-toolbox/pull/256) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.5.3 [\#255](https://github.com/47degrees/scalacheck-toolbox/pull/255) ([47erbot](https://github.com/47erbot))
+- Update sbt-tpolecat to 0.1.20 [\#254](https://github.com/47degrees/scalacheck-toolbox/pull/254) ([47erbot](https://github.com/47erbot))
+- Update sbt-scoverage to 1.8.2 [\#253](https://github.com/47degrees/scalacheck-toolbox/pull/253) ([47erbot](https://github.com/47erbot))
+- Update sbt-tpolecat to 0.1.19 [\#252](https://github.com/47degrees/scalacheck-toolbox/pull/252) ([47erbot](https://github.com/47erbot))
+- Update sbt-tpolecat to 0.1.18 [\#251](https://github.com/47degrees/scalacheck-toolbox/pull/251) ([47erbot](https://github.com/47erbot))
+- Update sbt-scoverage to 1.8.1 [\#250](https://github.com/47degrees/scalacheck-toolbox/pull/250) ([47erbot](https://github.com/47erbot))
+- Update mdoc, sbt-mdoc to 2.2.21 [\#249](https://github.com/47degrees/scalacheck-toolbox/pull/249) ([47erbot](https://github.com/47erbot))
+- Update scala-java-time to 2.3.0 [\#248](https://github.com/47degrees/scalacheck-toolbox/pull/248) ([47erbot](https://github.com/47erbot))
+- Update scala-collection-compat to 2.4.4 [\#247](https://github.com/47degrees/scalacheck-toolbox/pull/247) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.5.2 [\#245](https://github.com/47degrees/scalacheck-toolbox/pull/245) ([47erbot](https://github.com/47erbot))
+- Update sbt-projectmatrix to 0.8.0 [\#242](https://github.com/47degrees/scalacheck-toolbox/pull/242) ([47erbot](https://github.com/47erbot))
+- Update sbt-microsites to 1.3.4 [\#240](https://github.com/47degrees/scalacheck-toolbox/pull/240) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.5.1 [\#239](https://github.com/47degrees/scalacheck-toolbox/pull/239) ([47erbot](https://github.com/47erbot))
+- Update mdoc, sbt-mdoc to 2.2.20 [\#238](https://github.com/47degrees/scalacheck-toolbox/pull/238) ([47erbot](https://github.com/47erbot))
+- Update scala-java-time to 2.2.2 [\#237](https://github.com/47degrees/scalacheck-toolbox/pull/237) ([47erbot](https://github.com/47erbot))
+- Update sbt-codecov to 0.2.1 [\#236](https://github.com/47degrees/scalacheck-toolbox/pull/236) ([47erbot](https://github.com/47erbot))
+- Update scala-java-time to 2.2.1 [\#235](https://github.com/47degrees/scalacheck-toolbox/pull/235) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.5.0 [\#234](https://github.com/47degrees/scalacheck-toolbox/pull/234) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalajs, scalajs-compiler, ... to 1.5.1 [\#233](https://github.com/47degrees/scalacheck-toolbox/pull/233) ([47erbot](https://github.com/47erbot))
+- Update sbt-microsites to 1.3.3 [\#232](https://github.com/47degrees/scalacheck-toolbox/pull/232) ([47erbot](https://github.com/47erbot))
+- Update mdoc\_2.13, sbt-mdoc to 2.2.19 [\#231](https://github.com/47degrees/scalacheck-toolbox/pull/231) ([47erbot](https://github.com/47erbot))
+- Update scala-collection-compat to 2.4.3 [\#230](https://github.com/47degrees/scalacheck-toolbox/pull/230) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.7 [\#229](https://github.com/47degrees/scalacheck-toolbox/pull/229) ([47erbot](https://github.com/47erbot))
+- Update sbt-tpolecat to 0.1.17 [\#228](https://github.com/47degrees/scalacheck-toolbox/pull/228) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.9.2 [\#227](https://github.com/47degrees/scalacheck-toolbox/pull/227) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.6 [\#226](https://github.com/47degrees/scalacheck-toolbox/pull/226) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.9 [\#225](https://github.com/47degrees/scalacheck-toolbox/pull/225) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.8 [\#224](https://github.com/47degrees/scalacheck-toolbox/pull/224) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.9.1 [\#223](https://github.com/47degrees/scalacheck-toolbox/pull/223) ([47erbot](https://github.com/47erbot))
+- Update scala-java-time to 2.2.0 [\#222](https://github.com/47degrees/scalacheck-toolbox/pull/222) ([47erbot](https://github.com/47erbot))
+- Update mdoc\_2.13, sbt-mdoc to 2.2.18 [\#221](https://github.com/47degrees/scalacheck-toolbox/pull/221) ([47erbot](https://github.com/47erbot))
+- Update scala-collection-compat to 2.4.2 [\#220](https://github.com/47degrees/scalacheck-toolbox/pull/220) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalajs, scalajs-compiler, ... to 1.5.0 [\#219](https://github.com/47degrees/scalacheck-toolbox/pull/219) ([47erbot](https://github.com/47erbot))
+- Update mdoc\_2.13, sbt-mdoc to 2.2.17 [\#218](https://github.com/47degrees/scalacheck-toolbox/pull/218) ([47erbot](https://github.com/47erbot))
+- Update joda-time to 2.10.10 [\#217](https://github.com/47degrees/scalacheck-toolbox/pull/217) ([47erbot](https://github.com/47erbot))
+- Update scala-collection-compat to 2.4.1 [\#216](https://github.com/47degrees/scalacheck-toolbox/pull/216) ([47erbot](https://github.com/47erbot))
+
 ## [v0.5.0](https://github.com/47degrees/scalacheck-toolbox/tree/v0.5.0) (2021-02-04)
 
 [Full Changelog](https://github.com/47degrees/scalacheck-toolbox/compare/v0.4.0...v0.5.0)
@@ -232,7 +289,6 @@
 - Useful combinators [\#51](https://github.com/47degrees/scalacheck-toolbox/pull/51) ([noelmarkham](https://github.com/noelmarkham))
 - Generates the ScalaDoc and adds the api to the microsite [\#50](https://github.com/47degrees/scalacheck-toolbox/pull/50) ([fedefernandez](https://github.com/fedefernandez))
 - Tries to make Travis Builds faster [\#49](https://github.com/47degrees/scalacheck-toolbox/pull/49) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- Integrates sbt-org-policies [\#46](https://github.com/47degrees/scalacheck-toolbox/pull/46) ([fedefernandez](https://github.com/fedefernandez))
 
 ## [v0.2.2](https://github.com/47degrees/scalacheck-toolbox/tree/v0.2.2) (2017-04-27)
 
@@ -258,6 +314,7 @@
 **Merged pull requests:**
 
 - Fixes the badges, the publishing and the groupId in the docs [\#48](https://github.com/47degrees/scalacheck-toolbox/pull/48) ([fedefernandez](https://github.com/fedefernandez))
+- Integrates sbt-org-policies [\#46](https://github.com/47degrees/scalacheck-toolbox/pull/46) ([fedefernandez](https://github.com/fedefernandez))
 - Publish snapshots on merge [\#40](https://github.com/47degrees/scalacheck-toolbox/pull/40) ([noelmarkham](https://github.com/noelmarkham))
 - Publish snapshots on merge [\#37](https://github.com/47degrees/scalacheck-toolbox/pull/37) ([noelmarkham](https://github.com/noelmarkham))
 - Updates for publishing new jars [\#34](https://github.com/47degrees/scalacheck-toolbox/pull/34) ([noelmarkham](https://github.com/noelmarkham))
