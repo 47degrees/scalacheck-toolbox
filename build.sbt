@@ -2,7 +2,7 @@ import sbt.internal.ProjectMatrix
 
 val scala2_12        = "2.12.12"
 val scala2_13        = "2.13.6"
-val scala3           = "3.0.0"
+val scala3           = "3.0.1"
 val allScalaVersions = List(scala2_12, scala2_13, scala3)
 
 ThisBuild / organization := "com.47deg"
