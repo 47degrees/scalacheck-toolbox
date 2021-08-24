@@ -65,7 +65,9 @@ trait GenJoda {
     .choose(Seconds.MIN_VALUE.getSeconds, Seconds.MAX_VALUE.getSeconds)
     .map(Seconds.ZERO.plus(_))
 
-  /** A <code>Period</code> generator consisting of years, days, hours, minutes, seconds and millis. */
+  /**
+   * A <code>Period</code> generator consisting of years, days, hours, minutes, seconds and millis.
+   */
   val genPeriod: Gen[Period] = for {
     years   <- genYearsPeriod
     days    <- Gen.choose(1, 365)

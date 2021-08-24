@@ -26,10 +26,16 @@ import com.fortysevendeg.scalacheck.datetime.typeclasses._
 object GenDateTime {
 
   /**
-   * Generates a <code>DateTime</code> between the given <code>dateTime</code>x and the end of the <code>period</code>
-   * @param dateTime A <code>DateTime</code> to calculate the period offsets from.
-   * @param range An offset from <code>dateTime</code>, serving as an upper bound for generated <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided <code>DateTime</code>.
-   * @return A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
+   * Generates a <code>DateTime</code> between the given <code>dateTime</code>x and the end of the
+   * <code>period</code>
+   * @param dateTime
+   *   A <code>DateTime</code> to calculate the period offsets from.
+   * @param range
+   *   An offset from <code>dateTime</code>, serving as an upper bound for generated
+   *   <code>DateTime</code>s. Can be negative, denoting an offset <i>before</i> the provided
+   *   <code>DateTime</code>.
+   * @return
+   *   A <code>DateTime</code> generator for <code>DateTime</code>s within the expected range.
    */
   def genDateTimeWithinRange[D, R](
       dateTime: D,
