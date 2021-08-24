@@ -4,8 +4,8 @@ import sbt.Keys._
 import scala.io.Source
 
 /**
- * This plugin can be used to download the "big list of naughty strings" as
- * a `blns.txt` resource file.
+ * This plugin can be used to download the "big list of naughty strings" as a `blns.txt` resource
+ * file.
  */
 object BigListOfNaughtyStringsPlugin extends AutoPlugin {
 

@@ -7,7 +7,7 @@ val allScalaVersions = List(scala2_12, scala2_13, scala3)
 
 ThisBuild / organization := "com.47deg"
 ThisBuild / scalaVersion := scala3
-publish / skip := true
+publish / skip           := true
 
 addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; mdoc; ++test")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll; publishMicrosite")
@@ -35,7 +35,7 @@ lazy val microsite = project
 lazy val documentation = project
   .settings(
     publish / skip := true,
-    mdocOut := file(".")
+    mdocOut        := file(".")
   )
   .enablePlugins(MdocPlugin)
 

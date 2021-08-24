@@ -24,13 +24,13 @@ object MicrositeSettingsPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
-      micrositeName := "scalacheck-toolbox",
-      micrositeDescription := "A helping hand for generating sensible data with ScalaCheck",
+      micrositeName             := "scalacheck-toolbox",
+      micrositeDescription      := "A helping hand for generating sensible data with ScalaCheck",
       micrositeDocumentationUrl := "/scalacheck-toolbox/docs/",
-      micrositeBaseUrl := "/scalacheck-toolbox",
-      micrositePushSiteWith := GitHub4s,
-      micrositeTheme := "pattern",
-      micrositeGithubToken := Option(System.getenv().get("GITHUB_TOKEN")),
+      micrositeBaseUrl          := "/scalacheck-toolbox",
+      micrositePushSiteWith     := GitHub4s,
+      micrositeTheme            := "pattern",
+      micrositeGithubToken      := Option(System.getenv().get("GITHUB_TOKEN")),
       docsMappingsAPIDir in ScalaUnidoc := "api",
       addMappingsToSiteDir(
         mappings in (ScalaUnidoc, packageDoc),

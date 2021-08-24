@@ -41,7 +41,7 @@ package object granularity {
 
   implicit val days: Granularity[ZonedDateTime] =
     new Granularity[ZonedDateTime] {
-      val normalize   = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0).withMinute(0).withHour(0)
+      val normalize = (dt: ZonedDateTime) => dt.withNano(0).withSecond(0).withMinute(0).withHour(0)
       val description = "Days"
     }
 
