@@ -67,7 +67,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
     import java.time.temporal.ChronoField._
 
-    //Defines handling the weird scenario where normalizing is impossible due to a sudden timezone switch.
+    // Defines handling the weird scenario where normalizing is impossible due to a sudden timezone switch.
     def timezoneSwitch(dt: ZonedDateTime) = {
       (dt.withHour(0).getHour > 0) ||
       (dt.withMinute(0).getMinute > 0) ||
