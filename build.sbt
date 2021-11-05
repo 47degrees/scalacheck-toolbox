@@ -1,8 +1,8 @@
 import sbt.internal.ProjectMatrix
 
 val scala2_12        = "2.12.15"
-val scala2_13        = "2.13.6"
-val scala3           = "3.1.0"
+val scala2_13        = "2.13.7"
+val scala3           = "3.0.2"
 val allScalaVersions = List(scala2_12, scala2_13, scala3)
 
 ThisBuild / organization := "com.47deg"
@@ -50,7 +50,7 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     )
     .jvmPlatform(
       scalaVersions = allScalaVersions,
-      libraryDependencies += "joda-time" % "joda-time" % "2.10.12"
+      libraryDependencies += "joda-time" % "joda-time" % "2.10.13"
     )
     .jsPlatform(
       scalaVersions = allScalaVersions,
