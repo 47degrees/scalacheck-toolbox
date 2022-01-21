@@ -26,7 +26,7 @@ object CombinatorProperties extends BaseCombinatorProperties {
     "genPickFromMapWithSuccessAndFailure should return a list of elements in the map, and a list of elements not in the map"
   ) = forAll(genPickFromMapWithSuccessAndFailure[String, String]) { case (map, succs, fails) =>
     succs.forall(s => map.get(s).isDefined) &&
-      fails.forall(f => map.get(f).isEmpty)
+    fails.forall(f => map.get(f).isEmpty)
   }
 
   property(
