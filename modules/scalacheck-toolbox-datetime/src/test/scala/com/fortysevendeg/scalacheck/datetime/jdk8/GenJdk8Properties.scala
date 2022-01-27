@@ -30,11 +30,6 @@ import scala.util.Try
 
 object GenJdk8Properties extends Properties("Java 8 Generators") {
 
-  case class LabeledPredicate[T](label: String, fn: T => Boolean)
-
-  def predicateClue[T](predicate: LabeledPredicate[T]): String =
-    s"Predicate label: ${predicate.label}"
-
   // Guards against generating values well outside of expected ranges, as users may run into JDK bugs
   implicit val yearRange: YearRange = YearRange.between(0, 10000)
 
@@ -68,9 +63,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
     forAll((_: Instant) => passed)
   }
 
-  val granularitiesAndPredicates: List[
-    (Granularity[ZonedDateTime], LabeledPredicate[ZonedDateTime])
-  ] = {
+  val granularitiesAndPredicates: List[(Granularity[ZonedDateTime], ZonedDateTime => Boolean)] = {
 
     import java.time.temporal.ChronoField._
 
@@ -106,31 +99,24 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       timezoneSwitch(dt) || (zeroHours(dt) && dt.get(DAY_OF_YEAR) == 1)
 
     List(
-      (granularity.seconds, LabeledPredicate[ZonedDateTime]("zero nanos", zeroNanos)),
-      (granularity.minutes, LabeledPredicate[ZonedDateTime]("zero seconds", zeroSeconds)),
-      (granularity.hours, LabeledPredicate[ZonedDateTime]("zero minutes", zeroMinutes)),
-      (granularity.days, LabeledPredicate[ZonedDateTime]("zero hours", zeroHours)),
-      (granularity.years, LabeledPredicate[ZonedDateTime]("first day", firstDay))
+      (granularity.seconds, zeroNanos),
+      (granularity.minutes, zeroSeconds),
+      (granularity.hours, zeroMinutes),
+      (granularity.days, zeroHours),
+      (granularity.years, firstDay)
     )
   }
 
   val granularitiesAndPredicatesWithDefault: List[
-    (Granularity[ZonedDateTime], LabeledPredicate[ZonedDateTime])
+    (Granularity[ZonedDateTime], ZonedDateTime => Boolean)
   ] =
-    (
-      Granularity.identity[ZonedDateTime],
-      LabeledPredicate[ZonedDateTime]("identity", (_: ZonedDateTime) => true)
-    ) :: granularitiesAndPredicates
+    (Granularity.identity[ZonedDateTime], (_: ZonedDateTime) => true) :: granularitiesAndPredicates
 
   property("genZonedDateTime with a granularity generates appropriate ZonedDateTimes") =
     forAll(Gen.oneOf(granularitiesAndPredicates)) { case (granularity, predicate) =>
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll(genZonedDateTime)(dt =>
-        predicate.fn(
-          dt
-        ) :| s"Granularity: ${granularity.description}; ${predicateClue(predicate)}; $dt"
-      )
+      forAll(genZonedDateTime)(dt => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property("arbitrary generation with a granularity generates appropriate ZonedDateTimes") =
@@ -139,9 +125,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
 
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
-      forAll((dt: ZonedDateTime) =>
-        predicate.fn(dt) :| s"${granularity.description}; ${predicateClue(predicate)}; $dt"
-      )
+      forAll((dt: ZonedDateTime) => predicate(dt) :| s"${granularity.description}: $dt")
     }
 
   property("arbitrary generation with a granularity generates appropriate LocalDateTimes") =
@@ -151,8 +135,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
       forAll { (dt: LocalDateTime) =>
-        predicate
-          .fn(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}; ${predicateClue(predicate)}; $dt"
+        predicate(dt.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
       }
     }
 
@@ -163,9 +146,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
       forAll { (dt: LocalDate) =>
-        predicate.fn(
-          dt.atStartOfDay(ZoneOffset.UTC)
-        ) :| s"${granularity.description}; ${predicateClue(predicate)}; $dt"
+        predicate(dt.atStartOfDay(ZoneOffset.UTC)) :| s"${granularity.description}: $dt"
       }
     }
 
@@ -176,9 +157,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       implicit val generatedGranularity: Granularity[ZonedDateTime] = granularity
 
       forAll { (instant: Instant) =>
-        predicate.fn(
-          instant.atZone(ZoneOffset.UTC)
-        ) :| s"${granularity.description}; ${predicateClue(predicate)}; $instant"
+        predicate(instant.atZone(ZoneOffset.UTC)) :| s"${granularity.description}: $instant"
       }
     }
 
@@ -232,7 +211,7 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
           .isBefore(generated) || granularity.normalize(lowerBound).isEqual(generated)) &&
           (upperBound.isAfter(generated) || upperBound.isEqual(generated))
 
-        val granularityCheck = predicate.fn(generated)
+        val granularityCheck = predicate(generated)
 
         val prop = rangeCheck && granularityCheck
 
