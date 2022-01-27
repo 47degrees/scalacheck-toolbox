@@ -240,6 +240,4 @@ object GenJdk8Properties extends Properties("Java 8 Generators") {
       }
     }
   }
-
-  property("fail to prevent automerge") = forAll((_: Int) => falsified)
 }
