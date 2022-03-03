@@ -6,7 +6,7 @@ val scala3           = "3.1.1"
 val allScalaVersions = List(scala2_12, scala2_13, scala3)
 
 ThisBuild / organization := "com.47deg"
-ThisBuild / scalaVersion := scala3
+ThisBuild / scalaVersion := scala2_13
 publish / skip           := true
 
 addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; mdoc; ++test")
