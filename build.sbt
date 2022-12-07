@@ -1,8 +1,8 @@
 import sbt.internal.ProjectMatrix
 
-val scala2_12        = "2.12.16"
-val scala2_13        = "2.13.8"
-val scala3           = "3.1.3"
+val scala2_12        = "2.12.17"
+val scala2_13        = "2.13.10"
+val scala3           = "3.2.1"
 val allScalaVersions = List(scala2_12, scala2_13, scala3)
 
 ThisBuild / organization := "com.47deg"
@@ -44,13 +44,13 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     .settings(description := "A library for helping use date and time libraries with ScalaCheck")
     .settings(
       libraryDependencies ++= Seq(
-        "org.scalacheck"         %%% "scalacheck"              % "1.16.0",
-        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.7.0"
+        "org.scalacheck"         %%% "scalacheck"              % "1.17.0",
+        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"
       )
     )
     .jvmPlatform(
       scalaVersions = allScalaVersions,
-      libraryDependencies += "joda-time" % "joda-time" % "2.10.14"
+      libraryDependencies += "joda-time" % "joda-time" % "2.12.2"
     )
     .jsPlatform(
       scalaVersions = allScalaVersions,
@@ -63,12 +63,12 @@ lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-magic"))
     .enablePlugins(BigListOfNaughtyStringsPlugin)
     .settings(description := "ScalaCheck Generators for magic values")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.16.0")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.17.0")
     .jvmPlatform(scalaVersions = allScalaVersions)
 
 lazy val `scalacheck-toolbox-combinators`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-combinators"))
     .settings(description := "Useful generic combinators for ScalaCheck")
-    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.16.0")
+    .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.17.0")
     .jvmPlatform(scalaVersions = allScalaVersions)
     .jsPlatform(scalaVersions = allScalaVersions)
