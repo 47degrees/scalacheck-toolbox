@@ -10,4 +10,4 @@ addSbtPlugin("com.alejandrohdezma"       % "sbt-github-mdoc"          % "0.11.6"
 addSbtPlugin("com.alejandrohdezma"       % "sbt-remove-test-from-pom" % "0.1.0")
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"             % "0.4.1")
 addSbtPlugin("com.eed3si9n"              % "sbt-projectmatrix"        % "0.9.0")
-addSbtPlugin("org.scala-js"              % "sbt-scalajs"              % "1.10.1")
+addSbtPlugin("org.scala-js"              % "sbt-scalajs"              % "1.13.0")
