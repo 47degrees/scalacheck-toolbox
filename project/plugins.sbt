@@ -1,7 +1,7 @@
 addSbtPlugin("com.github.sbt"            % "sbt-ci-release"           % "1.5.10")
 addSbtPlugin("com.47deg"                 % "sbt-microsites"           % "1.3.4")
 addSbtPlugin("org.scalameta"             % "sbt-scalafmt"             % "2.5.0")
-addSbtPlugin("org.scalameta"             % "sbt-mdoc"                 % "2.3.6")
+addSbtPlugin("org.scalameta"             % "sbt-mdoc"                 % "2.3.7")
 addSbtPlugin("com.github.sbt"            % "sbt-unidoc"               % "0.5.0")
 addSbtPlugin("de.heikoseeberger"         % "sbt-header"               % "5.9.0")
 addSbtPlugin("com.alejandrohdezma"       % "sbt-github"               % "0.11.6")
