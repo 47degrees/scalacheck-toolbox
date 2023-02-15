@@ -8,9 +8,9 @@ scalacheck-toolbox
 Add the following lines to your `build.sbt` file:
 
 ```scala
-libraryDependencies += "com.47deg" %% "scalacheck-toolbox-datetime"    % "0.6.0" % Test
-libraryDependencies += "com.47deg" %% "scalacheck-toolbox-magic"       % "0.6.0" % Test
-libraryDependencies += "com.47deg" %% "scalacheck-toolbox-combinators" % "0.6.0" % Test
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-datetime"    % "0.7.0" % Test
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-magic"       % "0.7.0" % Test
+libraryDependencies += "com.47deg" %% "scalacheck-toolbox-combinators" % "0.7.0" % Test
 ```
 
 # A helping hand for generating sensible data with ScalaCheck
