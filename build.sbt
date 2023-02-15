@@ -23,7 +23,8 @@ lazy val microsite = project
   )
   .settings(
     publish / skip := true,
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(
+    scalacOptions --= Seq("-Werror", "-Xfatal-warnings"),
+    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(
       Seq(
         `scalacheck-toolbox-datetime`.jvm(scala2_13),
         `scalacheck-toolbox-magic`.jvm(scala2_13),
