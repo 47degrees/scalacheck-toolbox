@@ -28,7 +28,7 @@ import com.fortysevendeg.scalacheck.datetime.jdk8.ArbitraryJdk8._
 import com.fortysevendeg.scalacheck.datetime.jdk8.granularity.years
 
 val prop = forAll { (zdt: ZonedDateTime) =>
-  (zdt.getMonth == Month.JANUARY)
+  (zdt.getMonth == Month.JANUARY) &&
   (zdt.getDayOfMonth == 1) &&
   (zdt.getHour == 0) &&
   (zdt.getMinute == 0) &&
