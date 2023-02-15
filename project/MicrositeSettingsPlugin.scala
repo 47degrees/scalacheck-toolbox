@@ -31,10 +31,10 @@ object MicrositeSettingsPlugin extends AutoPlugin {
       micrositePushSiteWith     := GitHub4s,
       micrositeTheme            := "pattern",
       micrositeGithubToken      := Option(System.getenv().get("GITHUB_TOKEN")),
-      docsMappingsAPIDir in ScalaUnidoc := "api",
+      ScalaUnidoc / docsMappingsAPIDir := "api",
       addMappingsToSiteDir(
-        mappings in (ScalaUnidoc, packageDoc),
-        docsMappingsAPIDir in ScalaUnidoc
+        ScalaUnidoc / packageDoc / mappings,
+        ScalaUnidoc / docsMappingsAPIDir
       )
     )
 

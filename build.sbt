@@ -47,7 +47,8 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
       libraryDependencies ++= Seq(
         "org.scalacheck"         %%% "scalacheck"              % "1.17.0",
         "org.scala-lang.modules" %%% "scala-collection-compat" % "2.9.0"
-      )
+      ),
+      scalacOptions --= Seq("-Werror", "-Xfatal-warnings")
     )
     .jvmPlatform(
       scalaVersions = allScalaVersions,
@@ -65,11 +66,13 @@ lazy val `scalacheck-toolbox-magic`: ProjectMatrix =
     .enablePlugins(BigListOfNaughtyStringsPlugin)
     .settings(description := "ScalaCheck Generators for magic values")
     .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.17.0")
+    .settings(scalacOptions --= Seq("-Werror", "-Xfatal-warnings"))
     .jvmPlatform(scalaVersions = allScalaVersions)
 
 lazy val `scalacheck-toolbox-combinators`: ProjectMatrix =
   (projectMatrix in file("modules/scalacheck-toolbox-combinators"))
     .settings(description := "Useful generic combinators for ScalaCheck")
     .settings(libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.17.0")
+    .settings(scalacOptions --= Seq("-Werror", "-Xfatal-warnings"))
     .jvmPlatform(scalaVersions = allScalaVersions)
     .jsPlatform(scalaVersions = allScalaVersions)
