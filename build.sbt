@@ -46,7 +46,7 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     .settings(
       libraryDependencies ++= Seq(
         "org.scalacheck"         %%% "scalacheck"              % "1.17.0",
-        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.9.0"
+        "org.scala-lang.modules" %%% "scala-collection-compat" % "2.10.0"
       ),
       scalacOptions --= Seq("-Werror", "-Xfatal-warnings")
     )
