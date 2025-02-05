@@ -52,7 +52,7 @@ lazy val `scalacheck-toolbox-datetime`: ProjectMatrix =
     )
     .jvmPlatform(
       scalaVersions = allScalaVersions,
-      libraryDependencies += "joda-time" % "joda-time" % "2.12.7"
+      libraryDependencies += "joda-time" % "joda-time" % "2.13.1"
     )
     .jsPlatform(
       scalaVersions = allScalaVersions,
