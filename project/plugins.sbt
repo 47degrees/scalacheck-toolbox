@@ -1,4 +1,4 @@
-addSbtPlugin("com.github.sbt"      % "sbt-ci-release"           % "1.6.0")
+addSbtPlugin("com.github.sbt"      % "sbt-ci-release"           % "1.6.1")
 addSbtPlugin("com.47deg"           % "sbt-microsites"           % "1.4.4")
 addSbtPlugin("org.scalameta"       % "sbt-scalafmt"             % "2.5.5")
 addSbtPlugin("org.scalameta"       % "sbt-mdoc"                 % "2.7.2")
